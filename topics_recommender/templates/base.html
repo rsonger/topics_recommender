@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+{% load static %}
+
+{% url 'index' as home %}
+{% url 'search' as search %}
+{% url 'login' as login %}
+{% url 'logout' as logout %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Simple.css-->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Topics Recommender</title>
+</head>
+
+<body>
+    <header>
+        <h1>GitHub Topics</h1>
+
+{% if request.session.id %}
+        <p>
+            {% if request.session.name %} 
+            Welcome, {{ request.session.name }}!
+            {% endif %} 
+            What would you like to learn today? <br>
+            <a href="{{ logout }}">Logout</a>
+        </p>
+
+        <nav>
+            <a href="{{ home }}"{% if request.path == home %} class="current"{% endif %}>Topics</a>
+            <a href="{{ search }}"{% if request.path == search %} class="current"{% endif %}>Search</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+{% else %}
+
+        <p>Let's get started &#8594; <a href="{{ login }}">Login</a></p>
+    </header>
+{% endif %}
+
+    <footer>
+        <p>&copy; 2022 Yamamoto Lab, Kanazawa Institute of Technology</p>
+    </footer>
+</body>
+</html>

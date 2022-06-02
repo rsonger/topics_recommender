@@ -1,0 +1,6 @@
+_venv_
+*.pyc
+staticfiles
+.env
+*.sqlite3
+.DS_Store

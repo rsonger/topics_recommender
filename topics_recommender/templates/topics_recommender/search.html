@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- <link rel="stylesheet" href="{% static 'js/script.js' %}"> -->
+
+<h2>Topics Search</h2>
+
+Enter a keyword:
+<form autocomplete="off" action="{% url 'search' %}" method="GET">
+    {% csrf_token %}
+    <div class="autocomplete">
+        <input id="search_field" 
+               name="q" type="text" 
+               placeholder="Search..." 
+               value="{{ request.GET.q }}">
+        <button type="submit">Submit</button>
+    </div>
+    <p>
+        <label>
+            <input name="f" 
+                   type="checkbox" 
+                   {% if request.GET.f %}checked{% endif %}>
+            Featured topics only
+        </label>
+    </p>
+</form>
+
+{% if topics_ranking %}
+
+<main>
+    <h3>Showing {{ topics_ranking|length }} topics for "{{ request.GET.q }}".</h3>
+    {% for topic in topics_ranking %}
+    <details {% if topic.display_name == request.GET.q %}open{% endif %}>
+        <summary>{{ topic.display_name }}
+            {% if topic.featured %}
+            <span title="This topic is featured on GitHub.com">&#11088;</span>
+            {% endif %}
+        </summary>
+        <!-- <p>Browse this topic</a></p> -->
+        <p>{{ topic.description }}</p>
+        {% if topic.display_name != request.GET.q %}
+        <p>
+            <a href="/search?q={{ topic.display_name|urlencode }}&rid={{ request_id }}{% if request.GET.csrfmiddlewaretoken %}&csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}{% endif %}{% if request.GET.f %}&f=on{% endif %}&i={{ forloop.counter0 }}">
+                &#8594; Explore
+            </a>
+        </p>
+        {% endif %}
+        <!-- <p>
+            See it on <a href="https://github.com/topics/{{ topic.name }}" 
+                         target="_blank">GitHub</a>.
+        </p> -->
+    </details>
+    {% endfor %}
+</main>
+
+{% else %}
+
+{% if request.GET.q %}
+<p>Topic not found: <em>{{ request.GET.q }}</em></p>
+
+{% endif %}
+
+{% endif %}
+
+<p>Request received: {{ timestamp }}</p>
+<p>Response rendered in {{ total_time }} seconds.</p>
+
+<script>
+    var autocomplete = (inp, arr) => {
+        /*
+          the autocomplete function takes two arguments:
+          the text field element and an array of possible autocompleted values
+        */
+        var currentFocus;
+        
+        // display matching topics when user enters text
+        inp.addEventListener("input", (e) => {
+            let a, b, val = inp.value;
+            // close any already open lists of autocompleted values
+            closeAllLists();
+            if (!val) {
+                return false;
+            }
+            currentFocus = -1;
+            // create a div element that will contain the items (values)
+            a = document.createElement("div");
+            a.setAttribute("id", inp.id + "_autocomplete-list");
+            a.classList.add("autocomplete-items");
+            // append the DIV element as a child of the autocomplete container
+            inp.parentNode.appendChild(a);
+
+            for (const topic of arr) {
+                // check if the item starts with the same letters as the text field value
+                match_i = topic.toLowerCase().indexOf(val.toLowerCase());
+                if (match_i > -1) {
+                    // create a DIV element for each matching element
+                    b = document.createElement("div");
+                    // make the matching letters bold
+                    if (match_i > 0) {
+                        b.innerHTML = topic.substr(0, match_i);
+                    }
+                    b.innerHTML += "<strong>" + topic.substr(match_i, val.length) + "</strong>";
+                    b.innerHTML += topic.substr(match_i + val.length);
+                    // insert a input field that will hold the current array item's value
+                    b.innerHTML += "<input type='hidden' value='" + topic + "'>";
+                    // execute a function when someone clicks on the item value (DIV element)
+                    b.addEventListener("click", (e) => {
+                        // insert the value for the autocomplete text field
+                        inp.value = e.target.querySelector("input").value;
+                        // close the list of autocompleted values
+                        // (or any other open lists of autocompleted values)
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+            if (a.childElementCount > 0)  {
+                currentFocus = 0;
+                addActive(a.childNodes);
+            }
+        });
+        
+        /*
+          Handle keyboard controls for the autocomplete list.
+          Arrow keys cycle the focus, ENTER selects the focusted item,
+          and ESCAPE closes the list. 
+        */
+        inp.addEventListener("keydown", (e) => {
+            let items = document.querySelectorAll(`#${inp.id}_autocomplete-list div`);
+            if (e.keyCode == 40) { // arrow DOWN key
+                currentFocus++;
+                if (currentFocus >= items.length) currentFocus = 0;
+                // make the current item more visible
+                addActive(items);
+            } else if (e.keyCode == 38) { // arrow UP key
+                currentFocus--;
+                if (currentFocus < 0) currentFocus = (items.length - 1);
+                // make the current item more visible
+                addActive(items);
+            } else if (e.keyCode == 13) { // ENTER key
+                if (items.length > 0) {
+                    // prevent the form from being submitted
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        // simulate a click on the "active" item
+                        items[currentFocus].click();
+                    } else {
+                        // simulate a click on the first item in the list
+                    }
+                }
+            } else if (e.keyCode == 27) { // ESCAPE key
+                closeAllLists();
+            }
+        });
+
+        function addActive(items) {
+            /*
+              a function to highlight an single item in the list by adding the
+              "autocomplete-active" class to it
+            */
+            if (items.length > 0) {
+                // start by removing the "active" class on all items
+                removeActive(items);
+                // add class "autocomplete-active"
+                items[currentFocus].classList.add("autocomplete-active");
+            }
+        }
+
+        function removeActive(items) {
+            /*
+              a function to remove the "active" class from all autocomplete items
+            */
+            for (let div of items) {
+                div.classList.remove("autocomplete-active");
+            }
+        }
+
+        function closeAllLists(elmnt) {
+            /*
+              close all autocomplete lists in the document,
+              except for the one passed as an argument
+            */
+            let x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        
+        // when the user tabs away or clicks elsewhere in the document
+        // inp.addEventListener("focusout", (e) => {
+        //     closeAllLists();
+        // });
+    }
+
+    window.onload = () => {
+        let topicNames = {{ topic_names|safe }};
+        autocomplete(document.querySelector('#search_field'), topicNames);
+    }
+</script>
+
+{% endblock content %}

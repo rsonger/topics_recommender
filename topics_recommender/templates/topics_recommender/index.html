@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if object_list %}
+
+<h2>All Topics</h2>
+
+<main>
+    {% for topic in object_list %}
+    <details>
+        <summary>{{ topic.id }}. {{ topic.display_name }} 
+            {% if topic.featured %}
+            <span title="This topic is featured on GitHub.com">&#11088;</span>
+            {% endif %}
+        </summary>
+        <p>{{ topic.description }}</p>
+        <p>See it on <a href="https://github.com/topics/{{ topic.name }}" target="_blank">GitHub</a>.</p>
+    </details>
+    {% endfor %}
+</main>
+{% else %}
+<h2>No topics yet!</h2>
+{% endif %}
+
+{% endblock content %}
