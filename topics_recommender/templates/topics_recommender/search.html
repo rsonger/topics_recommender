@@ -5,31 +5,12 @@
 {% block content %}
 <!-- <link rel="stylesheet" href="{% static 'js/script.js' %}"> -->
 
-<h2>Topics Search</h2>
-
-Enter a keyword:
-<form autocomplete="off" action="{% url 'search' %}" method="GET">
-    {% csrf_token %}
-    <div class="autocomplete">
-        <input id="search_field" 
-               name="q" type="text" 
-               placeholder="Search..." 
-               value="{{ request.GET.q }}">
-        <button type="submit">Submit</button>
-    </div>
-    <p>
-        <label>
-            <input name="f" 
-                   type="checkbox" 
-                   {% if request.GET.f %}checked{% endif %}>
-            Featured topics only
-        </label>
-    </p>
-</form>
+<main>
+    
+    <h2>Topics Search</h2>
 
 {% if topics_ranking %}
 
-<main>
     <h3>Showing {{ topics_ranking|length }} topics for "{{ request.GET.q }}".</h3>
     {% for topic in topics_ranking %}
     <details {% if topic.display_name == request.GET.q %}open{% endif %}>
@@ -53,20 +34,42 @@ Enter a keyword:
         </p> -->
     </details>
     {% endfor %}
+    
+    {% else %}
+    
+    Enter a keyword:
+    <form autocomplete="off" action="{% url 'search' %}" method="GET">
+        {% csrf_token %}
+        <div class="autocomplete">
+            <input id="search_field" 
+            name="q" type="text" 
+            placeholder="Search..." 
+            value="{{ request.GET.q }}">
+            <button type="submit">Submit</button>
+        </div>
+        <!-- <p>
+            <label>
+                <input name="f" 
+                type="checkbox" 
+                {% if request.GET.f %}checked{% endif %}>
+                Featured topics only
+            </label>
+        </p> -->
+    </form>
+    
+    {% if request.GET.q %}
+    <p>Topic not found: <em>{{ request.GET.q }}</em></p>
+    
+    {% endif %}
+    
+    {% endif %}
 </main>
-
-{% else %}
-
-{% if request.GET.q %}
-<p>Topic not found: <em>{{ request.GET.q }}</em></p>
-
-{% endif %}
-
-{% endif %}
-
-<p>Request received: {{ timestamp }}</p>
-<p>Response rendered in {{ total_time }} seconds.</p>
-
+    
+<!-- <footer>
+    <p>Request received: {{ timestamp }}</p>
+    <p>Response rendered in {{ total_time }} seconds.</p>
+</footer> -->
+    
 <script>
     var autocomplete = (inp, arr) => {
         /*
