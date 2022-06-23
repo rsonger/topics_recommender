@@ -20,16 +20,17 @@ class ABTest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     ended_at = models.DateTimeField(blank=True, null=True)
     summary = models.TextField(blank=True)
-    # algorithms = models.ManyToManyField(MLAlgorithm)
     
     def __str__(self):
         title = self.title if len(self.title) < 50 else f"{self.title[:50]}..."
-        if not self.ended_at:
-            active = "<<ACTIVE>>" 
+        starttime = timezone.localtime(self.created_at)
+        start = f"Started {starttime.isoformat('@', 'minutes')}"
+        if self.ended_at:
+            endtime = timezone.localtime(self.ended_at)
+            end = f"Ended {endtime.isoformat('@', 'minutes')}"
         else:
-            active = f" -- Ended {timezone.localdate(self.ended_at)}"
-        start = f"Started {timezone.localdate(self.created_at)}"
-        return f"{title} -- {start} {active}"
+            end = " <<ACTIVE>>" 
+        return f"{title} -- {start} -- {end}"
 
     class Meta:
         verbose_name = "A/B Test"
