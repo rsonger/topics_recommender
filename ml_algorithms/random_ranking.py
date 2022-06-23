@@ -12,8 +12,13 @@ class RandomRecommender(CosineSimilarityRecommender):
     def get_ranking(self, input_data):
         """Returns a random ranking of topics and their scores relative to the searched topic.
         The searched topic will always be in the first position of the ranking."""
-        ranking = list(enumerate(self.cosine_scores[input_data["request_log"]["id"]]))
-        search = ranking.pop(input_data["request_log"]["id"])
+        request_id = input_data["request_log"]["id"]
+        search = (request_id, self.cosine_scores[request_id][request_id])
+        ranking = [
+            (id, score)
+            for id,score in enumerate(self.cosine_scores[request_id])
+            if score > 0 and id != request_id 
+        ]
         random.shuffle(ranking)
         ranking.insert(0, search)
 
