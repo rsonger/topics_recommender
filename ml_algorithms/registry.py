@@ -1,4 +1,5 @@
-import ast
+from ast import literal_eval as eval
+from statistics import fmean
 
 from django.utils import timezone
 
@@ -7,6 +8,7 @@ from ml_algorithms.cosine_ranking import CosineSimilarityRecommender
 from ml_algorithms.random_ranking import RandomRecommender
 
 class MLRegistry:
+    _instance = None # singleton
 
     ENDPOINT_TOPICS = "topics_recommender"
 
@@ -18,21 +20,30 @@ class MLRegistry:
     _endpoint_algorithms = {}
     
     def __init__(self):
-        # make sure all the endpoints are in the database
-        for ep in self._endpoints_:
-            Endpoint.objects.get_or_create(name=ep)
+        # this logic has been moved inside __new__
+        pass
 
-        # create and register objects for each algorithm in the database
-        for algorithm in MLAlgorithm.objects.all():
-            if algorithm.parent_endpoint.name != self.ENDPOINT_TOPICS:
-                raise Exception(f"Unknown endpoint for algorithm {algorithm.id}: {algorithm.parent_endpoint.name}")
-            if algorithm.name == CosineSimilarityRecommender.ALGORITHM_COSINE:
-                algo_object = CosineSimilarityRecommender(algorithm.name)
-            elif algorithm.name == RandomRecommender.ALGORITHM_RANDOM:
-                algo_object = RandomRecommender(algorithm.name)
-            else:
-                raise Exception(f"Unknown algorithm {algorithm.id}: {algorithm.name}")
-            self.register_algorithm(algorithm.id, algo_object)
+    def __new__(cls):
+        self = cls._instance
+        if self is None:
+            self = super(MLRegistry, cls).__new__(cls)
+            # make sure all the endpoints are in the database
+            for ep in self._endpoints_:
+                Endpoint.objects.get_or_create(name=ep)
+
+            # create and register objects for each algorithm in the database
+            for algorithm in MLAlgorithm.objects.all():
+                if algorithm.parent_endpoint.name != self.ENDPOINT_TOPICS:
+                    raise Exception(f"Unknown endpoint for algorithm {algorithm.id}: {algorithm.parent_endpoint.name}")
+                if algorithm.name == CosineSimilarityRecommender.ALGORITHM_COSINE:
+                    algo_object = CosineSimilarityRecommender(algorithm.name)
+                elif algorithm.name == RandomRecommender.ALGORITHM_RANDOM:
+                    algo_object = RandomRecommender(algorithm.name)
+                else:
+                    raise Exception(f"Unknown algorithm {algorithm.id}: {algorithm.name}")
+                self.register_algorithm(algorithm.id, algo_object)
+                cls._instance = self
+        return self
 
     def add_algorithm(self, endpoint_name, algorithm_object, algorithm_name, 
                       algorithm_version, algorithm_description, active):
@@ -145,7 +156,8 @@ class MLRegistry:
             title=endpoint_name,
             ended_at=None
         )
-        # if not created:
+        if not created:
+            print(" ### WARNING ###", " A/B Test is already running.")
         #     ab_test.created_at = timezone.now()
         #     ab_test.save()
             
@@ -154,8 +166,21 @@ class MLRegistry:
         endpoint.save()
 
     def end_ab_testing(self, endpoint_name):
+        """Collects and summarizes all the requests on the given endpoint over the
+        duration of the active A/B Test. Requests are organized by user session 
+        within each respective algorithm. The summary also produces mean similarity 
+        scores and rankings for requests that are feedback on previous searches. The
+        mean scores are aggregated for all requests in the user session as well as
+        for all requests of each algorithm.
+
+        Args:
+            endpoint_name (str): The name of the Endpoint object in the database
+
+        Raises:
+            Exception: The endpoint does not have an active A/B Test.
+        """
         endpoint = Endpoint.objects.get(name=endpoint_name)
-        if endpoint.ab_test.ended_at is not None:
+        if endpoint.ab_test is None or endpoint.ab_test.ended_at is not None:
             raise Exception(f"Unable to find active A/B Test for endpoint {endpoint_name}.")
 
         summary = {}
@@ -174,48 +199,57 @@ class MLRegistry:
                 "algo_mean_rank": 0,
                 "sessions": {}
             }
-            trace_count = 0
+            # all similarity scores and ranks for topics chosen with this algorithm
+            algo_scores = []
+            algo_ranks = []
+
             for usession in usessions:
                 user_requests = ml_requests.filter(user_session=usession)
+                session_scores = []
+                session_ranks = []
 
+                # create a flat list of requests, accounting for branching paths
                 while user_requests: # trace a linked history of searches
-                    trace = {
+                    # build on an existing history for this user session
+                    trace = algo_summary["sessions"].get(usession.hex, {
                         "mean_score": 0,
                         "mean_rank": 0,
                         "requests": []
-                    }
+                    })
                     latest_request = user_requests.latest()
                     while latest_request: # until there are no more previous requests
                         user_requests = user_requests.exclude(pk=latest_request.pk)
-                        full_response = ast.literal_eval(latest_request.full_response)
+                        full_response = eval(latest_request.full_response)
                         r = {"topic": full_response["topic"],"id": full_response["id"]}
-
-                        if latest_request.previous_request:
-                            feedback = latest_request.previous_request.feedback
-                            if feedback:
-                                feedback = ast.literal_eval(feedback)
-                                r["similarity"] = feedback["similarity"]
-                                r["rank"] = int(feedback["rank"])
-                                trace["mean_score"] += r["similarity"]
-                                trace["mean_rank"] += r["rank"]
-                        
-                        # add the request to the front of the trace
+                        if "feedback_to" in full_response.keys():
+                            r["feedback_to"] = full_response["feedback_to"]
+                            r["similarity"] = full_response["similarity"]
+                            r["rank"] = full_response["rank"]
+                            if r not in trace["requests"]:
+                                session_scores.append(float(r["similarity"]))
+                                session_ranks.append(int(r["rank"]))
+                        # add/move the request to the front of the trace
+                        if r in trace["requests"]:
+                            trace["requests"].remove(r)
                         trace["requests"].insert(0,r)
                         
+                        # iterate while there are linked requests
                         latest_request = latest_request.previous_request
                     
-                    if len(trace["requests"]) > 1:
-                        trace["mean_score"] = trace["mean_score"] / (len(trace["requests"]) - 1)
-                        trace["mean_rank"] = trace["mean_rank"] / (len(trace["requests"]) - 1)
                     # save this trace to the user session
-                    algo_summary["algo_mean_score"] += trace["mean_score"]
-                    algo_summary["algo_mean_rank"] += trace["mean_rank"]
                     algo_summary["sessions"][usession.hex] = trace
-                    trace_count += 1
-            
-            if trace_count > 0:
-                algo_summary["algo_mean_score"] = algo_summary["algo_mean_score"] / trace_count
-                algo_summary["algo_mean_rank"] = algo_summary["algo_mean_rank"] / trace_count
+
+                # summarize session after all requests for this user have been added
+                if len(session_scores) > 0:
+                    algo_summary["sessions"][usession.hex]["mean_score"] = fmean(session_scores)
+                    algo_summary["sessions"][usession.hex]["mean_rank"] = fmean(session_ranks)
+
+                algo_scores += session_scores
+                algo_ranks += session_ranks
+
+            if len(algo_scores) > 0:
+                algo_summary["algo_mean_score"] = fmean(algo_scores)
+                algo_summary["algo_mean_rank"] = fmean(algo_ranks)
 
             summary[algo.name] = algo_summary
             

@@ -159,16 +159,26 @@ class SearchView(ListView):
             previous_ranking = ast.literal_eval(request_object.ranking)
             # get the similarity score for the previous topic
             score = dict(previous_ranking)[lookup.id]
-            # for topic in previous_ranking:
-            #     if topic[0] == lookup.id:
-            #         score = topic[1]
-            #         break
             # save this topic and its score as feedback
-            request_object.feedback = str({
-                'topic':lookup.name,
-                'similarity':score,
-                'rank': previous_request_rank
-            })
+            prediction["request_log"]["similarity"] = score
+            prediction["request_log"]["rank"] = previous_request_rank
+            if (request_object.feedback is not None 
+                and request_object.feedback != ""):
+                # append this query as new feedback to the previous feedback
+                old_feedback = ast.literal_eval(request_object.feedback)
+                new_feedback = {
+                    'topic':lookup.name,
+                    'similarity':score,
+                    'rank': previous_request_rank
+                }
+                old_feedback.append(new_feedback)
+                request_object.feedback = str(old_feedback)
+            else:
+                request_object.feedback = str([{
+                    'topic':lookup.name,
+                    'similarity':score,
+                    'rank': previous_request_rank
+                }])
             request_object.save()
 
         # Log the request-response in a MLRequest object
@@ -190,8 +200,6 @@ class SearchView(ListView):
             ranking = prediction["ranking"]["featured"] #Topic.objects.filter(id__in=top_pks, featured=True)
         else:
             ranking = prediction["ranking"]["all"] #Topic.objects.filter(id__in=top_pks)
-
-        # print(f"--> Final results: {[t.name for t in results]}")
 
         return ranking
 

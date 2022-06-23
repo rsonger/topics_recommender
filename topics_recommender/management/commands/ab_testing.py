@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand
 
 from ml_algorithms.registry import MLRegistry
-from ml_api.models import Endpoint, ABTest
+from ml_api.models import Endpoint
 
 class Command(BaseCommand):
     help = "Commands for managing A/B Tests."
