@@ -219,6 +219,13 @@ class MLRegistry:
                     latest_request = user_requests.latest()
                     while latest_request: # until there are no more previous requests
                         user_requests = user_requests.exclude(pk=latest_request.pk)
+                        # skip this request if it might be an error
+                        if latest_request.response != "OK":
+                            if len(user_requests) > 0:
+                                latest_request = user_requests.latest()
+                            else:
+                                latest_request = None
+                            continue
                         full_response = eval(latest_request.full_response)
                         r = {"topic": full_response["topic"],"id": full_response["id"]}
                         if "feedback_to" in full_response.keys():
