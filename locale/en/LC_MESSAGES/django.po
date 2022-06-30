@@ -1,0 +1,181 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-30 19:23+0900\n"
+"PO-Revision-Date: 2022-06-30 19:25+0900\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
+
+#: Topics_RS/settings.py:126
+msgid "English"
+msgstr "English"
+
+#: Topics_RS/settings.py:127
+msgid "Japanese"
+msgstr "Japanese"
+
+#: topics_recommender/forms.py:9 topics_recommender/forms.py:10
+msgid "name"
+msgstr "name"
+
+#: topics_recommender/forms.py:10
+msgid "Please enter a nickname:"
+msgstr "Please enter a nickname:"
+
+#: topics_recommender/templates/base.html:19
+#: topics_recommender/templates/topics_recommender/login.html:16
+msgid "Topics Recommender"
+msgstr "Topics Recommender"
+
+#: topics_recommender/templates/base.html:24
+#: topics_recommender/templates/topics_recommender/login.html:21
+msgid "GitHub Topics"
+msgstr "GitHub Topics"
+
+#: topics_recommender/templates/base.html:44
+msgid "Logout"
+msgstr "Logout"
+
+#: topics_recommender/templates/base.html:49
+msgid "New Search"
+msgstr "New Search"
+
+#: topics_recommender/templates/base.html:61
+msgid "Let's get started"
+msgstr "Let's get started"
+
+#: topics_recommender/templates/base.html:61
+msgid "Login"
+msgstr "Login"
+
+#: topics_recommender/templates/base.html:83
+msgid "Request received"
+msgstr "Request received"
+
+#: topics_recommender/templates/base.html:86
+#, python-format
+msgid "Response rendered in %(total_time)s seconds."
+msgstr "Response rendered in %(total_time)s seconds."
+
+#: topics_recommender/templates/base.html:89
+#: topics_recommender/templates/topics_recommender/login.html:40
+msgid "Yamamoto Lab, Kanazawa Institute of Technology"
+msgstr "Yamamoto Lab, Kanazawa Institute of Technology"
+
+#: topics_recommender/templates/topics_recommender/index.html:9
+msgid "All Topics"
+msgstr "All Topics"
+
+#: topics_recommender/templates/topics_recommender/index.html:16
+#: topics_recommender/templates/topics_recommender/search.html:18
+#: topics_recommender/templates/topics_recommender/search.html:33
+msgid "This topic is featured on GitHub.com"
+msgstr "This topic is featured on GitHub.com"
+
+#: topics_recommender/templates/topics_recommender/index.html:20
+msgid "Repositories on "
+msgstr "Repositories on"
+
+#: topics_recommender/templates/topics_recommender/index.html:25
+msgid "No topics yet!"
+msgstr "No topics yet!"
+
+#: topics_recommender/templates/topics_recommender/login.html:25
+msgid "Start Session"
+msgstr "Start Session"
+
+#: topics_recommender/templates/topics_recommender/login.html:34
+#: topics_recommender/templates/topics_recommender/search.html:57
+msgid "Submit"
+msgstr "Submit"
+
+#: topics_recommender/templates/topics_recommender/search.html:10
+msgid "Topics Search"
+msgstr "Topics Search"
+
+#: topics_recommender/templates/topics_recommender/search.html:28
+msgid "You might also like these topics:"
+msgstr "You might also like these topics:"
+
+#: topics_recommender/templates/topics_recommender/search.html:40
+msgid "Search this topic"
+msgstr "Search this topic"
+
+#: topics_recommender/templates/topics_recommender/search.html:49
+msgid "Enter a keyword"
+msgstr "Enter a keyword"
+
+#: topics_recommender/templates/topics_recommender/search.html:70
+msgid "Topic not found"
+msgstr "Topic not found"
+
+#: topics_recommender/templates/topics_recommender/start.html:8
+msgid "Recommendation Task"
+msgstr "Recommendation Task"
+
+#: topics_recommender/templates/topics_recommender/start.html:10
+msgid "Background"
+msgstr "Background"
+
+#: topics_recommender/templates/topics_recommender/start.html:12
+msgid ""
+"\n"
+"        KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on GitHub. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool will allow you to browse the available topics for projects on GitHub and choose one for your theme as if you were a participant in KIT's new course. Topics on GitHub are special tags that show a project's purpose, subject area, community, or language. They are GitHub's solution to classifying repositories and making it easier for people to find projects that interest them.\n"
+"        "
+msgstr ""
+"\n"
+"KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on GitHub. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool will allow you to browse the available topics for projects on GitHub and choose one for your theme as if you were a participant in KIT's new course. Topics on GitHub are special tags that show a project's purpose, subject area, community, or language. They are GitHub's solution to classifying repositories and making it easier for people to find projects that interest them."
+
+#: topics_recommender/templates/topics_recommender/start.html:16
+msgid "Instructions"
+msgstr "Instructions"
+
+#: topics_recommender/templates/topics_recommender/start.html:18
+msgid ""
+"\n"
+"        The <strong>Search</strong> page will show a text input for you to type the name of a topic. An autocomplete menu will show you the list of matching topics as you type. If the topic does not exist, it will not appear in the autocomplete box. In that case, please check your spelling or try a different topic. Click the <strong>Submit</strong> button to see details about a topic and a list of other recommended topics.\n"
+"        "
+msgstr ""
+"\n"
+"The <strong>Search</strong> page will show a text input for you to type the name of a topic. An autocomplete menu will show you the list of matching topics as you type. If the topic does not exist, it will not appear in the autocomplete box. In that case, please check your spelling or try a different topic. Click the <strong>Submit</strong> button to see details about a topic and a list of other recommended topics."
+
+#: topics_recommender/templates/topics_recommender/start.html:23
+msgid ""
+"\n"
+"        The search results will show a list of topic names and their descriptions. When the page first loads, the descriptions are hidden for all topics except the searched topic. Click on the name of a topic to show or hide its description. Below the description of each topic is a <strong>Search this topic</strong> link. Click that link to search for the specified topic.\n"
+"        "
+msgstr ""
+"\n"
+"The search results will show a list of topic names and their descriptions. When the page first loads, the descriptions are hidden for all topics except the searched topic. Click on the name of a topic to show or hide its description. Below the description of each topic is a <strong>Search this topic</strong> link. Click that link to search for the specified topic."
+
+#: topics_recommender/templates/topics_recommender/start.html:28
+msgid ""
+"\n"
+"        If you want to explore another topic that does not appear in the search results, click the <strong>New Search</strong> button at the top of the page.\n"
+"        "
+msgstr ""
+"\n"
+"If you want to explore another topic that does not appear in the search results, click the <strong>New Search</strong> button at the top of the page."
+
+#: topics_recommender/templates/topics_recommender/start.html:33
+#, python-format
+msgid ""
+"\n"
+"        Please click <a href=\"%(search)s\"><strong>here</strong></a> when you are ready to begin.\n"
+"        "
+msgstr ""
+"\n"
+"Please click <a href=\"%(search)s\"><strong>here</strong></a> when you are ready to begin."

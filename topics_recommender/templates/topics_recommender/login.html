@@ -2,6 +2,7 @@
 <html lang="en">
 
 {% load static %}
+{% load i18n %}
 
 {% url 'login' as login %}
 
@@ -12,16 +13,16 @@
     <!--Simple.css-->
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Topics Recommender</title>
+    <title>{% translate "Topics Recommender" %}</title>
 </head>
 
 <body>
     <header>
-        <h1>GitHub Topics</h1>
+        <h1>{% translate "GitHub Topics" %}</h1>
     </header>
 
     <main>
-        <h3>Start Session</h3>
+        <h3>{% translate "Start Session" %}</h3>
         <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
 
@@ -30,13 +31,13 @@
                 <label for="n">Please enter a nickname:</label>
             </p>
             <input name="n" type="text" placeholder="name"> -->
-            <button type="submit">Submit</button>
+            <button type="submit">{% translate "Submit" %}</button>
         </form>
         
     </main>
 
 <footer>
-    <p>&copy; 2022 Yamamoto Lab, Kanazawa Institute of Technology</p>
+    <p>&copy; 2022 {% translate "Yamamoto Lab, Kanazawa Institute of Technology" %}</p>
 </footer>
 </body>
 </html>

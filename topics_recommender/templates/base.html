@@ -2,6 +2,7 @@
 <html lang="en">
 
 {% load static %}
+{% load i18n %}
 
 {% url 'index' as home %}
 {% url 'search' as search %}
@@ -15,51 +16,57 @@
     <!--Simple.css-->
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Topics Recommender</title>
+    <title>{% translate "Topics Recommender" %}</title>
 </head>
 
 <body>
     <header>
-        <h1>GitHub Topics</h1>
+        <h1>{% translate "GitHub Topics" %}</h1>
 
 {% if request.session.id %}
         <p>
-{% if request.session.name %} 
-            Welcome, {{ request.session.name }}!
-{% endif %} 
-            What would you like to learn today? <br>
-            <a href="{{ logout }}">Logout</a>
+            <a href="{{ logout }}">{% translate "Logout" %}</a>
         </p>
 
         <nav>
-            <!-- <a href="{{ home }}"{% if request.path == home %} class="current"{% endif %}>Topics</a> -->
-            <a href="{{ search }}"{% if request.path == search %} class="current"{% endif %}>New Search</a>
+            <a href="{{ search }}"{% if request.path == search %} class="current"{% endif %}>{% translate "New Search" %}</a>
         </nav>
     </header>
-    <!-- <main> -->
-{% block content %}
-{% endblock content %}
-    <!-- </main> -->
+
+    {% block content %}
+    {% endblock content %}
+
 
 {% else %}
-
-        <p>Let's get started &#8594; <a href="{{ login }}">Login</a></p>
     </header>
 
     <main>
-        <p>Please click the <strong>Login</strong> button above.</p>
+        <p>{% translate "Let's get started" %} &#8594; <a href="{{ login }}">{% translate "Login"%}</a></p>
     </main>
 {% endif %}
 
     <footer>
+
+        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+            <select name="language">
+                {% for language in languages %}
+                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Go">
+        </form>            
+
 {% if timestamp %}
-        <p>Request received: {{ timestamp }}</p>
+        <p>{% translate "Request received" %}: {{ timestamp }}</p>
 {% endif %}
 {% if total_time %}
-        <p>Response rendered in {{ total_time }} seconds.</p>
+        <p>{% blocktranslate %}Response rendered in {{ total_time }} seconds.{% endblocktranslate %}</p>
 {% endif %} 
 
-        <p>&copy; 2022 Yamamoto Lab, Kanazawa Institute of Technology</p>
+        <p>&copy; 2022 {% translate "Yamamoto Lab, Kanazawa Institute of Technology" %}</p>
     </footer>
 </body>
 </html>

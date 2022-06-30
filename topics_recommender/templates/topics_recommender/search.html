@@ -1,43 +1,52 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <!-- <link rel="stylesheet" href="{% static 'js/script.js' %}"> -->
 
 <main>
-    
-    <h2>Topics Search</h2>
+    <h2>{% translate "Topics Search" %}</h2>
 
 {% if topics_ranking %}
 
-    <h3>Showing {{ topics_ranking|length }} topics for "{{ request.GET.q }}".</h3>
     {% for topic in topics_ranking %}
-    <details {% if topic.display_name == request.GET.q %}open{% endif %}>
+    {% if forloop.counter0 == 0 %}
+    <h4>{{ topic.display_name }}
+        {% if topic.featured %}
+        <span title={% translate "This topic is featured on GitHub.com" %}>&#11088;</span>
+        {% endif %}
+    </h4>
+    <p>
+        {{ topic.description }}
+    </p>
+    <!-- <p>
+        Projects on <a href="https://github.com/topics/{{ topic.name }}" 
+        target="_blank">GitHub</a>
+    </p> -->
+    <h4>{% translate "You might also like these topics:" %}</h4>
+    {% else %}
+    <details>
         <summary>{{ topic.display_name }}
             {% if topic.featured %}
-            <span title="This topic is featured on GitHub.com">&#11088;</span>
+            <span title={% translate "This topic is featured on GitHub.com" %}>&#11088;</span>
             {% endif %}
         </summary>
         <!-- <p>Browse this topic</a></p> -->
         <p>{{ topic.description }}</p>
-        {% if topic.display_name != request.GET.q %}
         <p>
-            <a href="/search?q={{ topic.display_name|urlencode }}&rid={{ request_id }}{% if request.GET.csrfmiddlewaretoken %}&csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}{% endif %}{% if request.GET.f %}&f=on{% endif %}&i={{ forloop.counter0 }}">
-                &#8594; Explore
+            <a href="/{{ LANGUAGE_CODE }}/search?q={{ topic.display_name|urlencode }}&rid={{ request_id }}{% if request.GET.csrfmiddlewaretoken %}&csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}{% endif %}{% if request.GET.f %}&f=on{% endif %}&i={{ forloop.counter0 }}">
+                &#8594; {% translate "Search this topic" %}
             </a>
         </p>
-        {% endif %}
-        <!-- <p>
-            See it on <a href="https://github.com/topics/{{ topic.name }}" 
-                         target="_blank">GitHub</a>.
-        </p> -->
     </details>
+    {% endif %}
     {% endfor %}
     
     {% else %}
     
-    Enter a keyword:
+    {% translate "Enter a keyword" %}:
     <form autocomplete="off" action="{% url 'search' %}" method="GET">
         {% csrf_token %}
         <div class="autocomplete">
@@ -45,7 +54,7 @@
             name="q" type="text" 
             placeholder="Search..." 
             value="{{ request.GET.q }}">
-            <button type="submit">Submit</button>
+            <button type="submit">{% translate "Submit" %}</button>
         </div>
         <!-- <p>
             <label>
@@ -58,17 +67,12 @@
     </form>
     
     {% if request.GET.q %}
-    <p>Topic not found: <em>{{ request.GET.q }}</em></p>
+    <p>{% translate "Topic not found" %}: <em>{{ request.GET.q }}</em></p>
     
     {% endif %}
     
-    {% endif %}
+{% endif %}
 </main>
-    
-<!-- <footer>
-    <p>Request received: {{ timestamp }}</p>
-    <p>Response rendered in {{ total_time }} seconds.</p>
-</footer> -->
     
 <script>
     var autocomplete = (inp, arr) => {

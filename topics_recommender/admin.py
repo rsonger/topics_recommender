@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import Topic, UserSession
+from parler.admin import TranslatableAdmin
+
+from topics_recommender.models import Topic, UserSession
 
 # Register your models here.
-admin.site.register(Topic)
+admin.site.register(Topic, TranslatableAdmin)
 admin.site.register(UserSession)
