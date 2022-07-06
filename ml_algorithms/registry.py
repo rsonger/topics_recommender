@@ -35,7 +35,7 @@ class MLRegistry:
             for algorithm in MLAlgorithm.objects.all():
                 if algorithm.parent_endpoint.name != self.ENDPOINT_TOPICS:
                     raise Exception(f"Unknown endpoint for algorithm {algorithm.id}: {algorithm.parent_endpoint.name}")
-                if algorithm.name == CosineSimilarityRecommender.ALGORITHM_COSINE:
+                if algorithm.name == CosineSimilarityRecommender.ALGORITHM_TFIDF:
                     algo_object = CosineSimilarityRecommender(algorithm.name)
                 elif algorithm.name == RandomRecommender.ALGORITHM_RANDOM:
                     algo_object = RandomRecommender(algorithm.name)
@@ -165,7 +165,7 @@ class MLRegistry:
         endpoint.ab_test = ab_test
         endpoint.save()
 
-    def end_ab_testing(self, endpoint_name):
+    def end_ab_testing(self, endpoint_name="", endpoint=None):
         """Collects and summarizes all the requests on the given endpoint over the
         duration of the active A/B Test. Requests are organized by user session 
         within each respective algorithm. The summary also produces mean similarity 
@@ -179,9 +179,10 @@ class MLRegistry:
         Raises:
             Exception: The endpoint does not have an active A/B Test.
         """
-        endpoint = Endpoint.objects.get(name=endpoint_name)
-        if endpoint.ab_test is None or endpoint.ab_test.ended_at is not None:
-            raise Exception(f"Unable to find active A/B Test for endpoint {endpoint_name}.")
+        if endpoint_name != "" and endpoint is None:
+            endpoint = Endpoint.objects.get(name=endpoint_name)
+        if endpoint.ab_test is None:
+            raise Exception(f"Unable to find an A/B Test for endpoint {endpoint_name}.")
 
         summary = {}
         for algo in endpoint.algorithms.all():
@@ -267,18 +268,6 @@ class MLRegistry:
 
         #TODO: deactivate the endpoint testing status 
                     
-        #TODO: calculate a summary and close the active A/B Test
-        #   ( values_list('user_session', flat=True).distinct() )
-        #   for each user session
-        #     while there are still requests for this user session
-        #       filter most recent MLRequest
-        #       stack requests linked through each previous request field
-        #         remove requests from set as they are stacked
-        #       save request stack
-        #     average the feedback similarity scores and ranks
-        #     save average scores, rank, and request stacks
-        #     
-
     def __str__(self):
         return str(self._endpoint_algorithms)
 

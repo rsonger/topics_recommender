@@ -15,17 +15,16 @@ class CosineSimilarityRecommender(Ranking):
         project_dir = Path(__file__).resolve().parent.parent
         path_to_artifacts = Path(project_dir, "data")
 
-        if algorithm_name in self._algorithms_:
-            self.tfidf_matrix = joblib.load(
-                Path(path_to_artifacts, "tfidf_description_matrix.joblib")
-            )
-            self.cosine_scores = joblib.load(
-                Path(path_to_artifacts, "cosine_sim_scores.joblib")
-            )
+        self.cosine_scores = {}
+        if algorithm_name in self._algorithms:
+            for lang_code in self._languages:
+                self.cosine_scores[lang_code] = joblib.load(
+                    Path(path_to_artifacts, f"cosine_sim_scores_{lang_code}.joblib")
+                )
 
-    def preprocess(self, keyword, id):
+    def preprocess(self, keyword, id, lang_code):
         request_data = {}
-        if id < 0 or id > len(self.cosine_scores):
+        if id < 0 or id > len(self.cosine_scores[lang_code]):
             request_data["request_log"] =  {
                 "status": "Error", 
                 "message": f"Unable to rank topics for {keyword}"
@@ -38,8 +37,10 @@ class CosineSimilarityRecommender(Ranking):
             }
         return request_data
 
-    def get_ranking(self, input_data):
-        ranking = list(enumerate(self.cosine_scores[input_data["request_log"]["id"]]))
+    def get_ranking(self, input_data, lang_code):
+        ranking = list(enumerate(
+            self.cosine_scores[lang_code][input_data["request_log"]["id"]]
+        ))
         ranking = sorted(ranking, key=lambda x: x[1], reverse=True)
         
         input_data["ranked_ids"] = ranking

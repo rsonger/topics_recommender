@@ -7,6 +7,8 @@ from django.utils import timezone
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
+from tinysegmenter import TinySegmenter
+
 import pandas as pd
 
 class Command(BaseCommand):
@@ -14,6 +16,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("file_path", type=str)
+        parser.add_argument("language", type=str)
 
     def handle(self, *args, **options):
         p = Path(Path.cwd(), options["file_path"])
@@ -22,13 +25,23 @@ class Command(BaseCommand):
                 self.style.ERROR("Data file not found. Aborting command.")
             )
             return
+        lang = options["language"]
+        if lang not in ['en', 'ja']:
+            self.stdout.write(
+                self.style.ERROR("Language must be one of [en, ja]")
+            )
 
         start_time = timezone.now()
 
         df_topics = pd.read_csv(p)
         df = df_topics[['description']]
 
-        tfidf = TfidfVectorizer(stop_words="english")
+        if lang == 'en':
+            tokenizer = None
+        if lang == 'ja':
+            tokenizer = TinySegmenter().tokenize
+        # TODO: Handle stop words for English and Japanese
+        tfidf = TfidfVectorizer(tokenizer=tokenizer)
         tfidf_matrix = tfidf.fit_transform(df['description'])
         cosine_sim_scores = linear_kernel(tfidf_matrix, tfidf_matrix)
 
@@ -40,7 +53,7 @@ class Command(BaseCommand):
             )
         )
 
-        tfidf_save_file = Path(p.parent, "tfidf_description_matrix.joblib")
+        tfidf_save_file = Path(p.parent, f"tfidf_description_matrix_{lang}.joblib")
         joblib.dump(tfidf_matrix, tfidf_save_file)
         self.stdout.write(
             self.style.SUCCESS(
@@ -48,7 +61,7 @@ class Command(BaseCommand):
             )
         )
 
-        cosine_save_file = Path(p.parent, "cosine_sim_scores.joblib")
+        cosine_save_file = Path(p.parent, f"cosine_sim_scores_{lang}.joblib")
         joblib.dump(cosine_sim_scores, cosine_save_file)
         self.stdout.write(
             self.style.SUCCESS(

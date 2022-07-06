@@ -1,13 +1,18 @@
 import uuid
+
 from django.db import models
 from django.utils import timezone
 
-class Topic(models.Model):
+from parler.models import TranslatableModel, TranslatedFields
+
+class Topic(TranslatableModel):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
     display_name = models.CharField(max_length=100)
-    short_description = models.TextField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    translations = TranslatedFields(
+        short_description=models.TextField(null=True, blank=True),
+        description=models.TextField(null=True, blank=True),
+    )
     featured = models.BooleanField(default=False)
 
     def __str__(self):

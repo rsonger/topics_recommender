@@ -40,7 +40,7 @@ registry.register_ab_testing(MLRegistry.ENDPOINT_TOPICS)
 algos_to_add = (
     {
         "endpoint": MLRegistry.ENDPOINT_TOPICS,
-        "name": CosineSimilarityRecommender.ALGORITHM_COSINE,
+        "name": CosineSimilarityRecommender.ALGORITHM_TFIDF,
         "version": "0.1",
         "description": "A ranking recommender algorithm based on cosine similarity scores.",
         "active": True,

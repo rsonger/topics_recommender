@@ -9,14 +9,17 @@ class RandomRecommender(CosineSimilarityRecommender):
     def __init__(self, algorithm_name) -> None:
         super().__init__(algorithm_name)
 
-    def get_ranking(self, input_data):
+    def get_ranking(self, input_data, lang_code):
         """Returns a random ranking of topics and their scores relative to the searched topic.
         The searched topic will always be in the first position of the ranking."""
         request_id = input_data["request_log"]["id"]
-        search = (request_id, self.cosine_scores[request_id][request_id])
+        search = (
+            request_id, 
+            self.cosine_scores[lang_code][request_id][request_id]
+        )
         ranking = [
             (id, score)
-            for id,score in enumerate(self.cosine_scores[request_id])
+            for id,score in enumerate(self.cosine_scores[lang_code][request_id])
             if score > 0 and id != request_id 
         ]
         random.shuffle(ranking)

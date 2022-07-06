@@ -6,6 +6,7 @@ from uuid import UUID
 # Django imports
 from django.views.generic import ListView, CreateView, RedirectView
 from django.utils import timezone
+from django.utils.translation import get_language
 from django.shortcuts import redirect, render
 
 # local imports
@@ -95,7 +96,12 @@ class SearchView(ListView):
                 top_ranks = 10
         previous_request = self.request.GET.get('rid')
         previous_request_rank = self.request.GET.get('i')
-        params = {"q": query, "f": featured, "r": top_ranks}
+        params = {
+            "q": query, 
+            "f": featured, 
+            "r": top_ranks,
+            "l": get_language()
+        }
 
         # load the recommender algorithm for this endpoint
         db_algorithms = MLAlgorithm.objects.filter(
@@ -125,13 +131,14 @@ class SearchView(ListView):
         prediction = algorithm_object.make_ranking(
             lookup.name, 
             lookup.id, 
-            top_ranks
+            top_ranks,
+            params["l"]
         )
 
         if prediction["request_log"]["status"] == "Error":
             # Log the error in a MLRequest object
             ml_request = MLRequest(
-                input_data=str({"q": query, "f": featured, "r": top_ranks}),
+                input_data=str(params),
                 response=prediction["request_log"]["status"],
                 full_response=prediction["request_log"],
                 ranking="",
