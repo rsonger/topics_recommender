@@ -25,7 +25,7 @@ class LoginView(CreateView):
     
     def get(self, request, *args, **kwargs):
         # make sure a session is not already running
-        if self.request.session.get("id", False):
+        if request.session.get("id", False):
             return redirect('search')
         # otherwise, proceed to login
         context = {'form': LoginForm()}
