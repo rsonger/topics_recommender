@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+{% load static %}
+{% load i18n %}
+
+{% url 'login' as login %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Simple.css-->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css?version=2.1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% translate "Creativity Task" %}</title>
+</head>
+
+<body>
+    <header>
+        <h1>{% translate "Creativity Task" %}</h1>
+    </header>
+
+    <main>
+        <h3>{% translate "Instructions" %}</h3>
+        <p>
+            {% blocktranslate %}
+            Please write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words.
+            {% endblocktranslate %}
+        </p>
+        <h3>{% translate "Rules" %}</h3>
+        <ul>
+            <li>
+                {% blocktranslate %}
+                Only <strong>single words</strong>.
+                {% endblocktranslate %}
+            </li>
+            <li>
+                {% blocktranslate %}
+                Only <strong>nouns</strong> (e.g., things, objects, concepts).
+                {% endblocktranslate %}
+            </li>
+            <li>
+                {% blocktranslate %}
+                <strong>No proper nouns</strong> (e.g., no names of people or places).
+                {% endblocktranslate %}
+            </li>
+            <li>
+                {% blocktranslate %}
+                <strong>No specialized vocabulary</strong> (e.g., no technical terms).
+                {% endblocktranslate %}
+            </li>
+            <li>
+                {% blocktranslate %}
+                Think of the words <strong>on your own</strong> (e.g., don't just look at objects around you).
+                {% endblocktranslate %}
+            </li>
+            <li>
+                {% blocktranslate %}
+                Try to complete this task <strong>as quickly as possible</strong>.
+                {% endblocktranslate %}
+            </li>
+        </ul>
+        <h3>{% translate "Words" %}</h3>
+        <form action="{% url 'dat' %}" method="POST">
+            {% csrf_token %}
+            <ol>
+                <li><input name="w1" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w2" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w3" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w4" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w5" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w6" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w7" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w8" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w9" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w10" type="text" placeholder="{% translate "noun" %}" required></li>
+            </ol>
+            
+            <button type="submit">{% translate "Submit" %}</button>
+        </form>
+        
+    </main>
+
+<footer>
+    <!-- <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}">
+        <select name="language">
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+            {% endfor %}
+        </select><input type="submit" value="Go">
+    </form>             -->
+
+    <p>&copy; 2022 {% translate "Yamamoto Lab, Kanazawa Institute of Technology" %}</p>
+</footer>
+</body>
+</html>
