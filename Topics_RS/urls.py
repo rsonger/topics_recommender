@@ -22,6 +22,7 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('rosetta/', include('rosetta.urls')),
     path('', include("topics_recommender.urls")),
+    path('', include("survey_tasks.urls")),
 )
 urlpatterns += [
     path('', include('django.conf.urls.i18n')),

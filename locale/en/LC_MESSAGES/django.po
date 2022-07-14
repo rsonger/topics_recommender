@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-30 19:23+0900\n"
-"PO-Revision-Date: 2022-06-30 19:25+0900\n"
+"POT-Creation-Date: 2022-07-14 13:13+0900\n"
+"PO-Revision-Date: 2022-07-14 13:14+0900\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,13 +19,119 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
-#: Topics_RS/settings.py:126
+#: Topics_RS/settings.py:127
 msgid "English"
 msgstr "English"
 
-#: Topics_RS/settings.py:127
+#: Topics_RS/settings.py:128
 msgid "Japanese"
 msgstr "Japanese"
+
+#: survey_tasks/templates/survey_tasks/dat.html:16
+#: survey_tasks/templates/survey_tasks/dat.html:21
+msgid "Creativity Task"
+msgstr "Creativity Task"
+
+#: survey_tasks/templates/survey_tasks/dat.html:25
+#: topics_recommender/templates/topics_recommender/start.html:16
+msgid "Instructions"
+msgstr "Instructions"
+
+#: survey_tasks/templates/survey_tasks/dat.html:27
+msgid ""
+"\n"
+"            Please write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words.\n"
+"            "
+msgstr ""
+"\n"
+"Please write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words."
+
+#: survey_tasks/templates/survey_tasks/dat.html:31
+msgid "Rules"
+msgstr "Rules"
+
+#: survey_tasks/templates/survey_tasks/dat.html:34
+msgid ""
+"\n"
+"                Only <strong>single words</strong>.\n"
+"                "
+msgstr ""
+"\n"
+"Only <strong>single words</strong>."
+
+#: survey_tasks/templates/survey_tasks/dat.html:39
+msgid ""
+"\n"
+"                Only <strong>nouns</strong> (e.g., things, objects, concepts).\n"
+"                "
+msgstr ""
+"\n"
+"Only <strong>nouns</strong> (e.g., things, objects, concepts)."
+
+#: survey_tasks/templates/survey_tasks/dat.html:44
+msgid ""
+"\n"
+"                <strong>No proper nouns</strong> (e.g., no names of people or places).\n"
+"                "
+msgstr ""
+"\n"
+"<strong>No proper nouns</strong> (e.g., no names of people or places)."
+
+#: survey_tasks/templates/survey_tasks/dat.html:49
+msgid ""
+"\n"
+"                <strong>No specialized vocabulary</strong> (e.g., no technical terms).\n"
+"                "
+msgstr ""
+"\n"
+"<strong>No specialized vocabulary</strong> (e.g., no technical terms)."
+
+#: survey_tasks/templates/survey_tasks/dat.html:54
+msgid ""
+"\n"
+"                Think of the words <strong>on your own</strong> (e.g., don't just look at objects around you).\n"
+"                "
+msgstr ""
+"\n"
+"Think of the words <strong>on your own</strong> (e.g., don't just look at objects around you)."
+
+#: survey_tasks/templates/survey_tasks/dat.html:59
+msgid ""
+"\n"
+"                Try to complete this task <strong>as quickly as possible</strong>.\n"
+"                "
+msgstr ""
+"\n"
+"Try to complete this task <strong>as quickly as possible</strong>."
+
+#: survey_tasks/templates/survey_tasks/dat.html:64
+msgid "Words"
+msgstr "Words"
+
+#: survey_tasks/templates/survey_tasks/dat.html:68
+#: survey_tasks/templates/survey_tasks/dat.html:69
+#: survey_tasks/templates/survey_tasks/dat.html:70
+#: survey_tasks/templates/survey_tasks/dat.html:71
+#: survey_tasks/templates/survey_tasks/dat.html:72
+#: survey_tasks/templates/survey_tasks/dat.html:73
+#: survey_tasks/templates/survey_tasks/dat.html:74
+#: survey_tasks/templates/survey_tasks/dat.html:75
+#: survey_tasks/templates/survey_tasks/dat.html:76
+#: survey_tasks/templates/survey_tasks/dat.html:77
+msgid "noun"
+msgstr "noun"
+
+#: survey_tasks/templates/survey_tasks/dat.html:80
+#: topics_recommender/templates/topics_recommender/login.html:34
+#: topics_recommender/templates/topics_recommender/search.html:57
+msgid "Submit"
+msgstr "Submit"
+
+#: survey_tasks/templates/survey_tasks/dat.html:98
+#: topics_recommender/templates/base.html:70
+#: topics_recommender/templates/topics_recommender/login.html:53
+msgid "Yamamoto Lab, Kanazawa Institute of Technology"
+msgstr "Yamamoto Lab, Kanazawa Institute of Technology"
 
 #: topics_recommender/forms.py:9 topics_recommender/forms.py:10
 msgid "name"
@@ -45,35 +151,30 @@ msgstr "Topics Recommender"
 msgid "GitHub Topics"
 msgstr "GitHub Topics"
 
-#: topics_recommender/templates/base.html:44
+#: topics_recommender/templates/base.html:28
 msgid "Logout"
 msgstr "Logout"
 
-#: topics_recommender/templates/base.html:49
+#: topics_recommender/templates/base.html:32
 msgid "New Search"
 msgstr "New Search"
 
-#: topics_recommender/templates/base.html:61
+#: topics_recommender/templates/base.html:44
 msgid "Let's get started"
 msgstr "Let's get started"
 
-#: topics_recommender/templates/base.html:61
+#: topics_recommender/templates/base.html:44
 msgid "Login"
 msgstr "Login"
 
-#: topics_recommender/templates/base.html:83
+#: topics_recommender/templates/base.html:64
 msgid "Request received"
 msgstr "Request received"
 
-#: topics_recommender/templates/base.html:86
+#: topics_recommender/templates/base.html:67
 #, python-format
 msgid "Response rendered in %(total_time)s seconds."
 msgstr "Response rendered in %(total_time)s seconds."
-
-#: topics_recommender/templates/base.html:89
-#: topics_recommender/templates/topics_recommender/login.html:40
-msgid "Yamamoto Lab, Kanazawa Institute of Technology"
-msgstr "Yamamoto Lab, Kanazawa Institute of Technology"
 
 #: topics_recommender/templates/topics_recommender/index.html:9
 msgid "All Topics"
@@ -96,11 +197,6 @@ msgstr "No topics yet!"
 #: topics_recommender/templates/topics_recommender/login.html:25
 msgid "Start Session"
 msgstr "Start Session"
-
-#: topics_recommender/templates/topics_recommender/login.html:34
-#: topics_recommender/templates/topics_recommender/search.html:57
-msgid "Submit"
-msgstr "Submit"
 
 #: topics_recommender/templates/topics_recommender/search.html:10
 msgid "Topics Search"
@@ -138,10 +234,6 @@ msgid ""
 msgstr ""
 "\n"
 "KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on GitHub. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool will allow you to browse the available topics for projects on GitHub and choose one for your theme as if you were a participant in KIT's new course. Topics on GitHub are special tags that show a project's purpose, subject area, community, or language. They are GitHub's solution to classifying repositories and making it easier for people to find projects that interest them."
-
-#: topics_recommender/templates/topics_recommender/start.html:16
-msgid "Instructions"
-msgstr "Instructions"
 
 #: topics_recommender/templates/topics_recommender/start.html:18
 msgid ""

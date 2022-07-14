@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'topics_recommender',
     'ml_api',
+    'survey_tasks',
     'rosetta',
     'parler',
 ]
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'Topics_RS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
