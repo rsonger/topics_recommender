@@ -1,0 +1,215 @@
+<!doctype html>
+{% load i18n %}
+{% get_current_language as LANG_CODE %}
+<html lang="{{ LANG_CODE }}">
+
+{% load static %}
+{% url 'login' as login %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Simple.css-->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css?version=2.1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% translate "Grouping Task" %}</title>
+
+    <style>
+        table, tbody, tr, th {
+            width: 100%;
+        }
+        .drop-target {
+            max-width: 100%;
+            height: 4.5rem;
+            padding: 0.3rem;
+            border: 1px solid #aaaaaa;
+            background-color: #93ff9f;
+        }
+        .draggable {
+            display:inline-block;
+            padding: 0 0.5rem;
+            margin: 0;
+            width: 2.5rem;
+            text-align: center;
+            border: 1px solid #aaaaaa;
+            border-radius: 0;
+            background-color: #ffffff;
+            cursor: grab;
+            cursor: move;
+            cursor: -moz-grab;
+            cursor: -webkit-grab;
+        }
+        .draggable:active {
+            cursor: grabbing;
+            cursor: -moz-grabbing;
+            cursor: -webkit-grabbing;
+        }
+        li {
+            padding-bottom: 0.5rem;
+        }
+    </style>
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+        function drop(event) {
+            event.preventDefault();
+            
+            // visually place the draggable into the drop target
+            let n = document.querySelector(`#${event.dataTransfer.getData("text")}`);
+            event.target.closest('div').appendChild(n);
+
+            // set input values to the text content of their respective divs
+            document.querySelectorAll(".drop-target").forEach(element => {
+                let input = document.querySelector(`input[name="${element.id}"`);
+                input.value = element.innerText
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>{% translate "Grouping Task" %}</h1>
+    </header>
+
+    <main>
+        <h3>{% translate "Instructions" %}</h3>
+        <p>
+            {% blocktranslate %}
+            Below is a list of ideas about television that came from brainstorming. Your task is to group similar ideas together. Look for ideas that appear to have a common trait or belong in the same category, then <strong>drag and drop</strong> their numbers into one of the green boxes on the right. Write a title in the text field above each green box to describe the category that the ideas in that box represent. You should group the ideas into 3 - 5 categories.
+            {% endblocktranslate %}
+        </p>
+        <form action="{% url 'ctt' %}" method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>
+                        <h4>{% translate "Ideas" %}</h4>
+                    </th>
+                    <th>
+                        <h4>{% translate "Categories" %}</h4>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <ol>
+                            <li>
+                                <span id="n1" class="draggable" draggable="true" ondragstart="drag(event)">1.</span>&nbsp;
+                                {% translate "Almost everyone has a TV" %}
+                            </li>
+                            <li>
+                                <span id="n2" class="draggable" draggable="true" ondragstart="drag(event)">2.</span>&nbsp;
+                                {% translate "Cartoons for children" %}
+                            </li>
+                            <li>
+                                <span id="n3" class="draggable" draggable="true" ondragstart="drag(event)">3.</span>&nbsp;
+                                {% translate "Storytelling" %}
+                            </li>
+                            <li>
+                                <span id="n4" class="draggable" draggable="true" ondragstart="drag(event)">4.</span>&nbsp;
+                                {% translate "News" %}
+                            </li>
+                            <li>
+                                <span id="n5" class="draggable" draggable="true" ondragstart="drag(event)">5.</span>&nbsp;
+                                {% translate "Violent content" %}
+                            </li>
+                            <li>
+                                <span id="n6" class="draggable" draggable="true" ondragstart="drag(event)">6.</span>&nbsp;
+                                {% translate "Easy to believe what we see on TV" %}
+                            </li>
+                            <li>
+                                <span id="n7" class="draggable" draggable="true" ondragstart="drag(event)">7.</span>&nbsp;
+                                {% translate "Millions of people watch TV" %}
+                            </li>
+                            <li>
+                                <span id="n8" class="draggable" draggable="true" ondragstart="drag(event)">8.</span>&nbsp;
+                                {% translate "Waste of time" %}
+                            </li>
+                            <li>
+                                <span id="n9" class="draggable" draggable="true" ondragstart="drag(event)">9.</span>&nbsp;
+                                {% translate "Baseball" %}
+                            </li>
+                            <li>
+                                <span id="n10" class="draggable" draggable="true" ondragstart="drag(event)">10.</span>&nbsp;
+                                {% translate "Advertising" %}
+                            </li>
+                            <li>
+                                <span id="n11" class="draggable" draggable="true" ondragstart="drag(event)">11.</span>&nbsp;
+                                {% translate "Educational" %}
+                            </li>
+                            <li>
+                                <span id="n12" class="draggable" draggable="true" ondragstart="drag(event)">12.</span>&nbsp;
+                                {% translate "Soccer" %}
+                            </li>
+                            <li>
+                                <span id="n13" class="draggable" draggable="true" ondragstart="drag(event)">13.</span>&nbsp;
+                                {% translate "Most families have more than one TV" %}
+                            </li>
+                            <li>
+                                <span id="n14" class="draggable" draggable="true" ondragstart="drag(event)">14.</span>&nbsp;
+                                {% translate "Dramas" %}
+                            </li>
+                            <li>
+                                <span id="n15" class="draggable" draggable="true" ondragstart="drag(event)">15.</span>&nbsp;
+                                {% translate "Makes me lazy" %}
+                            </li>
+                            <li>
+                                <span id="n16" class="draggable" draggable="true" ondragstart="drag(event)">16.</span>&nbsp;
+                                {% translate "Average 3 hours a day watching TV" %}
+                            </li>
+                            <li>
+                                <span id="n17" class="draggable" draggable="true" ondragstart="drag(event)">17.</span>&nbsp;
+                                {% translate "Golf" %}
+                            </li>
+                            <li>
+                                <span id="n18" class="draggable" draggable="true" ondragstart="drag(event)">18.</span>&nbsp;
+                                {% translate "Insults viewers' intelligence" %}
+                            </li>
+                        </ol>
+                    </td>
+                    <td>
+                        <div><label for="title1">{% translate "Title" %}:&nbsp;</label><input name="title1" type="text"></div>
+                        <div id="cat1" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <input name="cat1" type="hidden">
+                        <div><label for="title2">{% translate "Title" %}:&nbsp;</label><input name="title2" type="text"></div>
+                        <div id="cat2" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <input name="cat2" type="hidden">
+                        <div><label for="title3">{% translate "Title" %}:&nbsp;</label><input name="title3" type="text"></div>
+                        <div id="cat3" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <input name="cat3" type="hidden">
+                        <div><label for="title4">{% translate "Title" %}:&nbsp;</label><input name="title4" type="text"></div>
+                        <div id="cat4" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <input name="cat4" type="hidden">
+                        <div><label for="title5">{% translate "Title" %}:&nbsp;</label><input name="title5" type="text"></div>
+                        <div id="cat5" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <input name="cat5" type="hidden">
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">{% translate "Submit" %}</button>
+        </form>
+        
+    </main>
+
+<footer>
+    <!-- <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}">
+        <select name="language">
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+            {% endfor %}
+        </select><input type="submit" value="Go">
+    </form>             -->
+
+    <p>&copy; 2022 {% translate "Yamamoto Lab, Kanazawa Institute of Technology" %}</p>
+</footer>
+</body>
+</html>

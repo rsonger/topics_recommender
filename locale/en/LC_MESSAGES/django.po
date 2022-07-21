@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-14 13:13+0900\n"
-"PO-Revision-Date: 2022-07-14 13:14+0900\n"
+"POT-Creation-Date: 2022-07-21 15:05+0900\n"
+"PO-Revision-Date: 2022-07-19 19:12+0900\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -27,30 +27,161 @@ msgstr "English"
 msgid "Japanese"
 msgstr "Japanese"
 
-#: survey_tasks/templates/survey_tasks/dat.html:16
-#: survey_tasks/templates/survey_tasks/dat.html:21
-msgid "Creativity Task"
-msgstr "Creativity Task"
+#: survey_tasks/templates/survey_tasks/ctt.html:16
+#: survey_tasks/templates/survey_tasks/ctt.html:77
+msgid "Grouping Task"
+msgstr "Grouping Task"
 
-#: survey_tasks/templates/survey_tasks/dat.html:25
+#: survey_tasks/templates/survey_tasks/ctt.html:81
+#: survey_tasks/templates/survey_tasks/dat.html:23
 #: topics_recommender/templates/topics_recommender/start.html:16
 msgid "Instructions"
 msgstr "Instructions"
 
-#: survey_tasks/templates/survey_tasks/dat.html:27
+#: survey_tasks/templates/survey_tasks/ctt.html:83
 msgid ""
 "\n"
-"            Please write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words.\n"
+"            Below is a list of ideas about television that came from "
+"brainstorming. Your task is to group similar ideas together. Look for ideas "
+"that appear to have a common trait or belong in the same category, then "
+"<strong>drag and drop</strong> their numbers into one of the green boxes on "
+"the right. Write a title in the text field above each green box to describe "
+"the category that the ideas in that box represent. You should group the "
+"ideas into 3 - 5 categories.\n"
 "            "
 msgstr ""
 "\n"
-"Please write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words."
+"Below is a list of ideas about television that came from brainstorming. Your "
+"task is to group similar ideas together. Look for ideas that appear to have "
+"a common trait or belong in the same category, then <strong>drag and drop</"
+"strong> their numbers into one of the green boxes on the right. Write a "
+"title in the text field above each green box to describe the category that "
+"the ideas in that box represent. You should group the ideas into 3 - 5 "
+"categories."
 
-#: survey_tasks/templates/survey_tasks/dat.html:31
+#: survey_tasks/templates/survey_tasks/ctt.html:92
+msgid "Ideas"
+msgstr "Ideas"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:95
+msgid "Categories"
+msgstr "Categories"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:103
+msgid "Almost everyone has a TV"
+msgstr "Almost everyone has a TV"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:107
+msgid "Cartoons for children"
+msgstr "Cartoons for children"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:111
+msgid "Storytelling"
+msgstr "Storytelling"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:115
+msgid "News"
+msgstr "News"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:119
+msgid "Violent content"
+msgstr "Violent content"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:123
+msgid "Easy to believe what we see on TV"
+msgstr "Easy to believe what we see on TV"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:127
+msgid "Millions of people watch TV"
+msgstr "Millions of people watch TV"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:131
+msgid "Waste of time"
+msgstr "Waste of time"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:135
+msgid "Baseball"
+msgstr "Baseball"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:139
+msgid "Advertising"
+msgstr "Advertising"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:143
+msgid "Educational"
+msgstr "Educational"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:147
+msgid "Soccer"
+msgstr "Soccer"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:151
+msgid "Most families have more than one TV"
+msgstr "Most families have more than one TV"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:155
+msgid "Dramas"
+msgstr "Dramas"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:159
+msgid "Makes me lazy"
+msgstr "Makes me lazy"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:163
+msgid "Average 3 hours a day watching TV"
+msgstr "Average 3 hours a day watching TV"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:167
+msgid "Golf"
+msgstr "Golf"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:171
+msgid "Insults viewers' intelligence"
+msgstr "Insults viewers' intelligence"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:176
+#: survey_tasks/templates/survey_tasks/ctt.html:179
+#: survey_tasks/templates/survey_tasks/ctt.html:182
+#: survey_tasks/templates/survey_tasks/ctt.html:185
+#: survey_tasks/templates/survey_tasks/ctt.html:188
+msgid "Title"
+msgstr "Title"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:194
+#: survey_tasks/templates/survey_tasks/dat.html:78
+#: topics_recommender/templates/topics_recommender/login.html:35
+#: topics_recommender/templates/topics_recommender/search.html:57
+msgid "Submit"
+msgstr "Submit"
+
+#: survey_tasks/templates/survey_tasks/ctt.html:212
+#: survey_tasks/templates/survey_tasks/dat.html:96
+#: topics_recommender/templates/base.html:71
+#: topics_recommender/templates/topics_recommender/login.html:54
+msgid "Yamamoto Lab, Kanazawa Institute of Technology"
+msgstr "Yamamoto Lab, Kanazawa Institute of Technology"
+
+#: survey_tasks/templates/survey_tasks/dat.html:14
+#: survey_tasks/templates/survey_tasks/dat.html:19
+msgid "Creativity Task"
+msgstr "Creativity Task"
+
+#: survey_tasks/templates/survey_tasks/dat.html:25
+msgid ""
+"\n"
+"            Please write 10 words that are as <strong>different</strong> "
+"from each other as possible, in all meanings and uses of the words.\n"
+"            "
+msgstr ""
+"\n"
+"Please write 10 words that are as <strong>different</strong> from each other "
+"as possible, in all meanings and uses of the words."
+
+#: survey_tasks/templates/survey_tasks/dat.html:29
 msgid "Rules"
 msgstr "Rules"
 
-#: survey_tasks/templates/survey_tasks/dat.html:34
+#: survey_tasks/templates/survey_tasks/dat.html:32
 msgid ""
 "\n"
 "                Only <strong>single words</strong>.\n"
@@ -59,55 +190,63 @@ msgstr ""
 "\n"
 "Only <strong>single words</strong>."
 
-#: survey_tasks/templates/survey_tasks/dat.html:39
+#: survey_tasks/templates/survey_tasks/dat.html:37
 msgid ""
 "\n"
-"                Only <strong>nouns</strong> (e.g., things, objects, concepts).\n"
+"                Only <strong>nouns</strong> (e.g., things, objects, "
+"concepts).\n"
 "                "
 msgstr ""
 "\n"
 "Only <strong>nouns</strong> (e.g., things, objects, concepts)."
 
-#: survey_tasks/templates/survey_tasks/dat.html:44
+#: survey_tasks/templates/survey_tasks/dat.html:42
 msgid ""
 "\n"
-"                <strong>No proper nouns</strong> (e.g., no names of people or places).\n"
+"                <strong>No proper nouns</strong> (e.g., no names of people "
+"or places).\n"
 "                "
 msgstr ""
 "\n"
 "<strong>No proper nouns</strong> (e.g., no names of people or places)."
 
-#: survey_tasks/templates/survey_tasks/dat.html:49
+#: survey_tasks/templates/survey_tasks/dat.html:47
 msgid ""
 "\n"
-"                <strong>No specialized vocabulary</strong> (e.g., no technical terms).\n"
+"                <strong>No specialized vocabulary</strong> (e.g., no "
+"technical terms).\n"
 "                "
 msgstr ""
 "\n"
 "<strong>No specialized vocabulary</strong> (e.g., no technical terms)."
 
-#: survey_tasks/templates/survey_tasks/dat.html:54
+#: survey_tasks/templates/survey_tasks/dat.html:52
 msgid ""
 "\n"
-"                Think of the words <strong>on your own</strong> (e.g., don't just look at objects around you).\n"
+"                Think of the words <strong>on your own</strong> (e.g., don't "
+"just look at objects around you).\n"
 "                "
 msgstr ""
 "\n"
-"Think of the words <strong>on your own</strong> (e.g., don't just look at objects around you)."
+"Think of the words <strong>on your own</strong> (e.g., don't just look at "
+"objects around you)."
 
-#: survey_tasks/templates/survey_tasks/dat.html:59
+#: survey_tasks/templates/survey_tasks/dat.html:57
 msgid ""
 "\n"
-"                Try to complete this task <strong>as quickly as possible</strong>.\n"
+"                Try to complete this task <strong>as quickly as possible</"
+"strong>.\n"
 "                "
 msgstr ""
 "\n"
 "Try to complete this task <strong>as quickly as possible</strong>."
 
-#: survey_tasks/templates/survey_tasks/dat.html:64
+#: survey_tasks/templates/survey_tasks/dat.html:62
 msgid "Words"
 msgstr "Words"
 
+#: survey_tasks/templates/survey_tasks/dat.html:66
+#: survey_tasks/templates/survey_tasks/dat.html:67
 #: survey_tasks/templates/survey_tasks/dat.html:68
 #: survey_tasks/templates/survey_tasks/dat.html:69
 #: survey_tasks/templates/survey_tasks/dat.html:70
@@ -116,22 +255,8 @@ msgstr "Words"
 #: survey_tasks/templates/survey_tasks/dat.html:73
 #: survey_tasks/templates/survey_tasks/dat.html:74
 #: survey_tasks/templates/survey_tasks/dat.html:75
-#: survey_tasks/templates/survey_tasks/dat.html:76
-#: survey_tasks/templates/survey_tasks/dat.html:77
 msgid "noun"
 msgstr "noun"
-
-#: survey_tasks/templates/survey_tasks/dat.html:80
-#: topics_recommender/templates/topics_recommender/login.html:34
-#: topics_recommender/templates/topics_recommender/search.html:57
-msgid "Submit"
-msgstr "Submit"
-
-#: survey_tasks/templates/survey_tasks/dat.html:98
-#: topics_recommender/templates/base.html:70
-#: topics_recommender/templates/topics_recommender/login.html:53
-msgid "Yamamoto Lab, Kanazawa Institute of Technology"
-msgstr "Yamamoto Lab, Kanazawa Institute of Technology"
 
 #: topics_recommender/forms.py:9 topics_recommender/forms.py:10
 msgid "name"
@@ -141,37 +266,37 @@ msgstr "name"
 msgid "Please enter a nickname:"
 msgstr "Please enter a nickname:"
 
-#: topics_recommender/templates/base.html:19
-#: topics_recommender/templates/topics_recommender/login.html:16
+#: topics_recommender/templates/base.html:20
+#: topics_recommender/templates/topics_recommender/login.html:17
 msgid "Topics Recommender"
 msgstr "Topics Recommender"
 
-#: topics_recommender/templates/base.html:24
-#: topics_recommender/templates/topics_recommender/login.html:21
+#: topics_recommender/templates/base.html:25
+#: topics_recommender/templates/topics_recommender/login.html:22
 msgid "GitHub Topics"
 msgstr "GitHub Topics"
 
-#: topics_recommender/templates/base.html:28
+#: topics_recommender/templates/base.html:29
 msgid "Logout"
 msgstr "Logout"
 
-#: topics_recommender/templates/base.html:32
+#: topics_recommender/templates/base.html:33
 msgid "New Search"
 msgstr "New Search"
 
-#: topics_recommender/templates/base.html:44
+#: topics_recommender/templates/base.html:45
 msgid "Let's get started"
 msgstr "Let's get started"
 
-#: topics_recommender/templates/base.html:44
+#: topics_recommender/templates/base.html:45
 msgid "Login"
 msgstr "Login"
 
-#: topics_recommender/templates/base.html:64
+#: topics_recommender/templates/base.html:65
 msgid "Request received"
 msgstr "Request received"
 
-#: topics_recommender/templates/base.html:67
+#: topics_recommender/templates/base.html:68
 #, python-format
 msgid "Response rendered in %(total_time)s seconds."
 msgstr "Response rendered in %(total_time)s seconds."
@@ -194,7 +319,7 @@ msgstr "Repositories on"
 msgid "No topics yet!"
 msgstr "No topics yet!"
 
-#: topics_recommender/templates/topics_recommender/login.html:25
+#: topics_recommender/templates/topics_recommender/login.html:26
 msgid "Start Session"
 msgstr "Start Session"
 
@@ -229,45 +354,89 @@ msgstr "Background"
 #: topics_recommender/templates/topics_recommender/start.html:12
 msgid ""
 "\n"
-"        KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on GitHub. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool will allow you to browse the available topics for projects on GitHub and choose one for your theme as if you were a participant in KIT's new course. Topics on GitHub are special tags that show a project's purpose, subject area, community, or language. They are GitHub's solution to classifying repositories and making it easier for people to find projects that interest them.\n"
+"        KIT is planning a new course for the Information and Computer "
+"Engineering curriculum about open-source software (OSS). In the course, "
+"students will learn about OSS and contribute to real OSS projects on GitHub. "
+"Since OSS contributions are essentially a kind of voluntary work, the school "
+"would like to collect a list of topics that students would be willing to "
+"work on. This tool will allow you to browse the available topics for "
+"projects on GitHub and choose one for your theme as if you were a "
+"participant in KIT's new course. Topics on GitHub are special tags that show "
+"a project's purpose, subject area, community, or language. They are GitHub's "
+"solution to classifying repositories and making it easier for people to find "
+"projects that interest them.\n"
 "        "
 msgstr ""
 "\n"
-"KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on GitHub. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool will allow you to browse the available topics for projects on GitHub and choose one for your theme as if you were a participant in KIT's new course. Topics on GitHub are special tags that show a project's purpose, subject area, community, or language. They are GitHub's solution to classifying repositories and making it easier for people to find projects that interest them."
+"KIT is planning a new course for the Information and Computer Engineering "
+"curriculum about open-source software (OSS). In the course, students will "
+"learn about OSS and contribute to real OSS projects on GitHub. Since OSS "
+"contributions are essentially a kind of voluntary work, the school would "
+"like to collect a list of topics that students would be willing to work on. "
+"This tool will allow you to browse the available topics for projects on "
+"GitHub and choose one for your theme as if you were a participant in KIT's "
+"new course. Topics on GitHub are special tags that show a project's purpose, "
+"subject area, community, or language. They are GitHub's solution to "
+"classifying repositories and making it easier for people to find projects "
+"that interest them."
 
 #: topics_recommender/templates/topics_recommender/start.html:18
 msgid ""
 "\n"
-"        The <strong>Search</strong> page will show a text input for you to type the name of a topic. An autocomplete menu will show you the list of matching topics as you type. If the topic does not exist, it will not appear in the autocomplete box. In that case, please check your spelling or try a different topic. Click the <strong>Submit</strong> button to see details about a topic and a list of other recommended topics.\n"
+"        The <strong>Search</strong> page will show a text input for you to "
+"type the name of a topic. An autocomplete menu will show you the list of "
+"matching topics as you type. If the topic does not exist, it will not appear "
+"in the autocomplete box. In that case, please check your spelling or try a "
+"different topic. Click the <strong>Submit</strong> button to see details "
+"about a topic and a list of other recommended topics.\n"
 "        "
 msgstr ""
 "\n"
-"The <strong>Search</strong> page will show a text input for you to type the name of a topic. An autocomplete menu will show you the list of matching topics as you type. If the topic does not exist, it will not appear in the autocomplete box. In that case, please check your spelling or try a different topic. Click the <strong>Submit</strong> button to see details about a topic and a list of other recommended topics."
+"The <strong>Search</strong> page will show a text input for you to type the "
+"name of a topic. An autocomplete menu will show you the list of matching "
+"topics as you type. If the topic does not exist, it will not appear in the "
+"autocomplete box. In that case, please check your spelling or try a "
+"different topic. Click the <strong>Submit</strong> button to see details "
+"about a topic and a list of other recommended topics."
 
 #: topics_recommender/templates/topics_recommender/start.html:23
 msgid ""
 "\n"
-"        The search results will show a list of topic names and their descriptions. When the page first loads, the descriptions are hidden for all topics except the searched topic. Click on the name of a topic to show or hide its description. Below the description of each topic is a <strong>Search this topic</strong> link. Click that link to search for the specified topic.\n"
+"        The search results will show a list of topic names and their "
+"descriptions. When the page first loads, the descriptions are hidden for all "
+"topics except the searched topic. Click on the name of a topic to show or "
+"hide its description. Below the description of each topic is a "
+"<strong>Search this topic</strong> link. Click that link to search for the "
+"specified topic.\n"
 "        "
 msgstr ""
 "\n"
-"The search results will show a list of topic names and their descriptions. When the page first loads, the descriptions are hidden for all topics except the searched topic. Click on the name of a topic to show or hide its description. Below the description of each topic is a <strong>Search this topic</strong> link. Click that link to search for the specified topic."
+"The search results will show a list of topic names and their descriptions. "
+"When the page first loads, the descriptions are hidden for all topics except "
+"the searched topic. Click on the name of a topic to show or hide its "
+"description. Below the description of each topic is a <strong>Search this "
+"topic</strong> link. Click that link to search for the specified topic."
 
 #: topics_recommender/templates/topics_recommender/start.html:28
 msgid ""
 "\n"
-"        If you want to explore another topic that does not appear in the search results, click the <strong>New Search</strong> button at the top of the page.\n"
+"        If you want to explore another topic that does not appear in the "
+"search results, click the <strong>New Search</strong> button at the top of "
+"the page.\n"
 "        "
 msgstr ""
 "\n"
-"If you want to explore another topic that does not appear in the search results, click the <strong>New Search</strong> button at the top of the page."
+"If you want to explore another topic that does not appear in the search "
+"results, click the <strong>New Search</strong> button at the top of the page."
 
 #: topics_recommender/templates/topics_recommender/start.html:33
 #, python-format
 msgid ""
 "\n"
-"        Please click <a href=\"%(search)s\"><strong>here</strong></a> when you are ready to begin.\n"
+"        Please click <a href=\"%(search)s\"><strong>here</strong></a> when "
+"you are ready to begin.\n"
 "        "
 msgstr ""
 "\n"
-"Please click <a href=\"%(search)s\"><strong>here</strong></a> when you are ready to begin."
+"Please click <a href=\"%(search)s\"><strong>here</strong></a> when you are "
+"ready to begin."
