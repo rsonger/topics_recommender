@@ -1,9 +1,13 @@
+from uuid import UUID
+
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.utils.translation import get_language
 
 from survey_tasks.models import DATResponse, DATWord
 from survey_tasks.models import CTTCategory, CTTIdea, CTTResponse
+
+from topics_recommender.models import UserSession
 
 class DATView(CreateView):
 
@@ -15,13 +19,16 @@ class DATView(CreateView):
         return render(request, 'survey_tasks/dat.html')
 
     def post(self, request, *args, **kwargs):
-        if not request.session.get("id", False):
+        # get the active user session
+        user_session_id = self.request.session.get("id")
+        if not user_session_id:
             return redirect('login')
+        user_session = UserSession.objects.get(id=UUID(user_session_id))
 
         params = {k:v for k,v in request.POST.items() if k[0] == 'w'}
         lang = get_language()
 
-        response = DATResponse()
+        response = DATResponse(user_session=user_session)
         response.save()
         for w in params.values():
             word = DATWord(value=w, language_code=lang, response=response)
@@ -40,9 +47,11 @@ class CTTView(CreateView):
         return render(request, 'survey_tasks/ctt.html')
 
     def post(self, request, *args, **kwargs):
-        if not request.session.get("id", False):
+        # get the active user session
+        user_session_id = self.request.session.get("id")
+        if not user_session_id:
             return redirect('login')
-        # print(request.POST)
+        user_session = UserSession.objects.get(id=UUID(user_session_id))
 
         params = {
             k:v for k,v in request.POST.items() 
@@ -50,7 +59,7 @@ class CTTView(CreateView):
         }
         lang = get_language()
         
-        response = CTTResponse()
+        response = CTTResponse(user_session=user_session)
         response.save()
         # check each of the 5 category titles and grouping
         for i in range(1,6):

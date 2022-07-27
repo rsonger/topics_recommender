@@ -3,8 +3,14 @@ from django.utils import timezone
 
 from parler.models import TranslatableModel, TranslatedFields
 
+from topics_recommender.models import UserSession
+
 class DATResponse(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True, blank=False)
+    user_session = models.ForeignKey(
+        UserSession,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return f"Submitted at {timezone.localtime(self.submitted_at)}"
@@ -29,6 +35,10 @@ class DATWord(models.Model):
 
 class CTTResponse(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True, blank=False)
+    user_session = models.ForeignKey(
+        UserSession,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return f"Submitted at {timezone.localtime(self.submitted_at)}"
