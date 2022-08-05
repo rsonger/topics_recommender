@@ -22,12 +22,12 @@
 
 <body>
     <header>
-        <h1>{% translate "GitHub Topics" %}</h1>
+        <h1>{% translate "Recommendation Task" %}</h1>    
 
 {% if request.session.id %}
-        <p>
+        <!-- <p>
             <a href="{{ logout }}">{% translate "Logout" %}</a>
-        </p>
+        </p> -->
 
         <nav>
             <a href="{{ search }}"{% if request.path == search %} class="current"{% endif %}>{% translate "New Search" %}</a>
@@ -48,7 +48,7 @@
 
     <footer>
 
-        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <!-- <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
             <input name="next" type="hidden" value="{{ redirect_to }}">
             <select name="language">
                 {% get_language_info_list for LANGUAGES as languages %}
@@ -58,8 +58,8 @@
                     </option>
                 {% endfor %}
             </select>
-            <input type="submit" value="Go">
-        </form>            
+            <input type="submit" value="{% translate 'Change language' %}">
+        </form>             -->
 
 {% if timestamp %}
         <p>{% translate "Request received" %}: {{ timestamp }}</p>

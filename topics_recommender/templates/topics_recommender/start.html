@@ -5,15 +5,32 @@
 {% block content %}
 
 <main>
-    <h2>{% translate "Recommendation Task" %}</h2>
-    
     <h3>{% translate "Background" %}</h3>
     <p>
         {% blocktranslate %}
-        KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on GitHub. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool will allow you to browse the available topics for projects on GitHub and choose one for your theme as if you were a participant in KIT's new course. Topics on GitHub are special tags that show a project's purpose, subject area, community, or language. They are GitHub's solution to classifying repositories and making it easier for people to find projects that interest them.
+        KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on the Internet. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool allows you to browse the available project topics and choose one for your theme as if you were a participant in KIT's new course. Each topics is like a special tags that shows a project's purpose, subject area, community, or programming language. They are used to classify source code repositories and make it easier for people to find projects that interest them.
         {% endblocktranslate %}
     </p>
     <h3>{% translate "Instructions" %}</h3>
+    <p>
+        {% blocktranslate %}
+        For this task, please do the following:
+        {% endblocktranslate %}
+    </p>
+    <ol>
+        <li>
+            {% translate "Use the <strong>Search</strong> page to explore topics that might interest you." %}
+        </li>
+        <li>
+            {% translate "Look at the recommended topics and read their descriptions." %}
+        </li>
+        <li>
+            {% translate "If one of the recommended topics sounds interesting, click <strong>Search this topic</strong>." %}
+        </li>
+        <li>
+            {% translate "When you find a topic you would choose, click <strong>Choose this topic</strong> to finish searching." %}
+        </li>
+    </ol>
     <p>
         {% blocktranslate %}
         The <strong>Search</strong> page will show a text input for you to type the name of a topic. An autocomplete menu will show you the list of matching topics as you type. If the topic does not exist, it will not appear in the autocomplete box. In that case, please check your spelling or try a different topic. Click the <strong>Submit</strong> button to see details about a topic and a list of other recommended topics.
@@ -29,11 +46,14 @@
         If you want to explore another topic that does not appear in the search results, click the <strong>New Search</strong> button at the top of the page.
         {% endblocktranslate %}
     </p>
-    <p>
+    <!-- <p>
         {% blocktranslate %}
         Please click <a href="{{ search }}"><strong>here</strong></a> when you are ready to begin.
         {% endblocktranslate %}
-    </p>
+    </p> -->
+    <button onclick="window.location.href='/search/'">
+        {% translate 'Begin' %}
+    </button>
 
 </main>
 

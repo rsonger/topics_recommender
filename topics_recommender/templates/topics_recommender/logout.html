@@ -19,17 +19,17 @@
 
 <body>
     <header>
-        <h1>{% translate "Recommendation Task" %}</h1>
+        <h1>{% translate "Session Ended" %}</h1>
     </header>
 
     <main>
-        <h3>{% translate "Start Session" %}</h3>
-        <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit">{% translate "Submit" %}</button>
-        </form>
-        
+        <h3>{% translate "Thank you!" %}</h3>
+
+        <p>
+            <a href="{{ login }}">
+                {% translate "Back to start" %}
+            </a>
+        </p>
     </main>
 
 <footer>

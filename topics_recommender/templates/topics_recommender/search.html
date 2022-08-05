@@ -14,12 +14,15 @@
     {% for topic in topics_ranking %}
     {% if forloop.counter0 == 0 %}
     <h4>{{ topic.display_name }}
-        {% if topic.featured %}
+        <!-- {% if topic.featured %}
         <span title={% translate "This topic is featured on GitHub.com" %}>&#11088;</span>
-        {% endif %}
+        {% endif %} -->
     </h4>
     <p>
         {{ topic.description }}
+    </p>
+    <p>
+        <a href="/{{ LANGUAGE_CODE }}/dat/">&#8594; {% translate "Choose this topic" %}</a>
     </p>
     <!-- <p>
         Projects on <a href="https://github.com/topics/{{ topic.name }}" 
@@ -29,9 +32,9 @@
     {% else %}
     <details>
         <summary>{{ topic.display_name }}
-            {% if topic.featured %}
+            <!-- {% if topic.featured %}
             <span title={% translate "This topic is featured on GitHub.com" %}>&#11088;</span>
-            {% endif %}
+            {% endif %} -->
         </summary>
         <!-- <p>Browse this topic</a></p> -->
         <p>{{ topic.description }}</p>

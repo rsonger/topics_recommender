@@ -43,7 +43,7 @@ class LoginView(CreateView):
         return render(request, 'topics_recommender/login.html', context)
 
 class LogoutView(RedirectView):
-    pattern_name = "index"
+    pattern_name = "end"
 
     def get_redirect_url(self, *args, **kwargs):
         session_id = self.request.session.get("id", False)

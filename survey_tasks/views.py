@@ -3,6 +3,7 @@ from uuid import UUID
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.utils.translation import get_language
+from django.utils import timezone
 
 from survey_tasks.models import DATResponse, DATWord
 from survey_tasks.models import CTTCategory, CTTIdea, CTTResponse
@@ -28,13 +29,24 @@ class DATView(CreateView):
         params = {k:v for k,v in request.POST.items() if k[0] == 'w'}
         lang = get_language()
 
-        response = DATResponse(user_session=user_session)
-        response.save()
+        # create or update a DB object for this response
+        response, created = DATResponse.objects.get_or_create(
+            user_session=user_session,
+        )
+        if not created:
+            response.submitted_at = timezone.now()
+            response.save()
+        for dw in DATWord.objects.filter(response=response):
+            if dw.value not in params.values():
+                dw.delete()
         for w in params.values():
-            word = DATWord(value=w, language_code=lang, response=response)
-            word.save()
+            DATWord.objects.get_or_create(
+                value=w, 
+                language_code=lang, 
+                response=response
+            )
 
-        return render(request, 'survey_tasks/dat.html')
+        return render(request, 'survey_tasks/ctt.html')
 
 
 class CTTView(CreateView):
@@ -59,9 +71,17 @@ class CTTView(CreateView):
         }
         lang = get_language()
         
-        response = CTTResponse(user_session=user_session)
-        response.save()
-        # check each of the 5 category titles and grouping
+        # create or update a DB object for this response
+        response, created = CTTResponse.objects.get_or_create(
+            user_session=user_session,
+        )
+        if not created:
+            response.submitted_at = timezone.now()
+            response.save()
+        for c in CTTCategory.objects.filter(response=response):
+            if c.title not in params.values():
+                c.delete()
+        # check each of the 5 category titles and grouping params
         for i in range(1,6):
             title, group = params[f"title{i}"], params[f"cat{i}"]
             if title or group:
@@ -78,4 +98,4 @@ class CTTView(CreateView):
                 ideas = [CTTIdea.objects.get(id=n) for n in idea_nums if n]
                 category.ideas.add(*ideas)
 
-        return render(request, 'survey_tasks/ctt.html')
+        return redirect('logout')
