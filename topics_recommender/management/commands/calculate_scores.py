@@ -9,7 +9,6 @@ from sklearn.metrics.pairwise import linear_kernel
 
 from sudachipy import dictionary
 
-import nltk
 from nltk.tokenize import wordpunct_tokenize 
 
 import pandas as pd
