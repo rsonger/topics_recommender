@@ -7,7 +7,10 @@ from django.utils import timezone
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
-from tinysegmenter import TinySegmenter
+from sudachipy import dictionary
+
+import nltk
+from nltk.tokenize import wordpunct_tokenize 
 
 import pandas as pd
 
@@ -34,15 +37,28 @@ class Command(BaseCommand):
         start_time = timezone.now()
 
         df_topics = pd.read_csv(p)
-        df = df_topics[['description']]
+        descriptions = pd.Series(df_topics.description)
 
         if lang == 'en':
-            tokenizer = None
+            descriptions = descriptions.str.lower()
+            tokenizer = wordpunct_tokenize
+            stop_words = []
+            with open("data/stopwords_en.txt") as f:
+                stop_words = [w.strip() for w in f]
+
         if lang == 'ja':
-            tokenizer = TinySegmenter().tokenize
-        # TODO: Handle stop words for English and Japanese
-        tfidf = TfidfVectorizer(tokenizer=tokenizer)
-        tfidf_matrix = tfidf.fit_transform(df['description'])
+            tokenizer_ja = dictionary.Dictionary(dict_type="full").create()
+            def sudachi_tokenize(text):
+                morphs = tokenizer_ja.tokenize(text)
+                return [m.surface() for m in morphs]
+
+            tokenizer = sudachi_tokenize
+            stop_words = []
+            with open("data/stopwords_ja.txt") as f:
+                stop_words = [w.strip() for w in f]
+
+        tfidf = TfidfVectorizer(tokenizer=tokenizer, stop_words=stop_words)
+        tfidf_matrix = tfidf.fit_transform(descriptions)
         cosine_sim_scores = linear_kernel(tfidf_matrix, tfidf_matrix)
 
         end_time = timezone.now()
