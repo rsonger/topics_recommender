@@ -71,7 +71,7 @@ class MLAlgorithm(models.Model):
     '''
     name = models.CharField(max_length=128)
     description = models.TextField()
-    code = models.TextField()
+    code = models.TextField(blank=True, null=True)
     version = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     parent_endpoint = models.ForeignKey(

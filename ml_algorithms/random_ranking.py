@@ -4,7 +4,7 @@ from numpy import random
 from ml_algorithms.cosine_ranking import CosineSimilarityRecommender
 
 class RandomRecommender(CosineSimilarityRecommender):
-    """An algorithm for randomly ranking topics and their cosine similarity scores."""
+    """An algorithm for recommending topics with some similarity, but ranked randomly."""
 
     def __init__(self, algorithm_name) -> None:
         super().__init__(algorithm_name)
@@ -20,7 +20,9 @@ class RandomRecommender(CosineSimilarityRecommender):
         ranking = [
             (id, score)
             for id,score in enumerate(self.cosine_scores[lang_code][request_id])
-            if score > 0 and id != request_id 
+            # mean cosine score:    0.01435328
+            # STD of cosine scores: 0.02786012
+            if score > 0.0422 and id != request_id 
         ]
         random.shuffle(ranking)
         ranking.insert(0, search)

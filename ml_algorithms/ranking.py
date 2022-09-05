@@ -6,8 +6,8 @@ from Topics_RS.settings import LANGUAGES
 class Ranking():
     """A ranking recommender that returns a list of 10 topics recommended based on a given topic."""
 
-    ALGORITHM_TFIDF = "Term Frequency-Inverse Document Frequency"
-    ALGORITHM_RANDOM = "Random"
+    ALGORITHM_TFIDF = "TFIDF Cosine Ranking"
+    ALGORITHM_RANDOM = "Random Ranking"
 
     _algorithms = [ALGORITHM_TFIDF, ALGORITHM_RANDOM]
 
@@ -50,7 +50,7 @@ class Ranking():
                 "short_description": topic_obj.short_description,
                 "description": topic_obj.description,
             })
-            if topic_obj.featured:
+            if topic_obj.featured or id == top_ids[0][0]:
                 top_ranks["featured"].append({
                     "name": topic_obj.name,
                     "display_name": topic_obj.display_name,
@@ -61,8 +61,11 @@ class Ranking():
                 # the first item will always be the searched topic,
                 # so add rankings up to and including total_ranks index
                 if len(top_ranks["featured"]) == total_ranks + 1:
-                    top_ranks["all"] = top_ranks["all"][:total_ranks + 1]
                     break
+
+        # strip out the ranks beyond the requested number
+        if len(top_ranks["all"]) > total_ranks + 1:
+            top_ranks["all"] = top_ranks["all"][:total_ranks + 1]
 
         prediction["ranking"] = top_ranks
         return prediction
