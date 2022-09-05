@@ -35,7 +35,7 @@ class Command(BaseCommand):
 
         start_time = timezone.now()
 
-        df_topics = pd.read_csv(p)
+        df_topics = pd.read_csv(p, index_col=0)
         descriptions = pd.Series(df_topics.description)
 
         if lang == 'en':
