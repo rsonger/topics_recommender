@@ -8,8 +8,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Simple.css-->
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css?version=2.1.0">
+    <!--Simple.css
+    https://cdn.simplecss.org/simple.min.css?version=2.1.0 -->
+    <link rel="stylesheet" href="{% static 'css/simple.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{% translate "Creativity Task" %}</title>
 </head>
@@ -30,7 +31,7 @@
         <ul>
             <li>
                 {% blocktranslate %}
-                Only <strong>single words</strong>.
+                Only <strong>single words</strong> in English.
                 {% endblocktranslate %}
             </li>
             <li>

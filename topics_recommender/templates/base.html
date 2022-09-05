@@ -6,7 +6,7 @@
 {% load static %}
 
 {% url 'index' as home %}
-{% url 'search' as search %}
+<!-- {% url 'search' as search %} -->
 {% url 'login' as login %}
 {% url 'logout' as logout %}
 
@@ -14,8 +14,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Simple.css-->
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css?version=2.1.0">
+    <!--Simple.css
+    https://cdn.simplecss.org/simple.min.css?version=2.1.0 -->
+    <link rel="stylesheet" href="{% static 'css/simple.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{% translate "Topics Recommender" %}</title>
 </head>
@@ -29,9 +30,9 @@
             <a href="{{ logout }}">{% translate "Logout" %}</a>
         </p> -->
 
-        <nav>
+        <!-- <nav>
             <a href="{{ search }}"{% if request.path == search %} class="current"{% endif %}>{% translate "New Search" %}</a>
-        </nav>
+        </nav> -->
     </header>
 
     {% block content %}
