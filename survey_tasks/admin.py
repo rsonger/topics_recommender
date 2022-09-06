@@ -2,8 +2,20 @@ from django.contrib import admin
 
 from parler.admin import TranslatableAdmin
 
+from topics_recommender.models import Topic
+
+from survey_tasks.models import RecommenderResponse
 from survey_tasks.models import DATResponse, DATWord
 from survey_tasks.models import CTTCategory, CTTResponse, CTTIdea
+
+# Models for recommendation task responses
+# class TopicInline(admin.StackedInline):
+#     model = Topic
+
+# class RecommenderResponseInline(admin.ModelAdmin):
+#     inlines = [TopicInline]
+
+admin.site.register(RecommenderResponse) #, RecommenderResponseInline)
 
 # Models for creativity task responses
 class DATWordInline(admin.StackedInline):

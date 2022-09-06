@@ -3,10 +3,57 @@
 {% load static %}
 {% load i18n %}
 
+{% url 'search' as search %}
+
 {% block content %}
 <!-- <link rel="stylesheet" href="{% static 'js/script.js' %}"> -->
 
 <main>
+{% if request.GET.q %}
+<section>
+    <p>{% translate "After choosing three topics, please click the Submit button that appears below." %}</p>
+    <table>
+        <thead>
+            <tr><th>{% translate "Chosen topics" %}</th></tr>
+        </thead>
+        <tr>
+            <td>
+                <strong>{% translate "Topic 1" %}</strong>: {{ request.session.topic1 }}
+                {% if request.session.topic1 %}
+                <a href="{{ request.path }}?csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}&q={{ request.GET.q|urlencode }}&t1=">
+                    {% translate "[ Delete ]" %}
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>{% translate "Topic 2" %}</strong>: {{ request.session.topic2 }}
+                {% if request.session.topic2 %}
+                <a href="{{ request.path }}?csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}&q={{ request.GET.q|urlencode }}&t2=">
+                    {% translate "[ Delete ]" %}
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>{% translate "Topic 3" %}</strong>: {{ request.session.topic3 }}
+                {% if request.session.topic3 %}
+                <a href="{{ request.path }}?csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}&q={{ request.GET.q|urlencode }}&t3=">
+                    {% translate "[ Delete ]" %}
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    {% if request.session.topic1 and request.session.topic2 and request.session.topic3 %}
+    <a href="{% url 'submit' %}">
+        <button>{% translate "Submit" %}</button></a>
+    {% endif %}
+</section>
+{% endif %}
+<section>
     <h2>{% translate "Topics Search" %}</h2>
 
 {% if topics_ranking %}
@@ -22,8 +69,14 @@
         {{ topic.description }}
     </p>
     <p>
-        <a href="/{{ LANGUAGE_CODE }}/dat/">&#8594; {% translate "Choose this topic" %}</a>
+    {% if not request.session.topic1 or not request.session.topic2 or not request.session.topic3 %}
+        <a href="{{ request.path }}?csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}&q={{ request.GET.q|urlencode }}&c=add">
+            <button>{% translate "Choose this topic" %}</button></a>
+    {% endif %}
+        <a href="{{ search }}">
+            <button>{% translate "New search" %}</button></a>
     </p>
+
     <!-- <p>
         Projects on <a href="https://github.com/topics/{{ topic.name }}" 
         target="_blank">GitHub</a>
@@ -39,7 +92,7 @@
         <!-- <p>Browse this topic</a></p> -->
         <p>{{ topic.description }}</p>
         <p>
-            <a href="/{{ LANGUAGE_CODE }}/search?q={{ topic.display_name|urlencode }}&rid={{ request_id }}{% if request.GET.csrfmiddlewaretoken %}&csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}{% endif %}{% if request.GET.f %}&f=on{% endif %}&i={{ forloop.counter0 }}">
+            <a href="{{ search }}?q={{ topic.display_name|urlencode }}&rid={{ request_id }}{% if request.GET.csrfmiddlewaretoken %}&csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}{% endif %}{% if request.GET.f %}&f=on{% endif %}&i={{ forloop.counter0 }}">
                 &#8594; {% translate "Search this topic" %}
             </a>
         </p>
@@ -50,13 +103,13 @@
     {% else %}
     
     {% translate "Enter a keyword" %}:
-    <form autocomplete="off" action="{% url 'search' %}" method="GET">
+    <form autocomplete="off" action="{{ search }}" method="GET">
         {% csrf_token %}
         <div class="autocomplete">
             <input id="search_field" 
-            name="q" type="text" 
-            placeholder="Search..." 
-            value="{{ request.GET.q }}">
+                   name="q" type="text" 
+                   placeholder="Search..." 
+                   value="{{ request.GET.q }}">
             <button type="submit">{% translate "Submit" %}</button>
         </div>
         <!-- <p>
@@ -73,10 +126,11 @@
     <p>{% translate "Topic not found" %}: <em>{{ request.GET.q }}</em></p>
     
     {% endif %}
-    
+
 {% endif %}
+</section>
 </main>
-    
+
 <script>
     var autocomplete = (inp, arr) => {
         /*
@@ -207,8 +261,11 @@
     }
 
     window.onload = () => {
-        let topicNames = {{ topic_names|safe }};
-        autocomplete(document.querySelector('#search_field'), topicNames);
+        let search_field = document.querySelector('#search_field');
+        if (search_field != null) {
+            let topicNames = {{ topic_names|safe }};
+            autocomplete(search_field, topicNames);
+        }
     }
 </script>
 

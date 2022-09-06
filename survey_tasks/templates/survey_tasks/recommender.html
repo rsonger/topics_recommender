@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<main>
+    <h3>{% translate "Chosen Topics" %}</h3>
+    <p>
+        {% blocktranslate %}
+        Thank you for submitting your chosen topics. Please review the list below. You may use the Back button on your browser to return to the previous screen if you would like to change any of the chosen topics.
+        {% endblocktranslate %}
+    </p>
+    <ol>
+        <li>
+            {{ request.session.topic1 }}
+        </li>
+        <li>
+            {{ request.session.topic2 }}
+        </li>
+        <li>
+            {{ request.session.topic3 }}
+        </li>
+    </ol>
+
+    <p>
+        {% blocktranslate %}
+        Next is the <strong>Creativity Task</strong>. Click the button below when you are ready to proceed.
+        {% endblocktranslate %}
+    </p>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="{% translate 'Next' %}">
+    </a>
+</main>
+
+{% endblock content %}

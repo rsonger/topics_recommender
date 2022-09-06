@@ -4,7 +4,7 @@ import random
 from uuid import UUID
 
 # Django imports
-from django.views.generic import ListView, CreateView, RedirectView
+from django.views.generic import View, ListView, CreateView, RedirectView
 from django.utils import timezone
 from django.utils.translation import get_language
 from django.shortcuts import redirect, render
@@ -22,10 +22,10 @@ class TopicsListView(ListView):
     template_name = "topics_recommender/index.html"
 
 class LoginView(CreateView):
-    
+
     def get(self, request, *args, **kwargs):
         # make sure a session is not already running
-        if request.session.get("id", False):
+        if request.session.get("id"):
             return redirect('search')
         # otherwise, proceed to login
         context = {'form': LoginForm()}
@@ -53,17 +53,23 @@ class LogoutView(RedirectView):
                 session_object = UserSession.objects.get(id=session_id)
                 session_object.finished_at = timezone.now()
                 session_object.save()
-            del self.request.session["id"]
-            if self.request.session.get("name", False):
-                del self.request.session["name"]
+            self.request.session.flush()
         return super().get_redirect_url(*args, **kwargs)
 
 class SearchView(ListView):
     """A search page and list of results using the recommender function."""
     model = Topic
     endpoint_name = "topics_recommender"
-    template_name = "topics_recommender/search.html"
+    template_name = f"{endpoint_name}/search.html"
     context_object_name = "topics_ranking"
+
+    def _handle_chosen_topic(self, topic):
+        if not self.request.session.get('topic1'):
+            self.request.session['topic1'] = topic
+        elif not self.request.session.get('topic2'):
+            self.request.session['topic2'] = topic
+        elif not self.request.session.get('topic3'):
+            self.request.session['topic3'] = topic
 
     def setup(self, request, *args, **kwargs) -> None:
         self._start_time = timezone.now()
@@ -87,21 +93,35 @@ class SearchView(ListView):
             return Topic.objects.none()
         featured = self.request.GET.get('f')
         top_ranks = self.request.GET.get('r')
-        if not top_ranks:
-            top_ranks = 10
-        else:
+        if top_ranks:
             try:
                 top_ranks = int(top_ranks)
             except:
                 top_ranks = 10
+        else:
+            top_ranks = 10
         previous_request = self.request.GET.get('rid')
         previous_request_rank = self.request.GET.get('i')
+        topic_chosen = self.request.GET.get('c')
+        topic_removed = False
+        if self.request.GET.get('t1') is not None:
+            topic_removed = 'topic1'
+        if self.request.GET.get('t2') is not None:
+            topic_removed = 'topic2'
+        if self.request.GET.get('t3') is not None:
+            topic_removed = 'topic3'
         params = {
             "q": query, 
             "f": featured, 
             "r": top_ranks,
             "l": get_language()
         }
+
+        # handle the adding and removing of chosen topics to the session
+        if topic_chosen:
+            self._handle_chosen_topic(query)
+        if topic_removed:
+            self.request.session[topic_removed] = ''
 
         # load the recommender algorithm for this endpoint
         db_algorithms = MLAlgorithm.objects.filter(
@@ -144,26 +164,24 @@ class SearchView(ListView):
                 ranking="",
                 feedback="",
                 parent_mlalgorithm=db_algorithms[0],
-                user_session = user_session
+                user_session=user_session
             )
             ml_request.save()
 
             self.request_id = ml_request.id
 
             raise Exception(prediction["request_log"]["message"])
-            # return prediction
 
-        # if rid parameter exists, the user clicked an "explore" link from 
-        # a previous ranking result, so register the choice as feedback
+        # if rid parameter exists, the user clicked the "explore" link of a 
+        # ranking result, so register this as feedback to the previous request
         request_object = None
+
         if previous_request:
-            params["rid"] = previous_request
-            params["i"] = previous_request_rank
-            # find this topic in the previous request ranking
             request_object = MLRequest.objects.get(id=previous_request)
+            previous_ranking = ast.literal_eval(request_object.ranking)
+            # find this topic in the previous request ranking
             previous_input = ast.literal_eval(request_object.input_data)
             prediction["request_log"]["feedback_to"] = previous_input["q"]
-            previous_ranking = ast.literal_eval(request_object.ranking)
             # get the similarity score for the previous topic
             score = dict(previous_ranking)[lookup.id]
             # save this topic and its score as feedback
@@ -187,6 +205,9 @@ class SearchView(ListView):
                     'rank': previous_request_rank
                 }])
             request_object.save()
+
+            params["rid"] = previous_request
+            params["i"] = previous_request_rank
 
         # Log the request-response in a MLRequest object
         ml_request = MLRequest(
@@ -222,4 +243,5 @@ class SearchView(ListView):
 
     def render_to_response(self, context, **response_kwargs):
         context["total_time"] = (timezone.now() - self._start_time).total_seconds()
+        # self.request.session["context"] = context
         return super().render_to_response(context, **response_kwargs)

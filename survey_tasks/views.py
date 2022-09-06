@@ -1,14 +1,70 @@
 from uuid import UUID
 
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+from django.views.generic import CreateView, View
 from django.utils.translation import get_language
 from django.utils import timezone
 
+from survey_tasks.models import RecommenderResponse
 from survey_tasks.models import DATResponse, DATWord
 from survey_tasks.models import CTTCategory, CTTIdea, CTTResponse
 
-from topics_recommender.models import UserSession
+from topics_recommender.models import UserSession, Topic
+
+class RecommenderView(View):
+    endpoint_name = "survey_tasks"
+    template_name = f"{endpoint_name}/recommender.html"
+
+    def get(self, request, *args, **kwargs):
+        # make sure a user is already logged in
+        if not request.session.get("id", False):
+            return redirect('login')
+
+        topic1 = request.session["topic1"]
+        topic2 = request.session["topic2"]
+        topic3 = request.session["topic3"]
+
+        if not topic1 or not topic2 or not topic3:
+            return redirect('search')
+
+        return render(request, self.template_name) 
+
+    def post(self, request, *args, **kwargs):
+        # get the active user session
+        user_session_id = self.request.session.get("id")
+        if not user_session_id:
+            return redirect('login')
+        user_session = UserSession.objects.get(id=UUID(user_session_id))
+
+        topic1 = request.session["topic1"]
+        topic2 = request.session["topic2"]
+        topic3 = request.session["topic3"]
+
+        t1_obj = Topic.objects.get(display_name=topic1)
+        t2_obj = Topic.objects.get(display_name=topic2)
+        t3_obj = Topic.objects.get(display_name=topic3)
+        
+        # there should be only one response per user session
+        response = RecommenderResponse.objects.filter(
+            user_session=user_session,
+        )
+        if len(response) == 0:
+            response = RecommenderResponse.objects.create(
+                user_session=user_session,
+                topic1=t1_obj,
+                topic2=t2_obj,
+                topic3=t3_obj
+            )
+        else:
+            response = response[0]
+            response.submitted_at = timezone.now()
+            response.topic1 = t1_obj
+            response.topic2 = t2_obj
+            response.topic3 = t3_obj
+            response.save()
+
+        return redirect('dat')
+
 
 class DATView(CreateView):
 

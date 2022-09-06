@@ -34,4 +34,5 @@ class UserSession(models.Model):
         return blip
 
     class Meta:
+        ordering = ["-started_at"]
         verbose_name = "User Session"
