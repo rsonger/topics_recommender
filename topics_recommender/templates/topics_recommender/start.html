@@ -40,17 +40,19 @@
         The <strong>Search</strong> page will show a text input for you to type the name of a topic. An autocomplete menu will show you the list of matching topics as you type. If the topic does not exist, it will not appear in the autocomplete box. In that case, please check your spelling or try a different topic. Click the <strong>Submit</strong> button to see details about a topic and a list of other recommended topics.
         {% endblocktranslate %}
     </p>
-    <img src="/static/images/search_topic_{{ LANGUAGE_CODE }}.gif">
-    <p>
-        {% blocktranslate %}
-        The search results will show a list of topic names and their descriptions. When the page first loads, the descriptions are hidden for all topics except the searched topic. Click on the name of a topic to show or hide its description. Below the description of each topic is a <strong>Search this topic</strong> link. Click that link to search the specified topic.
-        {% endblocktranslate %}
-    </p>
+    <img class="screen" src="/static/images/search_topic_{{ LANGUAGE_CODE }}.gif">
     <p>
         {% blocktranslate %}
         When searching a topic, a <strong>Choose this topic</strong> button will appear under the topic description. Click that button to add the topic to your list of chosen topics at the top of the page. When the <strong>Chosen topics</strong> list is full, a <strong>Submit</strong> button will appear below the list. If you want to unselect a topic, click the <strong>[ Delete ]</strong> link next to it in the <strong>Chosen Topics</strong> list.
         {% endblocktranslate %}
     </p>
+    <img class="screen" src="/static/images/choose_topic_{{ LANGUAGE_CODE }}_sm.gif">
+    <p>
+        {% blocktranslate %}
+        The search results will show a list of topic names and their descriptions. When the page first loads, the descriptions are hidden for all topics except the searched topic. Click on the name of a topic to show or hide its description. Below the description of each topic is a <strong>Search this topic</strong> link. Click that link to search the specified topic.
+        {% endblocktranslate %}
+    </p>
+    <img class="screen" src="/static/images/search_other_topic_{{ LANGUAGE_CODE }}_sm.gif">
     <p>
         {% blocktranslate %}
         While searching for topics, you can explore other topics that do not appear in the search results by clicking the <strong>New Search</strong> button under the searched topic description.

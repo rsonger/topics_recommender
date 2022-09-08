@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-07 17:59+0900\n"
-"PO-Revision-Date: 2022-09-07 10:53+0900\n"
+"POT-Creation-Date: 2022-09-08 11:21+0900\n"
+"PO-Revision-Date: 2022-09-08 09:37+0900\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -400,11 +400,11 @@ msgstr "Back to start"
 
 #: topics_recommender/templates/topics_recommender/search.html:14
 msgid ""
-"After choosing three topics, please click the Submit button that appears "
-"below."
+"After choosing three topics, please click the <strong>Submit</strong> button "
+"that appears below."
 msgstr ""
-"After choosing three topics, please click the Submit button that appears "
-"below."
+"After choosing three topics, please click the <strong>Submit</strong> button "
+"that appears below."
 
 #: topics_recommender/templates/topics_recommender/search.html:17
 msgid "Chosen topics"
@@ -554,24 +554,6 @@ msgstr ""
 #: topics_recommender/templates/topics_recommender/start.html:45
 msgid ""
 "\n"
-"        The search results will show a list of topic names and their "
-"descriptions. When the page first loads, the descriptions are hidden for all "
-"topics except the searched topic. Click on the name of a topic to show or "
-"hide its description. Below the description of each topic is a "
-"<strong>Search this topic</strong> link. Click that link to search the "
-"specified topic.\n"
-"        "
-msgstr ""
-"\n"
-"The search results will show a list of topic names and their descriptions. "
-"When the page first loads, the descriptions are hidden for all topics except "
-"the searched topic. Click on the name of a topic to show or hide its "
-"description. Below the description of each topic is a <strong>Search this "
-"topic</strong> link. Click that link to search the specified topic."
-
-#: topics_recommender/templates/topics_recommender/start.html:50
-msgid ""
-"\n"
 "        When searching a topic, a <strong>Choose this topic</strong> button "
 "will appear under the topic description. Click that button to add the topic "
 "to your list of chosen topics at the top of the page. When the "
@@ -590,7 +572,25 @@ msgstr ""
 "<strong>[ Delete ]</strong> link next to it in the <strong>Chosen Topics</"
 "strong> list."
 
-#: topics_recommender/templates/topics_recommender/start.html:55
+#: topics_recommender/templates/topics_recommender/start.html:51
+msgid ""
+"\n"
+"        The search results will show a list of topic names and their "
+"descriptions. When the page first loads, the descriptions are hidden for all "
+"topics except the searched topic. Click on the name of a topic to show or "
+"hide its description. Below the description of each topic is a "
+"<strong>Search this topic</strong> link. Click that link to search the "
+"specified topic.\n"
+"        "
+msgstr ""
+"\n"
+"The search results will show a list of topic names and their descriptions. "
+"When the page first loads, the descriptions are hidden for all topics except "
+"the searched topic. Click on the name of a topic to show or hide its "
+"description. Below the description of each topic is a <strong>Search this "
+"topic</strong> link. Click that link to search the specified topic."
+
+#: topics_recommender/templates/topics_recommender/start.html:57
 msgid ""
 "\n"
 "        While searching for topics, you can explore other topics that do not "
@@ -603,7 +603,7 @@ msgstr ""
 "in the search results by clicking the <strong>New Search</strong> button "
 "under the searched topic description."
 
-#: topics_recommender/templates/topics_recommender/start.html:60
+#: topics_recommender/templates/topics_recommender/start.html:62
 #, python-format
 msgid ""
 "\n"
@@ -615,7 +615,7 @@ msgstr ""
 "Please click <a href=\"%(search)s\"><strong>here</strong></a> when you are "
 "ready to begin."
 
-#: topics_recommender/templates/topics_recommender/start.html:65
+#: topics_recommender/templates/topics_recommender/start.html:67
 msgid "Begin"
 msgstr "Begin"
 

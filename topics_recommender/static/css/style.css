@@ -12,7 +12,7 @@ nav a.current {
 }
 .autocomplete-items {
     position: absolute;
-    border: 1px solid #d4d4d4;
+    border: 1px solid var(--border);
     /* border-bottom: none;
     border-top: none; */
     z-index: 99;
@@ -26,16 +26,19 @@ nav a.current {
 .autocomplete-items div {
     padding: 10px;
     cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #d4d4d4;
+    background-color: var(--bg);
+    border: 1px solid var(--border)
 }
 .autocomplete-items div:hover {
     /* when hovering an item */
-    background-color: #e9e9e9;
+    background-color: var(--accent-bg);
 }
 .autocomplete-active {
     /* when navigating through the items using the arrow keys */
-    background-color: DodgerBlue !important;
-    color: #ffffff;
+    background-color: var(--accent) !important;
+    color: var(--bg);
 }
-  
+
+main img.screen {
+    border: 1px solid var(--border);
+}

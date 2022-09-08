@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-07 17:59+0900\n"
-"PO-Revision-Date: 2022-09-07 10:55+0900\n"
+"POT-Creation-Date: 2022-09-08 11:21+0900\n"
+"PO-Revision-Date: 2022-09-08 09:38+0900\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -309,7 +309,7 @@ msgstr ""
 
 #: survey_tasks/templates/survey_tasks/recommender.html:33
 msgid "Next"
-msgstr "次に"
+msgstr "次へ"
 
 #: topics_recommender/forms.py:9 topics_recommender/forms.py:10
 msgid "name"
@@ -397,10 +397,11 @@ msgstr "トップへ戻る"
 
 #: topics_recommender/templates/topics_recommender/search.html:14
 msgid ""
-"After choosing three topics, please click the Submit button that appears "
-"below."
+"After choosing three topics, please click the <strong>Submit</strong> button "
+"that appears below."
 msgstr ""
-"3つのトピックを選択したら、下に表示される送信ボタンをクリックしてください。"
+"3つのトピックを選択したら、下に表示する<strong>送信</strong>ボタンをクリック"
+"してください。"
 
 #: topics_recommender/templates/topics_recommender/search.html:17
 msgid "Chosen topics"
@@ -501,14 +502,14 @@ msgstr "<strong>検索</strong>ページで、興味のありそうなトピッ�
 
 #: topics_recommender/templates/topics_recommender/start.html:26
 msgid "Look at the recommended topics and read their descriptions."
-msgstr "推奨されるトピックを見て、その説明を読んでください。"
+msgstr "推薦されるトピックを見て、その説明を読んでください。"
 
 #: topics_recommender/templates/topics_recommender/start.html:29
 msgid ""
 "If one of the recommended topics sounds interesting, click <strong>Search "
 "this topic</strong>."
 msgstr ""
-"推奨されたトピックのうち、興味のあるものがあれば、「<strong>このトピックを検"
+"推薦されたトピックのうち、興味のあるものがあれば、「<strong>このトピックを検"
 "索</strong>」をクリックしてください。"
 
 #: topics_recommender/templates/topics_recommender/start.html:32
@@ -541,27 +542,9 @@ msgstr ""
 "クのリストが表示されます。トピックが存在しない場合、オートコンプリートボック"
 "スには表示されません。その場合は、スペルを確認するか、別のトピックを試してみ"
 "てください。<strong>送信</strong>ボタンをクリックすると、トピックの詳細と他の"
-"推奨トピックのリストが表示されます。"
+"推薦トピックのリストが表示されます。"
 
 #: topics_recommender/templates/topics_recommender/start.html:45
-msgid ""
-"\n"
-"        The search results will show a list of topic names and their "
-"descriptions. When the page first loads, the descriptions are hidden for all "
-"topics except the searched topic. Click on the name of a topic to show or "
-"hide its description. Below the description of each topic is a "
-"<strong>Search this topic</strong> link. Click that link to search the "
-"specified topic.\n"
-"        "
-msgstr ""
-"\n"
-"検索結果には、トピック名とその説明文が一覧で表示されます。最初にページを読み"
-"込むと、検索したトピック以外のトピックは説明文が非表示になります。トピックの"
-"名前をクリックすると、その説明を表示または非表示にすることができます。各ト"
-"ピックの説明の下には、<strong>このトピックを検索</strong>リンクがあります。こ"
-"のリンクをクリックすると、指定したトピックを検索することができます。"
-
-#: topics_recommender/templates/topics_recommender/start.html:50
 msgid ""
 "\n"
 "        When searching a topic, a <strong>Choose this topic</strong> button "
@@ -581,7 +564,25 @@ msgstr ""
 "れます。トピックの選択を解除する場合は、<strong>選択したトピック</strong> リ"
 "ストのトピックの横にある [ <strong>削除</strong> ] リンクをクリックします。"
 
-#: topics_recommender/templates/topics_recommender/start.html:55
+#: topics_recommender/templates/topics_recommender/start.html:51
+msgid ""
+"\n"
+"        The search results will show a list of topic names and their "
+"descriptions. When the page first loads, the descriptions are hidden for all "
+"topics except the searched topic. Click on the name of a topic to show or "
+"hide its description. Below the description of each topic is a "
+"<strong>Search this topic</strong> link. Click that link to search the "
+"specified topic.\n"
+"        "
+msgstr ""
+"\n"
+"検索結果には、トピック名とその説明文が一覧で表示されます。最初にページを読み"
+"込むと、検索したトピック以外のトピックは説明文が非表示になります。トピックの"
+"名前をクリックすると、その説明を表示または非表示にすることができます。各ト"
+"ピックの説明の下には、<strong>このトピックを検索</strong>リンクがあります。こ"
+"のリンクをクリックすると、指定したトピックを検索することができます。"
+
+#: topics_recommender/templates/topics_recommender/start.html:57
 msgid ""
 "\n"
 "        While searching for topics, you can explore other topics that do not "
@@ -594,7 +595,7 @@ msgstr ""
 "strong>」ボタンをクリックすると、検索結果に表示されていない他のトピックを探索"
 "することができます。"
 
-#: topics_recommender/templates/topics_recommender/start.html:60
+#: topics_recommender/templates/topics_recommender/start.html:62
 #, python-format
 msgid ""
 "\n"
@@ -606,7 +607,7 @@ msgstr ""
 "準備が整いましたら、<a href=\"%(search)s\"><strong>こちら</strong></a>をク"
 "リックしてください。"
 
-#: topics_recommender/templates/topics_recommender/start.html:65
+#: topics_recommender/templates/topics_recommender/start.html:67
 msgid "Begin"
 msgstr "開始"
 
