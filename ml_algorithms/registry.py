@@ -6,6 +6,7 @@ from django.utils import timezone
 from ml_api.models import *
 from ml_algorithms.cosine_ranking import CosineSimilarityRecommender
 from ml_algorithms.random_ranking import RandomRecommender
+from topics_recommender.models import UserSession
 
 class MLRegistry:
     _instance = None # singleton
@@ -118,9 +119,9 @@ class MLRegistry:
         else:
             return None
     
-    # def update_algorithm_status(self, db_id, algorithm_object, algorithm_status):
-    #     #TODO: Manage algorithm, endpoint, and status relationships
-    #     pass
+    def update_algorithm_status(self, db_id, algorithm_object, algorithm_status):
+        #TODO: Manage algorithm, endpoint, and status relationships
+        pass
 
     def deactivate_other_statuses(self, status):
         """Deactivate all other statuses sharing an endpoint with the given status."""
@@ -192,7 +193,8 @@ class MLRegistry:
                 created_at__gt=endpoint.ab_test.created_at
             )
             # get all user sessions from the requests
-            usessions = (ml_requests.all()
+            usessions = (ml_requests
+                         .all()
                          .values_list("user_session", flat=True)
                          .distinct())
             algo_summary = {
@@ -211,13 +213,14 @@ class MLRegistry:
 
                 # create a flat list of requests, accounting for branching paths
                 while user_requests: # trace a linked history of searches
+                    latest_request = user_requests.latest()
                     # build on an existing history for this user session
                     trace = algo_summary["sessions"].get(usession.hex, {
+                        "nickname": latest_request.user_session.name,
                         "mean_score": 0,
                         "mean_rank": 0,
                         "requests": []
                     })
-                    latest_request = user_requests.latest()
                     while latest_request: # until there are no more previous requests
                         user_requests = user_requests.exclude(pk=latest_request.pk)
                         # skip this request if it might be an error

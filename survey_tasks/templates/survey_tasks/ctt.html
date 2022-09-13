@@ -51,20 +51,28 @@
         }
     </style>
     <script>
-        function allowDrop(event) {
+        var target;
+        function preventDefault(event) {
             event.preventDefault();
         }
         function drag(event) {
             event.dataTransfer.setData("text", event.target.id);
         }
         function drop(event) {
+            console.log("drop(event) called!")
             event.preventDefault();
             
             // visually place the draggable into the drop target
             let n = document.querySelector(`#${event.dataTransfer.getData("text")}`);
-            event.target.closest('div').appendChild(n);
+            target = event.target;
+            if (event.target.tagName.toLowerCase() === 'li') {
+                origin = document.querySelector(`#${n.id}-origin`);
+                origin.insertBefore(n, origin.firstChild);
+            } else {
+                event.target.closest('div').appendChild(n);
+            }
 
-            // set input values to the text content of their respective divs
+            // update input values according to the content of their respective divs
             document.querySelectorAll(".drop-target").forEach(element => {
                 let input = document.querySelector(`input[name="${element.id}"`);
                 input.value = element.innerText
@@ -97,97 +105,112 @@
                     </th>
                 </tr>
                 <tr>
-                    <td>
+                    <td ondragover="preventDefault(event)" ondrop="drop(event)">
                         <ol>
-                            <li>
-                                <span id="n1" class="draggable" draggable="true" ondragstart="drag(event)">1.</span>&nbsp;
+                            <li id="n1-origin">
+                                <span id="n1" class="draggable" draggable="true" ondragstart="drag(event)">1.</span>
                                 {% translate "Almost everyone has a TV" %}
                             </li>
-                            <li>
-                                <span id="n2" class="draggable" draggable="true" ondragstart="drag(event)">2.</span>&nbsp;
+                            <li id="n2-origin">
+                                <span id="n2" class="draggable" draggable="true" ondragstart="drag(event)">2.</span>
                                 {% translate "Cartoons for children" %}
                             </li>
-                            <li>
-                                <span id="n3" class="draggable" draggable="true" ondragstart="drag(event)">3.</span>&nbsp;
+                            <li id="n3-origin">
+                                <span id="n3" class="draggable" draggable="true" ondragstart="drag(event)">3.</span>
                                 {% translate "Storytelling" %}
                             </li>
-                            <li>
-                                <span id="n4" class="draggable" draggable="true" ondragstart="drag(event)">4.</span>&nbsp;
+                            <li id="n4-origin">
+                                <span id="n4" class="draggable" draggable="true" ondragstart="drag(event)">4.</span>
                                 {% translate "News" %}
                             </li>
-                            <li>
-                                <span id="n5" class="draggable" draggable="true" ondragstart="drag(event)">5.</span>&nbsp;
+                            <li id="n5-origin">
+                                <span id="n5" class="draggable" draggable="true" ondragstart="drag(event)">5.</span>
                                 {% translate "Violent content" %}
                             </li>
-                            <li>
-                                <span id="n6" class="draggable" draggable="true" ondragstart="drag(event)">6.</span>&nbsp;
+                            <li id="n6-origin">
+                                <span id="n6" class="draggable" draggable="true" ondragstart="drag(event)">6.</span>
                                 {% translate "Easy to believe what we see on TV" %}
                             </li>
-                            <li>
-                                <span id="n7" class="draggable" draggable="true" ondragstart="drag(event)">7.</span>&nbsp;
+                            <li id="n7-origin">
+                                <span id="n7" class="draggable" draggable="true" ondragstart="drag(event)">7.</span>
                                 {% translate "Millions of people watch TV" %}
                             </li>
-                            <li>
-                                <span id="n8" class="draggable" draggable="true" ondragstart="drag(event)">8.</span>&nbsp;
+                            <li id="n8-origin">
+                                <span id="n8" class="draggable" draggable="true" ondragstart="drag(event)">8.</span>
                                 {% translate "Waste of time" %}
                             </li>
-                            <li>
-                                <span id="n9" class="draggable" draggable="true" ondragstart="drag(event)">9.</span>&nbsp;
+                            <li id="n9-origin">
+                                <span id="n9" class="draggable" draggable="true" ondragstart="drag(event)">9.</span>
                                 {% translate "Baseball" %}
                             </li>
-                            <li>
-                                <span id="n10" class="draggable" draggable="true" ondragstart="drag(event)">10.</span>&nbsp;
+                            <li id="n10-origin">
+                                <span id="n10" class="draggable" draggable="true" ondragstart="drag(event)">10.</span>
                                 {% translate "Advertising" %}
                             </li>
-                            <li>
-                                <span id="n11" class="draggable" draggable="true" ondragstart="drag(event)">11.</span>&nbsp;
+                            <li id="n11-origin">
+                                <span id="n11" class="draggable" draggable="true" ondragstart="drag(event)">11.</span>
                                 {% translate "Educational" %}
                             </li>
-                            <li>
-                                <span id="n12" class="draggable" draggable="true" ondragstart="drag(event)">12.</span>&nbsp;
+                            <li id="n12-origin">
+                                <span id="n12" class="draggable" draggable="true" ondragstart="drag(event)">12.</span>
                                 {% translate "Soccer" %}
                             </li>
-                            <li>
-                                <span id="n13" class="draggable" draggable="true" ondragstart="drag(event)">13.</span>&nbsp;
+                            <li id="n13-origin">
+                                <span id="n13" class="draggable" draggable="true" ondragstart="drag(event)">13.</span>
                                 {% translate "Most families have more than one TV" %}
                             </li>
-                            <li>
-                                <span id="n14" class="draggable" draggable="true" ondragstart="drag(event)">14.</span>&nbsp;
+                            <li id="n14-origin">
+                                <span id="n14" class="draggable" draggable="true" ondragstart="drag(event)">14.</span>
                                 {% translate "Dramas" %}
                             </li>
-                            <li>
-                                <span id="n15" class="draggable" draggable="true" ondragstart="drag(event)">15.</span>&nbsp;
+                            <li id="n15-origin">
+                                <span id="n15" class="draggable" draggable="true" ondragstart="drag(event)">15.</span>
                                 {% translate "Makes me lazy" %}
                             </li>
-                            <li>
-                                <span id="n16" class="draggable" draggable="true" ondragstart="drag(event)">16.</span>&nbsp;
+                            <li id="n16-origin">
+                                <span id="n16" class="draggable" draggable="true" ondragstart="drag(event)">16.</span>
                                 {% translate "Average 3 hours a day watching TV" %}
                             </li>
-                            <li>
-                                <span id="n17" class="draggable" draggable="true" ondragstart="drag(event)">17.</span>&nbsp;
+                            <li id="n17-origin">
+                                <span id="n17" class="draggable" draggable="true" ondragstart="drag(event)">17.</span>
                                 {% translate "Golf" %}
                             </li>
-                            <li>
-                                <span id="n18" class="draggable" draggable="true" ondragstart="drag(event)">18.</span>&nbsp;
+                            <li id="n18-origin">
+                                <span id="n18" class="draggable" draggable="true" ondragstart="drag(event)">18.</span>
                                 {% translate "Insults viewers' intelligence" %}
                             </li>
                         </ol>
                     </td>
                     <td>
-                        <div><label for="title1">{% translate "Title" %}:&nbsp;</label><input name="title1" type="text"></div>
-                        <div id="cat1" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <div>
+                            <label for="title1">{% translate "Title" %}:&nbsp;</label>
+                            <input name="title1" type="text" ondragover="preventDefault(event)">
+                        </div>
+                        <div id="cat1" class="drop-target" ondrop="drop(event)" ondragover="preventDefault(event)"></div>
                         <input name="cat1" type="hidden">
-                        <div><label for="title2">{% translate "Title" %}:&nbsp;</label><input name="title2" type="text"></div>
-                        <div id="cat2" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <div>
+                            <label for="title2">{% translate "Title" %}:&nbsp;</label>
+                            <input name="title2" type="text" ondragover="preventDefault(event)">
+                        </div>
+                        <div id="cat2" class="drop-target" ondrop="drop(event)" ondragover="preventDefault(event)"></div>
                         <input name="cat2" type="hidden">
-                        <div><label for="title3">{% translate "Title" %}:&nbsp;</label><input name="title3" type="text"></div>
-                        <div id="cat3" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <div>
+                            <label for="title3">{% translate "Title" %}:&nbsp;</label>
+                            <input name="title3" type="text" ondragover="preventDefault(event)">
+                        </div>
+                        <div id="cat3" class="drop-target" ondrop="drop(event)" ondragover="preventDefault(event)"></div>
                         <input name="cat3" type="hidden">
-                        <div><label for="title4">{% translate "Title" %}:&nbsp;</label><input name="title4" type="text"></div>
-                        <div id="cat4" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <div>
+                            <label for="title4">{% translate "Title" %}:&nbsp;</label>
+                            <input name="title4" type="text" ondragover="preventDefault(event)">
+                        </div>
+                        <div id="cat4" class="drop-target" ondrop="drop(event)" ondragover="preventDefault(event)"></div>
                         <input name="cat4" type="hidden">
-                        <div><label for="title5">{% translate "Title" %}:&nbsp;</label><input name="title5" type="text"></div>
-                        <div id="cat5" class="drop-target" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        <div>
+                            <label for="title5">{% translate "Title" %}:&nbsp;</label>
+                            <input name="title5" type="text" ondragover="preventDefault(event)">
+                        </div>
+                        <div id="cat5" class="drop-target" ondrop="drop(event)" ondragover="preventDefault(event)"></div>
                         <input name="cat5" type="hidden">
                     </td>
                 </tr>

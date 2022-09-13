@@ -64,11 +64,18 @@ class SearchView(ListView):
     context_object_name = "topics_ranking"
 
     def _handle_chosen_topic(self, topic):
-        if not self.request.session.get('topic1'):
+        chosen_topics = [
+            self.request.session.get(k) 
+            for k in ['topic1','topic2','topic3']
+        ]
+        if topic in chosen_topics:
+            return
+
+        if not chosen_topics[0]:
             self.request.session['topic1'] = topic
-        elif not self.request.session.get('topic2'):
+        elif not chosen_topics[1]:
             self.request.session['topic2'] = topic
-        elif not self.request.session.get('topic3'):
+        elif not chosen_topics[2]:
             self.request.session['topic3'] = topic
 
     def setup(self, request, *args, **kwargs) -> None:
@@ -117,12 +124,6 @@ class SearchView(ListView):
             "l": get_language()
         }
 
-        # handle the adding and removing of chosen topics to the session
-        if topic_chosen:
-            self._handle_chosen_topic(query)
-        if topic_removed:
-            self.request.session[topic_removed] = ''
-
         # load the recommender algorithm for this endpoint
         db_algorithms = MLAlgorithm.objects.filter(
             parent_endpoint__name=self.endpoint_name,
@@ -141,13 +142,20 @@ class SearchView(ListView):
         if algorithm_object is None:
             raise Exception(f"CONFIGURATION ERROR: No corresponding algorithm in the registry for {db_algorithms[0]}")
 
-        # get the top 10 ranking of recommended topics for the query
+        # find the searched topic in the database
         lookup = Topic.objects.filter(display_name__iexact=query)
         if len(lookup) == 0:
             return lookup
         else:
             lookup = lookup[0]
 
+        # handle the adding and removing of chosen topics to the session
+        if topic_chosen:
+            self._handle_chosen_topic(lookup.display_name)
+        if topic_removed:
+            self.request.session[topic_removed] = ''
+
+        # get the top 10 ranking of recommended topics for the query
         prediction = algorithm_object.make_ranking(
             lookup.name, 
             lookup.id, 
