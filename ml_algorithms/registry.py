@@ -6,7 +6,6 @@ from django.utils import timezone
 from ml_api.models import *
 from ml_algorithms.cosine_ranking import CosineSimilarityRecommender
 from ml_algorithms.random_ranking import RandomRecommender
-from topics_recommender.models import UserSession
 
 class MLRegistry:
     _instance = None # singleton
