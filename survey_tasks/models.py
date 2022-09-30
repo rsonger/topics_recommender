@@ -40,6 +40,11 @@ class DATResponse(models.Model):
         UserSession,
         on_delete=models.CASCADE
     )
+    dat_score = models.FloatField(
+        verbose_name="DAT Score", 
+        blank=True, 
+        null=True
+    )
 
     def __str__(self):
         return f"Submitted at {timezone.localtime(self.submitted_at)}"

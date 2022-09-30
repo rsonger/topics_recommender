@@ -133,3 +133,8 @@ dmypy.json
 
 # Secrets
 secret_settings.py
+
+# large data files
+survey_tasks/dat/*.txt
+survey_tasks/dat/*.json
+survey_tasks/dat/*.zip

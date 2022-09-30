@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 11:21+0900\n"
-"PO-Revision-Date: 2022-09-08 09:38+0900\n"
+"POT-Creation-Date: 2022-09-19 14:40+0900\n"
+"PO-Revision-Date: 2022-09-22 10:53+0900\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -28,144 +28,132 @@ msgid "Japanese"
 msgstr "日本語"
 
 #: survey_tasks/templates/survey_tasks/ctt.html:17
-#: survey_tasks/templates/survey_tasks/ctt.html:78
+#: survey_tasks/templates/survey_tasks/ctt.html:85
 msgid "Grouping Task"
 msgstr "グループ化タスク"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:82
+#: survey_tasks/templates/survey_tasks/ctt.html:89
 #: survey_tasks/templates/survey_tasks/dat.html:24
 #: topics_recommender/templates/topics_recommender/start.html:15
 msgid "Instructions"
 msgstr "インストラクション"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:84
+#: survey_tasks/templates/survey_tasks/ctt.html:91
 msgid ""
 "\n"
-"            Below is a list of ideas about television that came from "
-"brainstorming. Your task is to group similar ideas together. Look for ideas "
-"that appear to have a common trait or belong in the same category, then "
-"<strong>drag and drop</strong> their numbers into one of the green boxes on "
-"the right. Write a title in the text field above each green box to describe "
-"the category that the ideas in that box represent. You should group the "
-"ideas into 3 - 5 categories.\n"
+"            Below is a list of ideas about television that came from brainstorming. Your task is to group similar ideas together. Look for ideas that appear to have a common trait or belong in the same category, then <strong>drag and drop</strong> their numbers into one of the green boxes on the right. Write a title in the text field above each green box to describe the category that the ideas in that box represent. You should group the ideas into 3 - 5 categories.\n"
 "            "
 msgstr ""
 "\n"
-"以下は、ブレインストーミングで出てきた「テレビ」に関するアイデアのリストで"
-"す。似たようなアイデアをグループ化してください。共通の特徴を持つ、または同じ"
-"カテゴリーに属すると思われるアイデアを探し、その番号を右側の緑色のボックスの"
-"いずれかに<strong>ドラグ＆ドロップ</strong>してください。次に、これらのアイデ"
-"アがどのようなカテゴリーに属するかを説明するタイトルを、緑色のボックスの上に"
-"書き込みます。3つから5つのカテゴリーに分類してください。"
+"以下は、ブレインストーミングで出てきた「テレビ」に関するアイデアのリストです。似たようなアイデアをグループ化してください。共通の特徴を持つ、または同じカテゴリーに属すると思われるアイデアを探し、その番号を右側の緑色のボックスのいずれかに<strong>ドラグ＆ドロップ</strong>してください。次に、これらのアイデアがどのようなカテゴリーに属するかを説明するタイトルを、緑色のボックスの上に書き込みます。3つから5つのカテゴリーに分類してください。"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:93
+#: survey_tasks/templates/survey_tasks/ctt.html:100
 msgid "Ideas"
 msgstr "アイデア"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:96
+#: survey_tasks/templates/survey_tasks/ctt.html:103
 msgid "Categories"
 msgstr "カテゴリー"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:104
+#: survey_tasks/templates/survey_tasks/ctt.html:111
 msgid "Almost everyone has a TV"
 msgstr "ほとんどの人がテレビを持っている"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:108
+#: survey_tasks/templates/survey_tasks/ctt.html:115
 msgid "Cartoons for children"
 msgstr "子供向けアニメ"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:112
+#: survey_tasks/templates/survey_tasks/ctt.html:119
 msgid "Storytelling"
 msgstr "落語"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:116
+#: survey_tasks/templates/survey_tasks/ctt.html:123
 msgid "News"
 msgstr "ニュース"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:120
+#: survey_tasks/templates/survey_tasks/ctt.html:127
 msgid "Violent content"
 msgstr "暴力的な内容"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:124
+#: survey_tasks/templates/survey_tasks/ctt.html:131
 msgid "Easy to believe what we see on TV"
 msgstr "テレビで見る内容を信じやすい"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:128
+#: survey_tasks/templates/survey_tasks/ctt.html:135
 msgid "Millions of people watch TV"
 msgstr "何百万人もの人がテレビを見ている"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:132
+#: survey_tasks/templates/survey_tasks/ctt.html:139
 msgid "Waste of time"
 msgstr "時間の無駄"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:136
+#: survey_tasks/templates/survey_tasks/ctt.html:143
 msgid "Baseball"
 msgstr "野球"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:140
+#: survey_tasks/templates/survey_tasks/ctt.html:147
 msgid "Advertising"
 msgstr "広告"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:144
+#: survey_tasks/templates/survey_tasks/ctt.html:151
 msgid "Educational"
 msgstr "教育"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:148
+#: survey_tasks/templates/survey_tasks/ctt.html:155
 msgid "Soccer"
 msgstr "サッカー"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:152
+#: survey_tasks/templates/survey_tasks/ctt.html:159
 msgid "Most families have more than one TV"
 msgstr "ほとんどの家庭でテレビは1台以上ある"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:156
+#: survey_tasks/templates/survey_tasks/ctt.html:163
 msgid "Dramas"
 msgstr "ドラマ"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:160
+#: survey_tasks/templates/survey_tasks/ctt.html:167
 msgid "Makes me lazy"
 msgstr "怠け者になる"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:164
+#: survey_tasks/templates/survey_tasks/ctt.html:171
 msgid "Average 3 hours a day watching TV"
 msgstr "1日平均3時間テレビを見る"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:168
+#: survey_tasks/templates/survey_tasks/ctt.html:175
 msgid "Golf"
 msgstr "ゴルフ"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:172
+#: survey_tasks/templates/survey_tasks/ctt.html:179
 msgid "Insults viewers' intelligence"
 msgstr "あまり賢くない視聴者向けの番組が多い"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:177
-#: survey_tasks/templates/survey_tasks/ctt.html:180
-#: survey_tasks/templates/survey_tasks/ctt.html:183
-#: survey_tasks/templates/survey_tasks/ctt.html:186
-#: survey_tasks/templates/survey_tasks/ctt.html:189
+#: survey_tasks/templates/survey_tasks/ctt.html:185
+#: survey_tasks/templates/survey_tasks/ctt.html:191
+#: survey_tasks/templates/survey_tasks/ctt.html:197
+#: survey_tasks/templates/survey_tasks/ctt.html:203
+#: survey_tasks/templates/survey_tasks/ctt.html:209
 msgid "Title"
 msgstr "タイトル"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:196
+#: survey_tasks/templates/survey_tasks/ctt.html:218
 msgid ""
 "\n"
-"                Please review your categories and titles before clicking the "
-"button below to finish.\n"
+"                Please review your categories and titles before clicking the button below to finish.\n"
 "                "
 msgstr ""
 "\n"
 "カテゴリーとタイトルをご確認の上、下のボタンをクリックして終了してください。"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:201
-#: survey_tasks/templates/survey_tasks/dat.html:83
+#: survey_tasks/templates/survey_tasks/ctt.html:223
+#: survey_tasks/templates/survey_tasks/dat.html:100
 #: topics_recommender/templates/topics_recommender/login.html:31
-#: topics_recommender/templates/topics_recommender/search.html:52
-#: topics_recommender/templates/topics_recommender/search.html:113
+#: topics_recommender/templates/topics_recommender/search.html:58
+#: topics_recommender/templates/topics_recommender/search.html:119
 msgid "Submit"
 msgstr "送信"
 
-#: survey_tasks/templates/survey_tasks/ctt.html:207
-#: survey_tasks/templates/survey_tasks/dat.html:89
+#: survey_tasks/templates/survey_tasks/ctt.html:229
+#: survey_tasks/templates/survey_tasks/dat.html:106
 #: topics_recommender/templates/base.html:72
 #: topics_recommender/templates/topics_recommender/login.html:50
 #: topics_recommender/templates/topics_recommender/logout.html:50
@@ -178,15 +166,17 @@ msgid "Creativity Task"
 msgstr "クリエイティビティタスク"
 
 #: survey_tasks/templates/survey_tasks/dat.html:26
+#| msgid ""
+#| "\n"
+#| "            Please write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words.\n"
+#| "            "
 msgid ""
 "\n"
-"            Please write 10 words that are as <strong>different</strong> "
-"from each other as possible, in all meanings and uses of the words.\n"
+"            Now please try a completely different kind of task. In the spaces below, write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words. The words do not need to be related to the previous task, but they should follow the rules below.\n"
 "            "
 msgstr ""
 "\n"
-"言葉の意味や使い方がすべてにおいて、できるだけ<strong>異なる単語</strong>を10"
-"個書いてください。"
+"次は全く違う種類の課題です。下の空欄に、言葉の意味や使い方がすべてにおいて、できるだけ<strong>異なる単語</strong>を10個書いてください。単語は前のタスクと関係する必要はありませんが、以下のルールに従わなければなりません。"
 
 #: survey_tasks/templates/survey_tasks/dat.html:30
 msgid "Rules"
@@ -204,8 +194,7 @@ msgstr ""
 #: survey_tasks/templates/survey_tasks/dat.html:38
 msgid ""
 "\n"
-"                Only <strong>nouns</strong> (e.g., things, objects, "
-"concepts).\n"
+"                Only <strong>nouns</strong> (e.g., things, objects, concepts).\n"
 "                "
 msgstr ""
 "\n"
@@ -214,8 +203,7 @@ msgstr ""
 #: survey_tasks/templates/survey_tasks/dat.html:43
 msgid ""
 "\n"
-"                <strong>No proper nouns</strong> (e.g., no names of people "
-"or places).\n"
+"                <strong>No proper nouns</strong> (e.g., no names of people or places).\n"
 "                "
 msgstr ""
 "\n"
@@ -224,8 +212,7 @@ msgstr ""
 #: survey_tasks/templates/survey_tasks/dat.html:48
 msgid ""
 "\n"
-"                <strong>No specialized vocabulary</strong> (e.g., no "
-"technical terms).\n"
+"                <strong>No specialized vocabulary</strong> (e.g., no technical terms).\n"
 "                "
 msgstr ""
 "\n"
@@ -234,8 +221,7 @@ msgstr ""
 #: survey_tasks/templates/survey_tasks/dat.html:53
 msgid ""
 "\n"
-"                Think of the words <strong>on your own</strong> (e.g., don't "
-"just look at objects around you).\n"
+"                Think of the words <strong>on your own</strong> (e.g., don't just look at objects around you).\n"
 "                "
 msgstr ""
 "\n"
@@ -244,8 +230,7 @@ msgstr ""
 #: survey_tasks/templates/survey_tasks/dat.html:58
 msgid ""
 "\n"
-"                Try to complete this task <strong>as quickly as possible</"
-"strong>.\n"
+"                Try to complete this task <strong>as quickly as possible</strong>.\n"
 "                "
 msgstr ""
 "\n"
@@ -255,29 +240,49 @@ msgstr ""
 msgid "Words"
 msgstr "単語"
 
-#: survey_tasks/templates/survey_tasks/dat.html:67
-#: survey_tasks/templates/survey_tasks/dat.html:68
-#: survey_tasks/templates/survey_tasks/dat.html:69
-#: survey_tasks/templates/survey_tasks/dat.html:70
-#: survey_tasks/templates/survey_tasks/dat.html:71
-#: survey_tasks/templates/survey_tasks/dat.html:72
-#: survey_tasks/templates/survey_tasks/dat.html:73
-#: survey_tasks/templates/survey_tasks/dat.html:74
-#: survey_tasks/templates/survey_tasks/dat.html:75
-#: survey_tasks/templates/survey_tasks/dat.html:76
-msgid "noun"
-msgstr "名詞"
-
-#: survey_tasks/templates/survey_tasks/dat.html:79
+#: survey_tasks/templates/survey_tasks/dat.html:66
 msgid ""
 "\n"
-"                After completing the list, click the button below to begin "
-"the <strong>Grouping Task</strong>.\n"
+"                The words marked as <mark>* invalid</mark> below cannot be processed. Please change the word and click <strong>Submit</strong> again.\n"
 "                "
 msgstr ""
 "\n"
-"リストが完成したら、下のボタンをクリックして、<strong>グループ化タスク</"
-"strong>を開始します。"
+"以下の<mark>* 無効</mark>と表示された単語は処理できません。単語を変更し、再度「<strong>送信</strong>」をクリックしてください。"
+
+#: survey_tasks/templates/survey_tasks/dat.html:74
+#: survey_tasks/templates/survey_tasks/dat.html:76
+#: survey_tasks/templates/survey_tasks/dat.html:78
+#: survey_tasks/templates/survey_tasks/dat.html:80
+#: survey_tasks/templates/survey_tasks/dat.html:82
+#: survey_tasks/templates/survey_tasks/dat.html:84
+#: survey_tasks/templates/survey_tasks/dat.html:86
+#: survey_tasks/templates/survey_tasks/dat.html:88
+#: survey_tasks/templates/survey_tasks/dat.html:90
+#: survey_tasks/templates/survey_tasks/dat.html:92
+msgid "noun"
+msgstr "名詞"
+
+#: survey_tasks/templates/survey_tasks/dat.html:75
+#: survey_tasks/templates/survey_tasks/dat.html:77
+#: survey_tasks/templates/survey_tasks/dat.html:79
+#: survey_tasks/templates/survey_tasks/dat.html:81
+#: survey_tasks/templates/survey_tasks/dat.html:83
+#: survey_tasks/templates/survey_tasks/dat.html:85
+#: survey_tasks/templates/survey_tasks/dat.html:87
+#: survey_tasks/templates/survey_tasks/dat.html:89
+#: survey_tasks/templates/survey_tasks/dat.html:91
+#: survey_tasks/templates/survey_tasks/dat.html:93
+msgid "invalid"
+msgstr "無効"
+
+#: survey_tasks/templates/survey_tasks/dat.html:96
+msgid ""
+"\n"
+"                After completing the list, click the button below to begin the <strong>Grouping Task</strong>.\n"
+"                "
+msgstr ""
+"\n"
+"リストが完成したら、下のボタンをクリックして、<strong>グループ化タスク</strong>を開始します。"
 
 #: survey_tasks/templates/survey_tasks/recommender.html:8
 msgid "Chosen Topics"
@@ -286,34 +291,24 @@ msgstr "選択したトピック"
 #: survey_tasks/templates/survey_tasks/recommender.html:10
 msgid ""
 "\n"
-"        Thank you for submitting your chosen topics. Please review the list "
-"below. You may use the Back button on your browser to return to the previous "
-"screen if you would like to change any of the chosen topics.\n"
+"        Thank you for submitting your chosen topics. Please review the list below. You may use the Back button on your browser to return to the previous screen if you would like to change any of the chosen topics.\n"
 "        "
 msgstr ""
 "\n"
-"選択したトピックを送信していただき、ありがとうございます。以下のリストをご確"
-"認ください。選択したトピックを変更したい場合は、ブラウザの戻るボタンで前画面"
-"に戻ることができます。"
+"選択したトピックを送信していただき、ありがとうございます。以下のリストをご確認ください。選択したトピックを変更したい場合は、ブラウザの戻るボタンで前画面に戻ることができます。"
 
 #: survey_tasks/templates/survey_tasks/recommender.html:27
 msgid ""
 "\n"
-"        Next is the <strong>Creativity Task</strong>. Click the button below "
-"when you are ready to proceed.\n"
+"        Next is the <strong>Creativity Task</strong>. Click the button below when you are ready to proceed.\n"
 "        "
 msgstr ""
 "\n"
-"次に、「<strong>クリエイティビティタスク</strong>」があります。準備ができたら"
-"下のボタンをクリックしてください。"
+"次に、「<strong>クリエイティビティタスク</strong>」があります。準備ができたら下のボタンをクリックしてください。"
 
 #: survey_tasks/templates/survey_tasks/recommender.html:33
 msgid "Next"
 msgstr "次へ"
-
-#: topics_recommender/forms.py:9 topics_recommender/forms.py:10
-msgid "name"
-msgstr "お名前"
 
 #: topics_recommender/forms.py:10
 msgid "Please enter a nickname:"
@@ -366,8 +361,8 @@ msgid "All Topics"
 msgstr "すべてのトピック"
 
 #: topics_recommender/templates/topics_recommender/index.html:16
-#: topics_recommender/templates/topics_recommender/search.html:65
-#: topics_recommender/templates/topics_recommender/search.html:89
+#: topics_recommender/templates/topics_recommender/search.html:71
+#: topics_recommender/templates/topics_recommender/search.html:95
 msgid "This topic is featured on GitHub.com"
 msgstr "このトピックはGitHub.comで紹介されています。"
 
@@ -397,11 +392,9 @@ msgstr "トップへ戻る"
 
 #: topics_recommender/templates/topics_recommender/search.html:14
 msgid ""
-"After choosing three topics, please click the <strong>Submit</strong> button "
-"that appears below."
-msgstr ""
-"3つのトピックを選択したら、下に表示する<strong>送信</strong>ボタンをクリック"
-"してください。"
+"After choosing three topics, please click the <strong>Submit</strong> button"
+" that appears below."
+msgstr "3つのトピックを選択したら、下に表示する<strong>送信</strong>ボタンをクリックしてください。"
 
 #: topics_recommender/templates/topics_recommender/search.html:17
 msgid "Chosen topics"
@@ -411,45 +404,45 @@ msgstr "選択したトピック"
 msgid "Topic 1"
 msgstr "トピック①"
 
-#: topics_recommender/templates/topics_recommender/search.html:24
-#: topics_recommender/templates/topics_recommender/search.html:34
-#: topics_recommender/templates/topics_recommender/search.html:44
+#: topics_recommender/templates/topics_recommender/search.html:26
+#: topics_recommender/templates/topics_recommender/search.html:38
+#: topics_recommender/templates/topics_recommender/search.html:50
 msgid "[ Delete ]"
 msgstr "[ 削除 ]"
 
-#: topics_recommender/templates/topics_recommender/search.html:31
+#: topics_recommender/templates/topics_recommender/search.html:33
 msgid "Topic 2"
 msgstr "トピック②"
 
-#: topics_recommender/templates/topics_recommender/search.html:41
+#: topics_recommender/templates/topics_recommender/search.html:45
 msgid "Topic 3"
 msgstr "トピック③"
 
-#: topics_recommender/templates/topics_recommender/search.html:57
+#: topics_recommender/templates/topics_recommender/search.html:63
 msgid "Topics Search"
 msgstr "トピック検索"
 
-#: topics_recommender/templates/topics_recommender/search.html:74
+#: topics_recommender/templates/topics_recommender/search.html:80
 msgid "Choose this topic"
 msgstr "このトピックを選択"
 
-#: topics_recommender/templates/topics_recommender/search.html:77
+#: topics_recommender/templates/topics_recommender/search.html:83
 msgid "New search"
 msgstr "新規検索"
 
-#: topics_recommender/templates/topics_recommender/search.html:84
+#: topics_recommender/templates/topics_recommender/search.html:90
 msgid "You might also like these topics:"
 msgstr "こんなトピックもいかがでしょうか？"
 
-#: topics_recommender/templates/topics_recommender/search.html:96
+#: topics_recommender/templates/topics_recommender/search.html:102
 msgid "Search this topic"
 msgstr "このトピックを検索"
 
-#: topics_recommender/templates/topics_recommender/search.html:105
+#: topics_recommender/templates/topics_recommender/search.html:111
 msgid "Enter a keyword"
 msgstr "キーワードを入力してください"
 
-#: topics_recommender/templates/topics_recommender/search.html:126
+#: topics_recommender/templates/topics_recommender/search.html:132
 msgid "Topic not found"
 msgstr "トピックが見つかりません。"
 
@@ -460,30 +453,11 @@ msgstr "背景"
 #: topics_recommender/templates/topics_recommender/start.html:11
 msgid ""
 "\n"
-"        KIT is planning a new course for the Information and Computer "
-"Engineering curriculum about open-source software (OSS). In the course, "
-"students will learn about OSS and contribute to real OSS projects on the "
-"Internet. Since OSS contributions are essentially a kind of voluntary work, "
-"the school would like to collect a list of topics that students would be "
-"willing to work on. This tool allows you to browse the available project "
-"topics and choose some for your theme as if you were a participant in KIT's "
-"new course. Each topic is like a special tags that shows a project's "
-"purpose, subject area, community, or programming language. They are used to "
-"classify source code repositories and make it easier for people to find "
-"projects that interest them.\n"
+"        KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on the Internet. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool allows you to browse the available project topics and choose some for your theme as if you were a participant in KIT's new course. Each topic is like a special tags that shows a project's purpose, subject area, community, or programming language. They are used to classify source code repositories and make it easier for people to find projects that interest them.\n"
 "        "
 msgstr ""
 "\n"
-"KITは、情報工学科のカリキュラムに、オープンソースソフトウェア（OSS）に関する"
-"新しいコースを計画しています。このコースでは、学生はOSSについて学び、インター"
-"ネット上で実際のOSSプロジェクトに貢献することになります。OSSへの貢献は、基本"
-"的に一種のボランティア活動であるため、同校では、学生が喜んで取り組むようなト"
-"ピックのリストを集めたいと考えています。このオンラインツールを使えば、KITの新"
-"講座の受講生になったつもりで、用意されているトピックを閲覧し、自分のテーマに"
-"沿ったものを選ぶことができます。各トピックとは、プロジェクトの目的、テーマ、"
-"コミュニティ、プログラミング言語などを示す特別なタグです。ソースコードリポジ"
-"トリを分類し、人々が興味のあるプロジェクトを見つけやすくするために使用されま"
-"す。"
+"KITは、情報工学科のカリキュラムに、オープンソースソフトウェア（OSS）に関する新しいコースを計画しています。このコースでは、学生はOSSについて学び、インターネット上で実際のOSSプロジェクトに貢献することになります。OSSへの貢献は、基本的に一種のボランティア活動であるため、同校では、学生が喜んで取り組むようなトピックのリストを集めたいと考えています。このオンラインツールを使えば、KITの新講座の受講生になったつもりで、用意されているトピックを閲覧し、自分のテーマに沿ったものを選ぶことができます。各トピックとは、プロジェクトの目的、テーマ、コミュニティ、プログラミング言語などを示す特別なタグです。ソースコードリポジトリを分類し、人々が興味のあるプロジェクトを見つけやすくするために使用されます。"
 
 #: topics_recommender/templates/topics_recommender/start.html:17
 msgid ""
@@ -508,17 +482,13 @@ msgstr "推薦されるトピックを見て、その説明を読んでくださ
 msgid ""
 "If one of the recommended topics sounds interesting, click <strong>Search "
 "this topic</strong>."
-msgstr ""
-"推薦されたトピックのうち、興味のあるものがあれば、「<strong>このトピックを検"
-"索</strong>」をクリックしてください。"
+msgstr "推薦されたトピックのうち、興味のあるものがあれば、「<strong>このトピックを検索</strong>」をクリックしてください。"
 
 #: topics_recommender/templates/topics_recommender/start.html:32
 msgid ""
-"When you find a topic you would choose, click <strong>Choose this topic</"
-"strong>."
-msgstr ""
-"選択したいトピックが見つかったら、「<strong>このトピックを選択する</strong>」"
-"をクリックします。"
+"When you find a topic you would choose, click <strong>Choose this "
+"topic</strong>."
+msgstr "選択したいトピックが見つかったら、「<strong>このトピックを選択する</strong>」をクリックします。"
 
 #: topics_recommender/templates/topics_recommender/start.html:35
 msgid ""
@@ -528,88 +498,55 @@ msgstr "合計3つのトピックを選ぶまで、トピックの検索を続�
 #: topics_recommender/templates/topics_recommender/start.html:39
 msgid ""
 "\n"
-"        The <strong>Search</strong> page will show a text input for you to "
-"type the name of a topic. An autocomplete menu will show you the list of "
-"matching topics as you type. If the topic does not exist, it will not appear "
-"in the autocomplete box. In that case, please check your spelling or try a "
-"different topic. Click the <strong>Submit</strong> button to see details "
-"about a topic and a list of other recommended topics.\n"
+"        The <strong>Search</strong> page will show a text input for you to type the name of a topic. An autocomplete menu will show you the list of matching topics as you type. If the topic does not exist, it will not appear in the autocomplete box. In that case, please check your spelling or try a different topic. Click the <strong>Submit</strong> button to see details about a topic and a list of other recommended topics.\n"
 "        "
 msgstr ""
 "\n"
-"<strong>検索</strong>ページには、トピックの名前を入力するためのテキスト入力が"
-"表示されます。入力するとオートコンプリートメニューが表示され、一致するトピッ"
-"クのリストが表示されます。トピックが存在しない場合、オートコンプリートボック"
-"スには表示されません。その場合は、スペルを確認するか、別のトピックを試してみ"
-"てください。<strong>送信</strong>ボタンをクリックすると、トピックの詳細と他の"
-"推薦トピックのリストが表示されます。"
+"<strong>検索</strong>ページには、トピックの名前を入力するためのテキスト入力が表示されます。入力するとオートコンプリートメニューが表示され、一致するトピックのリストが表示されます。トピックが存在しない場合、オートコンプリートボックスには表示されません。その場合は、スペルを確認するか、別のトピックを試してみてください。<strong>送信</strong>ボタンをクリックすると、トピックの詳細と他の推薦トピックのリストが表示されます。"
 
 #: topics_recommender/templates/topics_recommender/start.html:45
 msgid ""
 "\n"
-"        When searching a topic, a <strong>Choose this topic</strong> button "
-"will appear under the topic description. Click that button to add the topic "
-"to your list of chosen topics at the top of the page. When the "
-"<strong>Chosen topics</strong> list is full, a <strong>Submit</strong> "
-"button will appear below the list. If you want to unselect a topic, click "
-"the <strong>[ Delete ]</strong> link next to it in the <strong>Chosen "
-"Topics</strong> list.\n"
+"        When searching a topic, a <strong>Choose this topic</strong> button will appear under the topic description. Click that button to add the topic to your list of chosen topics at the top of the page. When the <strong>Chosen topics</strong> list is full, a <strong>Submit</strong> button will appear below the list. If you want to unselect a topic, click the <strong>[ Delete ]</strong> link next to it in the <strong>Chosen Topics</strong> list.\n"
 "        "
 msgstr ""
 "\n"
-"トピックを検索すると、トピックの説明の下に「<strong>このトピックを選択する</"
-"strong>」ボタンが表示されます。このボタンをクリックすると、そのトピックがペー"
-"ジ上部の<strong>選択したトピック</strong>のリストに追加されます。選択したト"
-"ピックのリストが一杯になると、リストの下に<strong>送信</strong>ボタンが表示さ"
-"れます。トピックの選択を解除する場合は、<strong>選択したトピック</strong> リ"
-"ストのトピックの横にある [ <strong>削除</strong> ] リンクをクリックします。"
+"トピックを検索すると、トピックの説明の下に「<strong>このトピックを選択する</strong>」ボタンが表示されます。このボタンをクリックすると、そのトピックがページ上部の<strong>選択したトピック</strong>のリストに追加されます。選択したトピックのリストが一杯になると、リストの下に<strong>送信</strong>ボタンが表示されます。トピックの選択を解除する場合は、<strong>選択したトピック</strong> リストのトピックの横にある [ <strong>削除</strong> ] リンクをクリックします。"
 
 #: topics_recommender/templates/topics_recommender/start.html:51
 msgid ""
 "\n"
-"        The search results will show a list of topic names and their "
-"descriptions. When the page first loads, the descriptions are hidden for all "
-"topics except the searched topic. Click on the name of a topic to show or "
-"hide its description. Below the description of each topic is a "
-"<strong>Search this topic</strong> link. Click that link to search the "
-"specified topic.\n"
+"        The search results will show a list of topic names and their descriptions. When the page first loads, the descriptions are hidden for all topics except the searched topic. Click on the name of a topic to show or hide its description. Below the description of each topic is a <strong>Search this topic</strong> link. Click that link to search the specified topic.\n"
 "        "
 msgstr ""
 "\n"
-"検索結果には、トピック名とその説明文が一覧で表示されます。最初にページを読み"
-"込むと、検索したトピック以外のトピックは説明文が非表示になります。トピックの"
-"名前をクリックすると、その説明を表示または非表示にすることができます。各ト"
-"ピックの説明の下には、<strong>このトピックを検索</strong>リンクがあります。こ"
-"のリンクをクリックすると、指定したトピックを検索することができます。"
+"検索結果には、トピック名とその説明文が一覧で表示されます。最初にページを読み込むと、検索したトピック以外のトピックは説明文が非表示になります。トピックの名前をクリックすると、その説明を表示または非表示にすることができます。各トピックの説明の下には、<strong>このトピックを検索</strong>リンクがあります。このリンクをクリックすると、指定したトピックを検索することができます。"
 
 #: topics_recommender/templates/topics_recommender/start.html:57
 msgid ""
 "\n"
-"        While searching for topics, you can explore other topics that do not "
-"appear in the search results by clicking the <strong>New Search</strong> "
-"button under the searched topic description.\n"
+"        While searching for topics, you can explore other topics that do not appear in the search results by clicking the <strong>New Search</strong> button under the searched topic description.\n"
 "        "
 msgstr ""
 "\n"
-"トピックの検索中に、検索したトピックの説明の下にある「<strong>新規検索</"
-"strong>」ボタンをクリックすると、検索結果に表示されていない他のトピックを探索"
-"することができます。"
+"トピックの検索中に、検索したトピックの説明の下にある「<strong>新規検索</strong>」ボタンをクリックすると、検索結果に表示されていない他のトピックを探索することができます。"
 
 #: topics_recommender/templates/topics_recommender/start.html:62
 #, python-format
 msgid ""
 "\n"
-"        Please click <a href=\"%(search)s\"><strong>here</strong></a> when "
-"you are ready to begin.\n"
+"        Please click <a href=\"%(search)s\"><strong>here</strong></a> when you are ready to begin.\n"
 "        "
 msgstr ""
 "\n"
-"準備が整いましたら、<a href=\"%(search)s\"><strong>こちら</strong></a>をク"
-"リックしてください。"
+"準備が整いましたら、<a href=\"%(search)s\"><strong>こちら</strong></a>をクリックしてください。"
 
 #: topics_recommender/templates/topics_recommender/start.html:67
 msgid "Begin"
 msgstr "開始"
+
+#~ msgid "name"
+#~ msgstr "お名前"
 
 #~ msgid "GitHub Topics"
 #~ msgstr "GitHubトピック"

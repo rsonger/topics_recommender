@@ -24,7 +24,7 @@
         <h3>{% translate "Instructions" %}</h3>
         <p>
             {% blocktranslate %}
-            Please write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words.
+            Now please try a completely different kind of task. In the spaces below, write 10 words that are as <strong>different</strong> from each other as possible, in all meanings and uses of the words. The words do not need to be related to the previous task, but they should follow the rules below.
             {% endblocktranslate %}
         </p>
         <h3>{% translate "Rules" %}</h3>
@@ -61,19 +61,36 @@
             </li>
         </ul>
         <h3>{% translate "Words" %}</h3>
+        {% if invalid %}
+            <p>
+                {% blocktranslate %}
+                The words marked as <mark>* invalid</mark> below cannot be processed. Please change the word and click <strong>Submit</strong> again.
+                {% endblocktranslate %}
+            </p>
+        {% endif %}
         <form action="{% url 'dat' %}" method="POST">
             {% csrf_token %}
             <ol>
-                <li><input name="w1" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w2" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w3" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w4" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w5" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w6" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w7" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w8" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w9" type="text" placeholder="{% translate "noun" %}" required></li>
-                <li><input name="w10" type="text" placeholder="{% translate "noun" %}" required></li>
+                <li><input name="w1" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w1 %}value="{{ w1 }}"{% endif %}>{% if "w1" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w2" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w2 %}value="{{ w2 }}"{% endif %}>{% if "w2" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w3" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w3 %}value="{{ w3 }}"{% endif %}>{% if "w3" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w4" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w4 %}value="{{ w4 }}"{% endif %}>{% if "w4" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w5" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w5 %}value="{{ w5 }}"{% endif %}>{% if "w5" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w6" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w6 %}value="{{ w6 }}"{% endif %}>{% if "w6" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w7" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w7 %}value="{{ w7 }}"{% endif %}>{% if "w7" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w8" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w8 %}value="{{ w8 }}"{% endif %}>{% if "w8" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w9" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w9 %}value="{{ w9 }}"{% endif %}>{% if "w9" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
+                <li><input name="w10" type="text" placeholder="{% translate "noun" %}" required
+                    {% if w10 %}value="{{ w10 }}"{% endif %}>{% if "w10" in invalid %} <mark>* {% translate "invalid" %}</mark>{% endif %}</li>
             </ol>
             <p>
                 {% blocktranslate %}

@@ -9,6 +9,8 @@ from survey_tasks.models import RecommenderResponse
 from survey_tasks.models import DATResponse, DATWord
 from survey_tasks.models import CTTCategory, CTTIdea, CTTResponse
 
+from survey_tasks.dat_models import DATModels
+
 from topics_recommender.models import UserSession, Topic
 
 class RecommenderView(View):
@@ -82,20 +84,37 @@ class DATView(CreateView):
             return redirect('login')
         user_session = UserSession.objects.get(id=UUID(user_session_id))
 
-        params = {k:v for k,v in request.POST.items() if k[0] == 'w'}
+        words = {k:v for k,v in request.POST.items() if k[0] == 'w'}
         lang = get_language()
+
+        # check the validity of the words against the DAT model
+        dat_model = DATModels().get_model(lang)
+
+        invalid_words = []
+        for k,v in words.items():
+            if not dat_model.validate(v):
+                invalid_words.append(k)
+        
+        if len(invalid_words) > 0:
+            context = words.copy()
+            context["invalid"] = invalid_words
+            
+            return render(request, 'survey_tasks/dat.html', context=context)
 
         # create or update a DB object for this response
         response, created = DATResponse.objects.get_or_create(
             user_session=user_session,
         )
+        # update the timestamp if it already exists
         if not created:
             response.submitted_at = timezone.now()
             response.save()
+        # remove any existing words not in this post
         for dw in DATWord.objects.filter(response=response):
-            if dw.value not in params.values():
+            if dw.value not in words.values():
                 dw.delete()
-        for w in params.values():
+        # add words that don't exist yet
+        for w in words.values():
             DATWord.objects.get_or_create(
                 value=w, 
                 language_code=lang, 

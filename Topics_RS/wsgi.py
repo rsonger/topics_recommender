@@ -18,12 +18,22 @@ application = get_wsgi_application()
 
 from topics_recommender.models import Topic
 
+
 ################################
 ##### Loading Topics Data ######
 ################################
 if len(Topic.objects.all()) == 0:
     print("!!--- NO TOPICS IN THE DATABASE ---!!")
     print("  >> Run the load_csv command to populate topics.")
+
+
+################################
+###### Loading DAT Models ######
+################################
+
+from survey_tasks.dat_models import DATModels
+
+DATModels()
 
 ################################
 #### ML Algorithms Registry ####
@@ -78,4 +88,4 @@ registry.add_algorithm(
 )
 
 # initialize the A/B Test to include the newly added algorithms
-registry.begin_ab_testing(registry.ENDPOINT_TOPICS)
+# registry.begin_ab_testing(registry.ENDPOINT_TOPICS)

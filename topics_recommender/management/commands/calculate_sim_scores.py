@@ -16,6 +16,8 @@ import pandas as pd
 class Command(BaseCommand):
     help = "Load the given Topics data file and calculate cosine similarity scores of topic descriptions."
 
+    _SUPPORTED_LANGUAGES = ["en","ja"]
+
     def add_arguments(self, parser):
         parser.add_argument("file_path", type=str)
         parser.add_argument("language", type=str)
@@ -28,10 +30,11 @@ class Command(BaseCommand):
             )
             return
         lang = options["language"]
-        if lang not in ['en', 'ja']:
+        if lang.lower() not in self._SUPPORTED_LANGUAGES:
             self.stdout.write(
-                self.style.ERROR("Language must be one of [en, ja]")
+                self.style.ERROR(f"Language must be one of {self._SUPPORTED_LANGUAGES}")
             )
+            return
 
         start_time = timezone.now()
 
