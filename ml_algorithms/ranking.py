@@ -72,6 +72,10 @@ class Ranking():
 
 
     def make_ranking(self, keyword, id, top_ranks, lang_code):
+        # !-- Override language code to avoid differences in translations and NLP
+        # Cosine scores in EN are comparatively more accurate than JA
+        # TODO: Remove after verifying proper usage of NLP for generating JA scores
+        lang_code = "en"
         try:
             input_data = self.preprocess(keyword, id, lang_code)
             if input_data["request_log"]["status"] != "OK":
