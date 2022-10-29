@@ -3,11 +3,11 @@ from numpy import random
 
 from ml_algorithms.cosine_ranking import CosineSimilarityRecommender
 
-class RandomRecommender(CosineSimilarityRecommender):
+class TotalRandomRecommender(CosineSimilarityRecommender):
     """An algorithm for recommending topics with some similarity, but ranked randomly."""
 
-    name = "Semi-Random Ranking"
-    
+    name = "Total Random Ranking"
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -22,9 +22,8 @@ class RandomRecommender(CosineSimilarityRecommender):
         ranking = [
             (id, score)
             for id,score in enumerate(self.cosine_scores[lang_code][request_id])
-            # mean cosine score:    0.01435328
-            # STD of cosine scores: 0.02786012
-            if score > 0.0422 and id != request_id 
+            # use all topics with a non-zero similarity score
+            if score > 0 and id != request_id 
         ]
         random.shuffle(ranking)
         ranking.insert(0, search)

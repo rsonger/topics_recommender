@@ -6,21 +6,22 @@ from ml_algorithms.ranking import Ranking
 class CosineSimilarityRecommender(Ranking):
     """A ranking recommender that uses cosine similarity scores of topic descriptions."""
 
+    name = "TFIDF Cosine Ranking"
+
     cosine_scores = ()
 
-    def __init__(self, algorithm_name) -> None:
+    def __init__(self) -> None:
         """Load the artifacts """
-        super().__init__(algorithm_name)
+        super().__init__()
 
         project_dir = Path(__file__).resolve().parent.parent
         path_to_artifacts = Path(project_dir, "data")
 
         self.cosine_scores = {}
-        if algorithm_name in self._algorithms:
-            for lang_code in self._languages:
-                self.cosine_scores[lang_code] = joblib.load(
-                    Path(path_to_artifacts, f"cosine_sim_scores_{lang_code}.joblib")
-                )
+        for lang_code in self._languages:
+            self.cosine_scores[lang_code] = joblib.load(
+                Path(path_to_artifacts, f"cosine_sim_scores_{lang_code}.joblib")
+            )
 
     def preprocess(self, keyword, id, lang_code):
         request_data = {}

@@ -31,9 +31,11 @@ if len(Topic.objects.all()) == 0:
 ###### Loading DAT Models ######
 ################################
 
-from survey_tasks.dat_models import DATModels
+# comment out these lines to prevent the process-heavy loading of the DAT
+# word model on startup
 
-DATModels()
+# from survey_tasks.dat_models import DATModels
+# DATModels()
 
 ################################
 #### ML Algorithms Registry ####
@@ -41,32 +43,40 @@ DATModels()
 from ml_algorithms.registry import MLRegistry
 from ml_algorithms.cosine_ranking import CosineSimilarityRecommender
 from ml_algorithms.random_ranking import RandomRecommender
+from ml_algorithms.total_random_ranking import TotalRandomRecommender
 
 registry = MLRegistry()
 
 # activate A/B Testings status on the topics_recommender endpoint
-registry.register_ab_testing(MLRegistry.ENDPOINT_TOPICS)
+# registry.register_ab_testing(MLRegistry.ENDPOINT_TOPICS)
 
 algos_to_add = (
     {
         "endpoint": MLRegistry.ENDPOINT_TOPICS,
-        "name": CosineSimilarityRecommender.ALGORITHM_TFIDF,
+        "name": CosineSimilarityRecommender.name,
         "version": "0.1",
         "description": "A ranking recommender algorithm based on cosine similarity scores.",
         "active": True,
     },
     {
         "endpoint": MLRegistry.ENDPOINT_TOPICS,
-        "name": RandomRecommender.ALGORITHM_RANDOM,
+        "name": RandomRecommender.name,
         "version": "0.1",
         "description": "A baseline algorithm that randomly ranks topics but records their similarity scores.",
-        "active": True,
+        "active": False,
+    },
+    {
+        "endpoint": MLRegistry.ENDPOINT_TOPICS,
+        "name": TotalRandomRecommender.name,
+        "version": "0.1",
+        "description": "A baseline algorithm that randomly ranks topics but records their similarity scores.",
+        "active": False,
     }
 )
 
 # add multiple algorithms to the topics_recommender endpoint for A/B testing
 algo_cos = algos_to_add[0]
-algorithm_obj_cos = CosineSimilarityRecommender(algo_cos["name"])
+algorithm_obj_cos = CosineSimilarityRecommender()
 registry.add_algorithm(
     algo_cos["endpoint"],
     algorithm_obj_cos,
@@ -77,7 +87,18 @@ registry.add_algorithm(
 )
 
 algo_rand = algos_to_add[1]
-algorithm_obj_rand = RandomRecommender(algo_rand["name"])
+algorithm_obj_rand = RandomRecommender()
+registry.add_algorithm(
+    algo_rand["endpoint"],
+    algorithm_obj_rand,
+    algo_rand["name"],
+    algo_rand["version"],
+    algo_rand["description"],
+    algo_rand["active"]
+)
+
+algo_rand = algos_to_add[2]
+algorithm_obj_rand = TotalRandomRecommender()
 registry.add_algorithm(
     algo_rand["endpoint"],
     algorithm_obj_rand,

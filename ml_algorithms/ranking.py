@@ -6,16 +6,17 @@ from Topics_RS.settings import LANGUAGES
 class Ranking():
     """A ranking recommender that returns a list of 10 topics recommended based on a given topic."""
 
-    ALGORITHM_TFIDF = "TFIDF Cosine Ranking"
-    ALGORITHM_RANDOM = "Random Ranking"
+    # ALGORITHM_TFIDF = "TFIDF Cosine Ranking"
+    # ALGORITHM_RANDOM = "Random Ranking"
+    # ALGORITHM_TRANDOM = "Total Random Ranking"
 
-    _algorithms = [ALGORITHM_TFIDF, ALGORITHM_RANDOM]
+    # _algorithms = [ALGORITHM_TFIDF, ALGORITHM_RANDOM, ALGORITHM_TRANDOM]
 
     _languages = [lang for lang, _ in LANGUAGES]
 
-    def __init__(self, algorithm_name) -> None:
-        if algorithm_name not in self._algorithms:
-            raise Exception(f"Usupported algorithm: {algorithm_name}")
+    # def __init__(self, algorithm_name) -> None:
+    #     if algorithm_name not in self._algorithms:
+    #         raise Exception(f"Usupported algorithm: {algorithm_name}")
 
 
     @abc.abstractmethod

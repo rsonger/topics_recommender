@@ -6,6 +6,7 @@ from django.utils import timezone
 from ml_api.models import *
 from ml_algorithms.cosine_ranking import CosineSimilarityRecommender
 from ml_algorithms.random_ranking import RandomRecommender
+from ml_algorithms.total_random_ranking import TotalRandomRecommender
 
 class MLRegistry:
     _instance = None # singleton
@@ -35,10 +36,12 @@ class MLRegistry:
             for algorithm in MLAlgorithm.objects.all():
                 if algorithm.parent_endpoint.name != self.ENDPOINT_TOPICS:
                     raise Exception(f"Unknown endpoint for algorithm {algorithm.id}: {algorithm.parent_endpoint.name}")
-                if algorithm.name == CosineSimilarityRecommender.ALGORITHM_TFIDF:
-                    algo_object = CosineSimilarityRecommender(algorithm.name)
-                elif algorithm.name == RandomRecommender.ALGORITHM_RANDOM:
-                    algo_object = RandomRecommender(algorithm.name)
+                if algorithm.name == CosineSimilarityRecommender.name:
+                    algo_object = CosineSimilarityRecommender()
+                elif algorithm.name == RandomRecommender.name:
+                    algo_object = RandomRecommender()
+                elif algorithm.name == TotalRandomRecommender.name:
+                    algo_object = TotalRandomRecommender()
                 else:
                     raise Exception(f"Unknown algorithm {algorithm.id}: {algorithm.name}")
                 self.register_algorithm(algorithm.id, algo_object)
@@ -47,16 +50,27 @@ class MLRegistry:
 
     def add_algorithm(self, endpoint_name, algorithm_object, algorithm_name, 
                       algorithm_version, algorithm_description, active):
-        """Ensures that a given algorithm is loaded in the registry and has an associated database object.
-        The algorithm will be created in the database if it does not already exist.
+        """
+        Ensures that a given algorithm is loaded in the registry and has an 
+        associated database object. An algorithm is uniquely identified by its 
+        name, version number, and the name of its associated endpoint. The 
+        algorithm will be created in the database if it does not already exist.
+        After the algorithm is either loaded or created in the database, this 
+        method will then update its status and description before adding the 
+        algorithm object to the registry.
+
+        This method enforces the implicit rule of A/B Testing that only allows
+        more than one active algorithm on an associated endpoint if the 
+        endpoint itself currently has an active "A/B Testing" status. 
 
         Args:
             endpoint_name (str): The API endpoint associated with this algorithm.
-            algorithm_object (ml_algorithms.topics.TopicsRecommender): An instance of the recommender object.
+            algorithm_object (object): An instance of the algorithm object.
             algorithm_name (str): The name of the algorithm used for this recommender.
             algorithm_status (str): The status of the algorithm in the system.
             algorithm_version (str): A numerical notation of the algorithm version.
             algorithm_description (str): A short description of the algorithm model.
+            active (bool): Whether or not the algorithm is available for use.
 
         Returns:
             int: The ID of the algorithm's corresponding database object.
@@ -64,28 +78,46 @@ class MLRegistry:
         # get endpoint record from the database
         endpoint = Endpoint.objects.get(name=endpoint_name)
 
-        # create algorithm record in the database or get existing one
-        db_object, created = MLAlgorithm.objects.get_or_create(
-            name=algorithm_name,
-            description=algorithm_description,
-            version=algorithm_version,
+        # check if the algorithm already exists in the database
+        algo_db_objs = MLAlgorithm.objects.filter(
             parent_endpoint=endpoint,
-            active=active
+            name=algorithm_name,
+            version=algorithm_version
         )
+
+        # update or create the algorithm record in the database
+        db_object = None
+        created = False
+        if algo_db_objs.count() > 0:
+            db_object = algo_db_objs[0]
+            db_object.description = algorithm_description
+            db_object.active = active
+            db_object.save()
+        else:
+            db_object = MLAlgorithm.objects.create(
+                name=algorithm_name,
+                description=algorithm_description,
+                version=algorithm_version,
+                parent_endpoint=endpoint,
+                active=active
+            )
+            created = True
 
         # only allow multiple active algorithms if this endpoint status is "ab_testing"
         active_algorithms = MLAlgorithm.objects.filter(
             parent_endpoint=endpoint,
             active=True
         )
-        if (len(active_algorithms)) > 1:
+        if active_algorithms.count() > 1:
             ep_status = endpoint.status.get(active=True)
             if (ep_status.status != self.STATUS_AB_TESTING):
                 if created and active:
                     db_object.delete()
-                    raise Exception(f"CONFIGURATION ERROR: Unable to add a new algorithm to endpoint {endpoint_name}")
-                else:
-                    raise Exception(f"CONFIGURATION ERROR: Multiple active algorithms for endpoint {endpoint_name}")
+                elif active:
+                    db_object.active = False
+                    db_object.save()
+
+                raise Exception(f"CONFIGURATION ERROR: Multiple active algorithms for endpoint {endpoint_name}")
 
         # register the DB object and return its ID
         self.register_algorithm(db_object.id, algorithm_object)
@@ -102,6 +134,19 @@ class MLRegistry:
 
     def is_registered(self, endpoint_name, algorithm_name, 
                       algorithm_version):
+        """
+        Returns True if the given algorithm has an object in both the DB and 
+        the registry. An algorithm is uniquely identified by its name,
+        version number, and the name of its associated endpoint.
+
+        Args:
+            endpoint_name (str): The name of the algorithm's associated endpoint
+            algorithm_name (str): The name of the algorithm to check
+            algorithm_version (str): The version number of the algorithm
+
+        Returns:
+            bool: Whether or not the algorithm is registered and stored in the database
+        """
         db_objects = MLAlgorithm.objects.filter(
             parent_endpoint__name=endpoint_name,
             name=algorithm_name,
