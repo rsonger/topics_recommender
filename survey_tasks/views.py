@@ -1,4 +1,6 @@
 from uuid import UUID
+from pathlib import Path
+import joblib
 
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, View
@@ -46,6 +48,13 @@ class RecommenderView(View):
         t2_obj = Topic.objects.get(display_name=topic2)
         t3_obj = Topic.objects.get(display_name=topic3)
         
+        cosine_scores = joblib.load(
+            Path("data/cosine_sim_scores_en.joblib")
+        )
+        sim_1_2 = cosine_scores[t1_obj.id][t2_obj.id]
+        sim_2_3 = cosine_scores[t2_obj.id][t3_obj.id]
+        sim_3_1 = cosine_scores[t3_obj.id][t1_obj.id]
+
         # there should be only one response per user session
         response = RecommenderResponse.objects.filter(
             user_session=user_session,
@@ -55,14 +64,19 @@ class RecommenderView(View):
                 user_session=user_session,
                 topic1=t1_obj,
                 topic2=t2_obj,
-                topic3=t3_obj
+                topic3=t3_obj,
+                sim_score_1_2=sim_1_2,
+                sim_score_2_3=sim_2_3,
+                sim_score_3_1=sim_3_1
             )
         else:
             response = response[0]
-            response.submitted_at = timezone.now()
             response.topic1 = t1_obj
             response.topic2 = t2_obj
             response.topic3 = t3_obj
+            response.sim_score_1_2 = sim_1_2
+            response.sim_score_2_3 = sim_2_3
+            response.sim_score_3_1 = sim_3_1
             response.save()
 
         return redirect('dat')
@@ -101,14 +115,18 @@ class DATView(CreateView):
             
             return render(request, 'survey_tasks/dat.html', context=context)
 
+        # get the DAT score since all the words are valid
+        dat_score = dat_model.dat(words.values())
+
         # create or update a DB object for this response
         response, created = DATResponse.objects.get_or_create(
             user_session=user_session,
         )
+        response.dat_score = dat_score
         # update the timestamp if it already exists
         if not created:
             response.submitted_at = timezone.now()
-            response.save()
+        response.save()
         # remove any existing words not in this post
         for dw in DATWord.objects.filter(response=response):
             if dw.value not in words.values():
