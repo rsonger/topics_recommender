@@ -15,7 +15,11 @@ from survey_tasks.models import CTTCategory, CTTResponse, CTTIdea
 # class RecommenderResponseInline(admin.ModelAdmin):
 #     inlines = [TopicInline]
 
-admin.site.register(RecommenderResponse) #, RecommenderResponseInline)
+class RecommenderResponseAdmin(admin.ModelAdmin):
+    model = RecommenderResponse
+    readonly_fields = ("topic1", "topic2", "topic3")
+
+admin.site.register(RecommenderResponse, RecommenderResponseAdmin) #, RecommenderResponseInline)
 
 # Models for creativity task responses
 class DATWordInline(admin.StackedInline):
