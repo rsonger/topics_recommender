@@ -38,7 +38,7 @@ class LoginView(CreateView):
             request.session["id"] = u_session.id.hex
             if u_session.name:
                 request.session["name"] = u_session.name
-            return redirect('start')
+            return redirect('startv2')
         context = {'form': form}
         return render(request, 'topics_recommender/login.html', context)
 

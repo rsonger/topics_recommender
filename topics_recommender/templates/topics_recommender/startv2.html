@@ -9,7 +9,7 @@
     <h3>{% translate "Background" %}</h3>
     <p>
         {% blocktranslate %}
-        KIT is planning a new course for the Information and Computer Engineering curriculum about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on the Internet. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool allows you to browse the available project topics and choose some for your theme as if you were a participant in KIT's new course. Each topic is like a special tags that shows a project's purpose, subject area, community, or programming language. They are used to classify source code repositories and make it easier for people to find projects that interest them.
+        The Information and Computer Engineering department is planning a new course about open-source software (OSS). In the course, students will learn about OSS and contribute to real OSS projects on the Internet. Since OSS contributions are essentially a kind of voluntary work, the school would like to collect a list of topics that students would be willing to work on. This tool allows you to browse the available project topics and choose some for your theme as if you were a participant in the new course. Each topic is like a special tags that shows a project's purpose, subject area, community, or programming language. They are used to classify source code repositories and make it easier for people to find projects that interest them.
         {% endblocktranslate %}
     </p>
     <h3>{% translate "Instructions" %}</h3>
@@ -32,7 +32,7 @@
             {% translate "When you find a topic you would choose, click <strong>Choose this topic</strong>." %}
         </li>
         <li>
-            {% translate "Continue searching topics until you have chosen a total of three topics." %}
+            {% translate "Continue searching topics until you have chosen a total of five topics." %}
         </li>
     </ol>
     <p>
@@ -63,7 +63,7 @@
         Please click the button below when you are ready to begin.
         {% endblocktranslate %}
     </p>
-    <a href="{% url 'search' %}">
+    <a href="{% url 'searchv2' %}">
         <button>{% translate 'Begin' %}</button>
     </a>
 </main>

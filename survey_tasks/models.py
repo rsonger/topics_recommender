@@ -35,11 +35,37 @@ class RecommenderResponse(models.Model):
     sim_score_3_1 = models.FloatField(null=True, verbose_name="Similarity of Topics 3 & 1")
 
     def __str__(self):
-        return f"Created {timezone.localtime(self.created_at)}"
+        return f"Created by {self.user_session.name} at {timezone.localtime(self.created_at)}"
 
     class Meta:
         ordering = ['-submitted_at']
         verbose_name = "Recommender Task Response"
+
+class RecommenderResponseV2(RecommenderResponse):
+    topic4 = models.ForeignKey(
+        Topic,
+        related_name="choice4",
+        verbose_name="Topic 4",
+        on_delete=models.CASCADE
+    )
+    topic5 = models.ForeignKey(
+        Topic,
+        related_name="choice5",
+        verbose_name="Topic 5",
+        on_delete=models.CASCADE
+    )
+    sim_score_3_4 = models.FloatField(null=True, verbose_name="Similarity of Topics 3 & 4")
+    sim_score_4_5 = models.FloatField(null=True, verbose_name="Similarity of Topics 4 & 5")
+    sim_score_5_1 = models.FloatField(null=True, verbose_name="Similarity of Topics 5 & 1")
+    sim_score_4_2 = models.FloatField(null=True, verbose_name="Similarity of Topics 4 & 2")
+    sim_score_4_1 = models.FloatField(null=True, verbose_name="Similarity of Topics 4 & 1")
+    sim_score_5_2 = models.FloatField(null=True, verbose_name="Similarity of Topics 5 & 2")
+    sim_score_5_3 = models.FloatField(null=True, verbose_name="Similarity of Topics 5 & 3")
+
+    class Meta:
+        ordering = ['-submitted_at']
+        verbose_name = "Recommender Task Response V2"
+        verbose_name_plural = "Recommender Task Responses V2"
 
 class DATResponse(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True, blank=False)
@@ -54,7 +80,7 @@ class DATResponse(models.Model):
     )
 
     def __str__(self):
-        return f"Submitted at {timezone.localtime(self.submitted_at)}"
+        return f"Submitted by {self.user_session.name} at {timezone.localtime(self.submitted_at)}"
 
     class Meta:
         verbose_name = "DAT Response"
@@ -82,7 +108,7 @@ class CTTResponse(models.Model):
     )
 
     def __str__(self):
-        return f"Submitted at {timezone.localtime(self.submitted_at)}"
+        return f"Submitted by {self.user_session.name} at {timezone.localtime(self.submitted_at)}"
 
     class Meta:
         verbose_name = "CTT Response"

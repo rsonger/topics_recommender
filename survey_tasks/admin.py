@@ -2,24 +2,21 @@ from django.contrib import admin
 
 from parler.admin import TranslatableAdmin
 
-from topics_recommender.models import Topic
-
-from survey_tasks.models import RecommenderResponse
+from survey_tasks.models import RecommenderResponse, RecommenderResponseV2
 from survey_tasks.models import DATResponse, DATWord
 from survey_tasks.models import CTTCategory, CTTResponse, CTTIdea
-
-# Models for recommendation task responses
-# class TopicInline(admin.StackedInline):
-#     model = Topic
-
-# class RecommenderResponseInline(admin.ModelAdmin):
-#     inlines = [TopicInline]
 
 class RecommenderResponseAdmin(admin.ModelAdmin):
     model = RecommenderResponse
     readonly_fields = ("topic1", "topic2", "topic3")
 
-admin.site.register(RecommenderResponse, RecommenderResponseAdmin) #, RecommenderResponseInline)
+admin.site.register(RecommenderResponse, RecommenderResponseAdmin)
+
+class RecommenderResponseAdminV2(admin.ModelAdmin):
+    model = RecommenderResponseV2
+    readonly_fields = ("topic1", "topic2", "topic3", "topic4", "topic5")
+
+admin.site.register(RecommenderResponseV2, RecommenderResponseAdminV2)
 
 # Models for creativity task responses
 class DATWordInline(admin.StackedInline):
