@@ -12,25 +12,31 @@
         {% endblocktranslate %}
     </p>
     <ol>
+        {% for topic in request.session.topics %}
         <li>
-            {{ request.session.topic1 }}
+            {{ topic }}
         </li>
-        <li>
-            {{ request.session.topic2 }}
-        </li>
-        <li>
-            {{ request.session.topic3 }}
-        </li>
+        {% endfor %}
     </ol>
 
     <p>
-        {% blocktranslate %}
-        Next is the <strong>Creativity Task</strong>. Click the button below when you are ready to proceed.
-        {% endblocktranslate %}
+        {% if num_topics == 3 %} <!-- Version 1 -->
+            {% blocktranslate %}
+            Next is the <strong>Creativity Task</strong>. Click the button below when you are ready to proceed.
+            {% endblocktranslate %}
+        {% else %} <!-- Version 2 -->
+            {% blocktranslate %}
+            If you are satisfied with your chosen topics, please click the <strong>Submit</strong> button below.
+            {% endblocktranslate %}
+        {% endif %}
     </p>
     <form method="POST">
         {% csrf_token %}
+        {% if num_topics == 3 %} <!-- Version 1 -->
         <input type="submit" value="{% translate 'Next' %}">
+        {% else %} <!-- Version 2 -->
+        <input type="submit" value="{% translate 'Submit' %}">
+        {% endif %}
     </a>
 </main>
 

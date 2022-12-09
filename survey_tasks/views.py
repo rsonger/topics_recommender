@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, View
 from django.utils.translation import get_language
 from django.utils import timezone
+from django.apps import apps
 
-from survey_tasks.models import RecommenderResponse
 from survey_tasks.models import DATResponse, DATWord
 from survey_tasks.models import CTTCategory, CTTIdea, CTTResponse
 
@@ -16,20 +16,19 @@ from survey_tasks.dat_models import DATModels
 from topics_recommender.models import UserSession, Topic
 
 class RecommenderView(View):
+    response_model = apps.get_model("survey_tasks", "RecommenderResponse")
     endpoint_name = "survey_tasks"
     template_name = f"{endpoint_name}/recommender.html"
+    num_topics = 3 # number of topics for the user to choose
 
     def get(self, request, *args, **kwargs):
         # make sure a user is already logged in
         if not request.session.get("id", False):
             return redirect('login')
-
-        topic1 = request.session["topic1"]
-        topic2 = request.session["topic2"]
-        topic3 = request.session["topic3"]
-
-        if not topic1 or not topic2 or not topic3:
-            return redirect('search')
+                
+        for n in range(1, self.num_topics+1):
+            if not request.session.get('topics',[''] * self.num_topics)[n-1]:
+                return redirect('search')
 
         return render(request, self.template_name) 
 
@@ -40,47 +39,44 @@ class RecommenderView(View):
             return redirect('login')
         user_session = UserSession.objects.get(id=UUID(user_session_id))
 
-        topic1 = request.session["topic1"]
-        topic2 = request.session["topic2"]
-        topic3 = request.session["topic3"]
-
-        t1_obj = Topic.objects.get(display_name=topic1)
-        t2_obj = Topic.objects.get(display_name=topic2)
-        t3_obj = Topic.objects.get(display_name=topic3)
-        
+        params = {'user_session': user_session}
         cosine_scores = joblib.load(
             Path("data/cosine_sim_scores_en.joblib")
         )
-        sim_1_2 = cosine_scores[t1_obj.id][t2_obj.id]
-        sim_2_3 = cosine_scores[t2_obj.id][t3_obj.id]
-        sim_3_1 = cosine_scores[t3_obj.id][t1_obj.id]
+        
+        # build the topic parameters for the database object
+        for n in range(1, self.num_topics+1):
+            topic = Topic.objects.get(display_name=request.session['topics'][n-1])
+            params[f'topic{n}'] = topic
+            # build the sim score parameters for the database object
+            if n > 1:
+                id_a = params[f'topic{n-1}'].id
+                id_b = params[f'topic{n}'].id
+                params[f'sim_score_{n-1}_{n}'] = cosine_scores[id_a][id_b]
+            if n > 2:
+                for i in range(n-2, 0, -1):
+                    id_a = params[f'topic{n}'].id
+                    id_b = params[f'topic{i}'].id
+                    params[f'sim_score_{n}_{i}'] = cosine_scores[id_a][id_b]
 
         # there should be only one response per user session
-        response = RecommenderResponse.objects.filter(
+        response = self.response_model.objects.filter(
             user_session=user_session,
         )
         if len(response) == 0:
-            response = RecommenderResponse.objects.create(
-                user_session=user_session,
-                topic1=t1_obj,
-                topic2=t2_obj,
-                topic3=t3_obj,
-                sim_score_1_2=sim_1_2,
-                sim_score_2_3=sim_2_3,
-                sim_score_3_1=sim_3_1
-            )
+            response = self.response_model.objects.create(**params)
         else:
             response = response[0]
-            response.topic1 = t1_obj
-            response.topic2 = t2_obj
-            response.topic3 = t3_obj
-            response.sim_score_1_2 = sim_1_2
-            response.sim_score_2_3 = sim_2_3
-            response.sim_score_3_1 = sim_3_1
+            for k in params:
+                if k == "user_session":
+                    continue
+                setattr(response, k, params[k])
+
             response.save()
 
-        return redirect('dat')
-
+        if self.num_topics == 3: # Version 1
+            return redirect('dat')
+        return redirect('logout') # Version 2
 
 class DATView(CreateView):
 

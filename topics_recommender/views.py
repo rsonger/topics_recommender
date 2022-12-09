@@ -4,7 +4,7 @@ import random
 from uuid import UUID
 
 # Django imports
-from django.views.generic import View, ListView, CreateView, RedirectView
+from django.views.generic import ListView, CreateView, RedirectView
 from django.utils import timezone
 from django.utils.translation import get_language
 from django.shortcuts import redirect, render
@@ -62,21 +62,20 @@ class SearchView(ListView):
     endpoint_name = "topics_recommender"
     template_name = f"{endpoint_name}/search.html"
     context_object_name = "topics_ranking"
+    num_topics = 3 # number of topics for the user to choose
 
     def _handle_chosen_topic(self, topic):
-        chosen_topics = [
-            self.request.session.get(k) 
-            for k in ['topic1','topic2','topic3']
-        ]
+        chosen_topics = self.request.session.get("topics", [''] * self.num_topics)
+        if len(chosen_topics) < self.num_topics:
+            chosen_topics += [''] * (self.num_topics - len(chosen_topics))
         if topic in chosen_topics:
             return
 
-        if not chosen_topics[0]:
-            self.request.session['topic1'] = topic
-        elif not chosen_topics[1]:
-            self.request.session['topic2'] = topic
-        elif not chosen_topics[2]:
-            self.request.session['topic3'] = topic
+        for n in range(self.num_topics):
+            if not chosen_topics[n]:
+                chosen_topics[n] = topic
+                break
+        self.request.session['topics'] = chosen_topics
 
     def setup(self, request, *args, **kwargs) -> None:
         self._start_time = timezone.now()
@@ -111,12 +110,10 @@ class SearchView(ListView):
         previous_request_rank = self.request.GET.get('i')
         topic_chosen = self.request.GET.get('c')
         topic_removed = False
-        if self.request.GET.get('t1') is not None:
-            topic_removed = 'topic1'
-        if self.request.GET.get('t2') is not None:
-            topic_removed = 'topic2'
-        if self.request.GET.get('t3') is not None:
-            topic_removed = 'topic3'
+        for n in range(1, self.num_topics+1):
+            if self.request.GET.get(f't{n}') is not None:
+                topic_removed = n
+                break
         params = {
             "q": query, 
             "f": featured, 
@@ -153,7 +150,11 @@ class SearchView(ListView):
         if topic_chosen:
             self._handle_chosen_topic(lookup.display_name)
         if topic_removed:
-            self.request.session[topic_removed] = ''
+            self.request.session["topics"][topic_removed - 1] = ''
+            self.request.session.modified = True
+        if not topic_chosen and not topic_removed:
+            topics = self.request.session.get("topics", [''] * self.num_topics)
+            self.request.session["topics"] = topics
 
         # get the top 10 ranking of recommended topics for the query
         prediction = algorithm_object.make_ranking(
@@ -247,6 +248,10 @@ class SearchView(ListView):
         context["topic_names"] = list(
             Topic.objects.values_list('display_name', flat=True)
         )
+        context["num_topics"] = self.num_topics
+        context["num_topics_chosen"] = len([
+            t for t in self.request.session.get("topics", []) if t != ''
+            ])
         return context
 
     def render_to_response(self, context, **response_kwargs):
