@@ -28,30 +28,6 @@
             </td>
         </tr>
         {% endfor %}
-        <!-- <tr>
-            <td>
-                <strong>{% translate "Topic 2" %}</strong>: 
-                {{ request.session.topic2 }}
-            </td><td>
-                {% if request.session.topic2 %}
-                <a href="{{ request.path }}?csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}&q={{ request.GET.q|urlencode }}&t2=">
-                    {% translate "[ Delete ]" %}
-                </a>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <strong>{% translate "Topic 3" %}</strong>: 
-                {{ request.session.topic3 }}
-            </td><td>
-                {% if request.session.topic3 %}
-                <a href="{{ request.path }}?csrfmiddlewaretoken={{ request.GET.csrfmiddlewaretoken }}&q={{ request.GET.q|urlencode }}&t3=">
-                    {% translate "[ Delete ]" %}
-                </a>
-                {% endif %}
-            </td>
-        </tr> -->
     </table>
     {% if num_topics_chosen == num_topics %}
     {% if num_topics == 3 %} <!-- Version 1 -->
@@ -151,7 +127,7 @@
         
         // display matching topics when user enters text
         inp.addEventListener("input", (e) => {
-            let a, b, val = inp.value;
+            let a, b, val = inp.value.toLowerCase();
             // close any already open lists of autocompleted values
             closeAllLists();
             if (!val) {
@@ -164,31 +140,38 @@
             a.classList.add("autocomplete-items");
             // append the DIV element as a child of the autocomplete container
             inp.parentNode.appendChild(a);
-
-            for (const topic of arr) {
-                // check if the item starts with the same letters as the text field value
-                match_i = topic.toLowerCase().indexOf(val.toLowerCase());
-                if (match_i > -1) {
-                    // create a DIV element for each matching element
-                    b = document.createElement("div");
-                    // make the matching letters bold
-                    if (match_i > 0) {
-                        b.innerHTML = topic.substr(0, match_i);
-                    }
-                    b.innerHTML += "<strong>" + topic.substr(match_i, val.length) + "</strong>";
-                    b.innerHTML += topic.substr(match_i + val.length);
-                    // insert a input field that will hold the current array item's value
-                    b.innerHTML += "<input type='hidden' value='" + topic + "'>";
-                    // execute a function when someone clicks on the item value (DIV element)
-                    b.addEventListener("click", (e) => {
-                        // insert the value for the autocomplete text field
-                        inp.value = e.target.querySelector("input").value;
-                        // close the list of autocompleted values
-                        // (or any other open lists of autocompleted values)
-                        closeAllLists();
+            // filter topics that include the input value and
+            // sort topics giving precedence to location of val in the topic string
+            matched = arr.filter(topic => topic.toLowerCase().indexOf(val) > -1)
+                    .sort((a,b) => {
+                        a = a.toLowerCase(), b = b.toLowerCase();
+                        let diff = a.indexOf(val) - b.indexOf(val);
+                        if (diff == 0) return a > b ? 1 : -1;
+                        return diff;
                     });
-                    a.appendChild(b);
+
+            for (const topic of matched) {
+                // check if the item starts with the same letters as the text field value
+                match_i = topic.toLowerCase().indexOf(val);
+                // create a DIV element for each matching element
+                b = document.createElement("div");
+                // make the matching letters bold
+                if (match_i > 0) {
+                    b.innerHTML = topic.substr(0, match_i);
                 }
+                b.innerHTML += "<strong>" + topic.substr(match_i, val.length) + "</strong>";
+                b.innerHTML += topic.substr(match_i + val.length);
+                // insert a input field that will hold the current array item's value
+                b.innerHTML += "<input type='hidden' value='" + topic + "'>";
+                // execute a function when someone clicks on the item value (DIV element)
+                b.addEventListener("click", (e) => {
+                    // insert the value for the autocomplete text field
+                    inp.value = e.target.querySelector("input").value;
+                    // close the list of autocompleted values
+                    // (or any other open lists of autocompleted values)
+                    closeAllLists();
+                });
+                a.appendChild(b);
             }
             if (a.childElementCount > 0)  {
                 currentFocus = 0;
